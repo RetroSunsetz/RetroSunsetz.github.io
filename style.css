@@ -1,0 +1,60 @@
+body{
+    background-color: black;
+    font-family: monospace;
+}
+nav {
+  overflow: hidden;
+  text-align: center;
+}
+
+nav a {
+  float: none;
+  display: inline-block;
+  color: lightgray;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+nav a:hover {
+  background-color: black;
+  color: #8B0000;
+}
+
+#intro{
+    color: lightgray;
+    padding-left: 150px;
+}
+
+#rr{
+    color: #8B0000;
+}
+
+#thetext{
+    font-size: 80px;
+}
+
+#thetextt{
+    font-size: 40px;
+}
+
+#about{
+    font-size: 20px;
+    color: lightgray;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 20px;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #8B0000;
+}
+
+#back{
+    background-image: url("images/bgz.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
