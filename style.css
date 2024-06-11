@@ -83,12 +83,12 @@ img{
     overflow: hidden;
     transition-duration: .3s;
   }
-  /* instagram*/
+  /* gmail*/
   .containerOne:hover {
     background-color: black;
     transition-duration: .3s;
   }
-  /* twitter*/
+  /* hackthebox*/
   .containerTwo:hover {
     background-color: black;
     transition-duration: .3s;
