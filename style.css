@@ -7,6 +7,10 @@ nav {
   text-align: center;
 }
 
+h1 {
+    color: white;
+}
+
 nav a {
   float: none;
   display: inline-block;
