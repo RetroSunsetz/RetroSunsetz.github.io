@@ -305,16 +305,15 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 .badge-yellow{background:var(--yellow);color:#000;}
 .badge-blue{background:var(--blue);color:#fff;}
-.service-card h3{font-size:1.02rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);margin-bottom:10px;min-height:2.4em;}
-.price-row{display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
-.price-col{flex:1;text-align:center;}
-.price-col .amt{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.15rem;}
-.price-col .lbl{display:block;font-size:.65rem;color:#9fb0c3;text-transform:uppercase;letter-spacing:1px;}
-.price-flat{text-align:center;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
-.price-flat .amt{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.4rem;}
-.price-list{list-style:none;margin:0;padding:0;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
-.price-list li{display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;color:#dfe6ef;}
-.price-list li b{color:var(--yellow);font-family:'Bangers',cursive;font-weight:400;}
+.service-card h3{font-size:1.02rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);min-height:2.4em;}
+.size-row{display:flex;gap:8px;border-top:1px dashed rgba(255,255,255,.25);margin-top:10px;padding-top:10px;}
+.size-row span{
+  flex:1;text-align:center;
+  font-family:'Bangers',cursive;color:var(--yellow);font-size:1rem;letter-spacing:1px;
+  border:2px solid rgba(255,215,0,.35);border-radius:6px;padding:5px 0;
+}
+.price-list{list-style:none;margin:10px 0 0;padding:0;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
+.price-list li{font-size:.88rem;padding:4px 0;color:#dfe6ef;}
 
 /* ---------- About ---------- */
 .about{background:var(--navy-lighter);}
@@ -533,120 +532,81 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
 
       <div class="service-card">
         <h3>Exterior Wash Express</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">3</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">4</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">5</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>Exterior Wash Detailed</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">5.5</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">6.5</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">7.5</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>Interior Wash Express</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">4</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">5</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">6</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>Interior Wash Detailed</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">7.5</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">8.5</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">9.5</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <span class="badge badge-blue">BEST VALUE</span>
         <h3>Exterior + Interior Combo</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">7</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">9</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">10.5</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <span class="badge badge-yellow">POPULAR</span>
         <h3>Full Detail</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">12</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">13.5</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">15.5</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>1-Step Polish</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">5.5</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">7</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">9</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <span class="badge badge-blue">SMART PICK</span>
         <h3>2-Step Polish</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">18</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">20</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">25</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>3-Step Polish</h3>
-        <div class="price-row">
-          <div class="price-col"><span class="amt">30</span><span class="lbl">S</span></div>
-          <div class="price-col"><span class="amt">35</span><span class="lbl">M</span></div>
-          <div class="price-col"><span class="amt">40</span><span class="lbl">L</span></div>
-        </div>
+        <div class="size-row"><span>S</span><span>M</span><span>L</span></div>
       </div>
 
       <div class="service-card">
         <h3>Engine Bay</h3>
-        <div class="price-flat"><span class="amt">BD 5</span></div>
       </div>
 
       <div class="service-card">
         <h3>Headlight Restoration</h3>
-        <div class="price-flat"><span class="amt">BD 10</span></div>
       </div>
 
       <div class="service-card span-2 premium">
         <span class="badge badge-yellow">PREMIUM</span>
         <h3>Ceramic Coating Package</h3>
-        <div class="price-flat"><span class="amt">BD 70</span> <span style="font-size:.75rem;color:#9fb0c3;">all sizes</span></div>
       </div>
 
       <div class="service-card span-2">
         <h3>Motorbike Detailing</h3>
         <ul class="price-list">
-          <li><span>Basic Wash</span><b>BD 4</b></li>
-          <li><span>Full Detail</span><b>BD 8</b></li>
-          <li><span>Engine Degreasing</span><b>BD 5</b></li>
+          <li>Basic Wash</li>
+          <li>Full Detail</li>
+          <li>Engine Degreasing</li>
         </ul>
       </div>
 
       <div class="service-card span-2">
         <h3>Jet Ski Detailing</h3>
         <ul class="price-list">
-          <li><span>Basic Wash</span><b>BD 8</b></li>
-          <li><span>Full Detail</span><b>BD 18</b></li>
-          <li><span>1-Step Polish</span><b>BD 25</b></li>
-          <li><span>2-Step Polish</span><b>BD 40</b></li>
+          <li>Basic Wash</li>
+          <li>Full Detail</li>
+          <li>1-Step Polish</li>
+          <li>2-Step Polish</li>
         </ul>
       </div>
 
