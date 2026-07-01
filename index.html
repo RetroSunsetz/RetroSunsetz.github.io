@@ -1,9 +1,875 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Khaled's website</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WOW Car Detailing | Mobile Car Wash &amp; Detailing in Bahrain</title>
+<meta name="description" content="WOW Car Detailing brings professional mobile car wash and detailing straight to your door, anywhere in Bahrain. Book on WhatsApp.">
+<meta name="theme-color" content="#0D1B2A">
+<link rel="icon" href="images/wow-logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------- Base ---------- */
+:root{
+  --navy:#0D1B2A;
+  --navy-light:#152840;
+  --navy-lighter:#1b3352;
+  --yellow:#FFD700;
+  --blue:#1565C0;
+  --white:#FFFFFF;
+  --black:#000000;
+  --header-h:64px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--navy);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+h1,h2,h3,.font-comic{
+  font-family:'Bangers',cursive;
+  letter-spacing:1px;
+  line-height:1.1;
+  margin:0;
+}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+section[id]{scroll-margin-top:var(--header-h);}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section{position:relative;padding:64px 0;}
+.section-title{
+  font-size:clamp(2.2rem,8vw,3.2rem);
+  color:var(--yellow);
+  text-align:center;
+  -webkit-text-stroke:2px #000;
+  paint-order:stroke fill;
+  text-shadow:3px 3px 0 #000;
+  margin-bottom:36px;
+}
+.eyebrow{
+  display:inline-block;
+  font-family:'Bangers',cursive;
+  color:var(--blue);
+  background:var(--white);
+  border:3px solid #000;
+  border-radius:20px;
+  padding:2px 14px;
+  transform:rotate(-3deg);
+  font-size:.9rem;
+}
+
+/* ---------- Halftone texture ---------- */
+.halftone{
+  background-image:radial-gradient(circle,rgba(255,255,255,.14) 1px,transparent 1.6px);
+  background-size:9px 9px;
+}
+.halftone-dark{
+  background-image:radial-gradient(circle,rgba(0,0,0,.35) 1px,transparent 1.6px);
+  background-size:9px 9px;
+}
+
+/* ---------- Starburst decoration ---------- */
+.starburst{
+  position:absolute;
+  width:60px;height:60px;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  filter:drop-shadow(2px 2px 0 #000);
+  pointer-events:none;
+  z-index:1;
+}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:500;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(13,27,42,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:4px solid #000;
+}
+.site-header .container{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+}
+.brand{display:flex;align-items:center;gap:8px;min-width:0;}
+.brand img{
+  height:40px;width:40px;object-fit:cover;border-radius:10px;
+  border:2px solid #000;box-shadow:2px 2px 0 #000;
+  flex-shrink:0;
+}
+.brand span{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--yellow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-links{display:flex;gap:14px;}
+.nav-links a{
+  font-weight:600;font-size:.82rem;
+  padding:8px 6px;min-height:44px;display:flex;align-items:center;
+  color:var(--white);
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.nav-links a:hover{color:var(--yellow);border-color:var(--yellow);}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  padding-top:36px;
+  padding-bottom:40px;
+  overflow:hidden;
+}
+.hero-bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+.bubble{
+  position:absolute;bottom:-15%;left:var(--left);
+  width:var(--size);height:var(--size);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.95),rgba(255,255,255,.18) 45%,rgba(21,101,192,.28) 100%);
+  border:1px solid rgba(255,255,255,.45);
+  animation:rise var(--dur) linear infinite;
+  animation-delay:var(--delay);
+  pointer-events:auto;
+  cursor:pointer;
+}
+@keyframes rise{
+  0%{transform:translate(0,0);opacity:0;}
+  8%{opacity:.9;}
+  30%{transform:translate(var(--wobble),-35vh);}
+  55%{transform:translate(calc(var(--wobble) * -1),-60vh);}
+  78%{transform:translate(var(--wobble),-85vh);}
+  92%{opacity:.75;}
+  100%{transform:translate(0,-118vh);opacity:0;}
+}
+.burst{
+  position:absolute;
+  width:var(--size);height:var(--size);
+  transform:translate(-50%,-50%) scale(0);
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  animation:burst-pop .3s ease-out forwards;
+  pointer-events:none;
+  z-index:3;
+}
+@keyframes burst-pop{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(1);opacity:0;}
+}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px;align-items:center;text-align:center;}
+.hero-text{max-width:640px;}
+.hero-text h1{
+  font-size:clamp(2.6rem,11vw,5rem);
+  color:var(--yellow);
+  -webkit-text-stroke:3px #000;
+  paint-order:stroke fill;
+  text-shadow:4px 4px 0 #000;
+}
+.hero-text .sub{
+  margin-top:14px;
+  font-size:clamp(1rem,3.6vw,1.25rem);
+  color:var(--white);
+  font-weight:500;
+}
+.hero-ctas{margin-top:22px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
+.btn{
+  position:relative;overflow:visible;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Bangers',cursive;font-size:1.15rem;letter-spacing:.5px;
+  padding:14px 28px;min-height:44px;
+  border:3px solid #000;border-radius:10px;
+  box-shadow:4px 4px 0 #000;
+  cursor:pointer;
+  transition:transform .15s ease;
+}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #000;}
+.btn-primary{background:var(--yellow);color:#0D1B2A;}
+.btn-secondary{background:var(--blue);color:var(--white);}
+@media (hover:hover){
+  .btn::after{
+    content:'';position:absolute;top:-6px;left:50%;width:9px;height:13px;
+    background:var(--white);opacity:0;
+    border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+    transform:translateX(-50%);
+  }
+  .btn:hover::after{animation:droplet-fall .6s ease-in forwards;}
+}
+@keyframes droplet-fall{
+  0%{top:-6px;opacity:1;}
+  75%{opacity:1;}
+  100%{top:100%;opacity:0;}
+}
+.hero-media{position:relative;width:100%;max-width:520px;}
+.speedlines{
+  position:absolute;inset:-20% -10%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.10) 0deg 3deg,transparent 3deg 11deg);
+  border-radius:50%;
+  z-index:-1;
+}
+.van-photo{
+  width:100%;height:auto;border-radius:16px;
+  border:4px solid #000;
+  box-shadow:8px 8px 0 #000;
+  object-fit:cover;
+  object-position:bottom;
+  aspect-ratio:1/1;
+}
+@media (min-width:900px){
+  .van-photo{aspect-ratio:4/5;}
+}
+@media (min-width:900px){
+  .hero-inner{flex-direction:row;text-align:left;align-items:center;gap:40px;}
+  .hero-text{max-width:520px;}
+  .hero-ctas{justify-content:flex-start;}
+  .hero-media{max-width:440px;}
+}
+
+/* ---------- Squeegee reveal ---------- */
+.reveal-wrap{position:relative;}
+.reveal-overlay{
+  position:absolute;inset:0;z-index:5;
+  background:rgba(13,27,42,.9);
+  backdrop-filter:blur(10px) grayscale(70%);
+  -webkit-backdrop-filter:blur(10px) grayscale(70%);
+  clip-path:inset(0 0 0 0%);
+  pointer-events:none;
+}
+.reveal-blade{
+  position:absolute;top:0;bottom:0;left:0%;width:8px;z-index:6;
+  background:linear-gradient(180deg,#cfcfcf,#fbfbfb 40%,#c3c3c3 60%,#8a8a8a);
+  box-shadow:0 0 14px 3px rgba(255,255,255,.65),2px 0 0 #000;
+  pointer-events:none;
+}
+.in-view .reveal-overlay{animation:wipe-reveal .9s cubic-bezier(.4,0,.2,1) forwards;}
+.in-view .reveal-blade{animation:blade-move .9s cubic-bezier(.4,0,.2,1) forwards;}
+@keyframes wipe-reveal{from{clip-path:inset(0 0 0 0%);}to{clip-path:inset(0 0 0 100%);}}
+@keyframes blade-move{from{left:0%;}to{left:100%;}}
+@media (max-width:640px){
+  .reveal-overlay{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(13,27,42,.94);}
+  .reveal-blade{width:4px;box-shadow:0 0 10px 3px rgba(255,215,0,.85);}
+  .in-view .reveal-overlay,.in-view .reveal-blade{animation-duration:.5s;}
+}
+
+/* ---------- Why WOW ---------- */
+.why{background:var(--navy);}
+.why-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media (min-width:700px){.why-grid{grid-template-columns:repeat(3,1fr);}}
+.why-card{
+  position:relative;overflow:hidden;
+  background:var(--navy-light);
+  border:3px solid #000;border-top:8px solid var(--yellow);
+  border-radius:10px;
+  box-shadow:5px 5px 0 #000;
+  padding:26px 20px;
+  text-align:center;
+}
+.why-card .icon{font-size:2.4rem;margin-bottom:10px;}
+.why-card h3{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.4rem;margin-bottom:8px;}
+.why-card p{color:#dfe6ef;font-size:.95rem;line-height:1.5;}
+
+/* ripple */
+.ripple{
+  position:absolute;width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.55);
+  transform:translate(-50%,-50%) scale(0);
+  pointer-events:none;
+  animation:ripple-spread .6s ease-out forwards;
+}
+@keyframes ripple-spread{to{transform:translate(-50%,-50%) scale(22);opacity:0;}}
+
+/* ---------- Services ---------- */
+.services{background:var(--navy-light);}
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media (min-width:900px){.service-grid{grid-template-columns:repeat(3,1fr);}}
+.service-card{
+  position:relative;overflow:hidden;
+  background:var(--navy);
+  border:3px solid #000;border-top:6px solid var(--yellow);
+  border-radius:10px;
+  box-shadow:5px 5px 0 #000;
+  padding:16px 14px;
+}
+.service-card.span-2{grid-column:span 2;}
+.service-card.premium{
+  border-top-color:var(--blue);
+  background:linear-gradient(160deg,var(--navy) 60%,#1a3a63 100%);
+  box-shadow:5px 5px 0 #000,0 0 22px rgba(255,215,0,.35);
+}
+.badge{
+  position:absolute;top:-8px;right:-8px;
+  font-family:'Bangers',cursive;font-size:.65rem;letter-spacing:.5px;
+  padding:5px 10px;border:2px solid #000;border-radius:20px;
+  transform:rotate(8deg);
+  box-shadow:2px 2px 0 #000;
+  z-index:2;
+}
+.badge-yellow{background:var(--yellow);color:#000;}
+.badge-blue{background:var(--blue);color:#fff;}
+.service-card h3{font-size:1.02rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);margin-bottom:10px;min-height:2.4em;}
+.price-row{display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
+.price-col{flex:1;text-align:center;}
+.price-col .amt{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.15rem;}
+.price-col .lbl{display:block;font-size:.65rem;color:#9fb0c3;text-transform:uppercase;letter-spacing:1px;}
+.price-flat{text-align:center;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
+.price-flat .amt{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.4rem;}
+.price-list{list-style:none;margin:0;padding:0;border-top:1px dashed rgba(255,255,255,.25);padding-top:10px;}
+.price-list li{display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;color:#dfe6ef;}
+.price-list li b{color:var(--yellow);font-family:'Bangers',cursive;font-weight:400;}
+
+/* ---------- About ---------- */
+.about{background:var(--navy-lighter);}
+.about-text{max-width:700px;margin:0 auto 32px;text-align:center;color:#e3eaf2;font-size:1.02rem;line-height:1.7;}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:600px;margin:0 auto;}
+.team-card{
+  background:var(--navy-light);border:3px solid #000;border-radius:10px;
+  box-shadow:5px 5px 0 #000;overflow:hidden;text-align:center;
+}
+.team-photo{
+  aspect-ratio:1;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:3px solid #000;
+}
+.team-photo svg{width:46%;height:46%;opacity:.5;}
+.team-card .info{padding:12px;}
+.team-card .name{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.05rem;}
+.team-card .role{font-size:.8rem;color:#a9b8c9;margin-top:2px;}
+
+/* ---------- In Action ---------- */
+.action{background:var(--navy);}
+.action-grid{
+  position:relative;
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+@media (min-width:900px){.action-grid{grid-template-columns:repeat(6,1fr);}}
+.action-box{
+  position:relative;aspect-ratio:1;
+  background:var(--navy-light);
+  border:3px solid #000;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  overflow:hidden;
+}
+.action-box svg{width:34%;opacity:.4;}
+.action-tag{
+  font-family:'Bangers',cursive;font-size:1rem;color:var(--yellow);
+  -webkit-text-stroke:1px #000;paint-order:stroke fill;
+}
+.action .starburst{width:34px;height:34px;}
+
+/* ---------- Coverage ---------- */
+.coverage{background:var(--navy-light);text-align:center;}
+.area-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px;margin:0 auto 28px;}
+.area-pill{
+  font-weight:700;font-size:.85rem;
+  padding:8px 16px;border:2px solid #000;border-radius:30px;
+  box-shadow:3px 3px 0 #000;
+}
+.area-pill:nth-child(odd){background:var(--yellow);color:#000;}
+.area-pill:nth-child(even){background:var(--blue);color:#fff;}
+.coverage-cta{color:#dfe6ef;font-size:1rem;}
+.coverage-cta a{color:var(--yellow);font-weight:700;border-bottom:2px solid var(--yellow);}
+
+/* ---------- Footer ---------- */
+footer{
+  background:#081221;
+  border-top:4px solid #000;
+  padding:40px 0 90px;
+  text-align:center;
+}
+footer .brand{justify-content:center;margin-bottom:14px;}
+footer .brand span{font-size:1.4rem;}
+footer p{color:#9fb0c3;font-size:.85rem;margin:6px 0;}
+footer .socials{display:flex;justify-content:center;gap:16px;margin:14px 0;}
+footer .socials a{
+  font-weight:700;color:var(--yellow);min-height:44px;display:flex;align-items:center;padding:0 6px;
+}
+footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
+
+/* ---------- WhatsApp FAB ---------- */
+.whatsapp-fab{
+  position:fixed;right:18px;bottom:18px;z-index:400;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--yellow);
+  border:3px solid #000;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:3px 3px 0 #000;
+  animation:heartbeat 1.8s ease-in-out infinite;
+}
+.whatsapp-fab svg{width:30px;height:30px;}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);box-shadow:3px 3px 0 #000,0 0 0 0 rgba(255,215,0,.6);}
+  14%{transform:scale(1.12);}
+  28%{transform:scale(1);}
+  42%{transform:scale(1.08);box-shadow:3px 3px 0 #000,0 0 0 16px rgba(255,215,0,0);}
+  70%{transform:scale(1);}
+}
+
+/* ---------- Load overlay ("The Dirty Reveal") ---------- */
+#load-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background-color:#83868b;
+  background-image:radial-gradient(circle,rgba(0,0,0,.18) 1px,transparent 1.6px);
+  background-size:7px 7px;
+  overflow:hidden;
+  animation:load-wipe 1.2s cubic-bezier(.55,0,.45,1) forwards;
+  animation-delay:.8s;
+}
+@keyframes load-wipe{from{clip-path:inset(0 0 0 0%);}to{clip-path:inset(0 0 0 100%);}}
+.dust{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);animation:dust-float var(--d) ease-in-out infinite;}
+@keyframes dust-float{
+  0%,100%{transform:translate(0,0);opacity:.35;}
+  50%{transform:translate(6px,-10px);opacity:.75;}
+}
+.spray{
+  position:absolute;top:0;bottom:0;left:-30%;width:32%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.9) 45%,rgba(200,230,255,.95) 60%,transparent);
+  filter:blur(2px);
+  box-shadow:0 0 46px 12px rgba(255,255,255,.65);
+  animation:spray-sweep 1.2s cubic-bezier(.55,0,.45,1) forwards;
+  animation-delay:.8s;
+}
+@keyframes spray-sweep{from{left:-30%;}to{left:120%;}}
+.splat{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.85);
+  animation:splat-fade 1s ease-out forwards;
+}
+@keyframes splat-fade{
+  0%{transform:scale(.4);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:scale(1.6);opacity:0;}
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+.reduce-motion #load-overlay,
+.reduce-motion .bubble,
+.reduce-motion .reveal-overlay,
+.reduce-motion .reveal-blade{
+  display:none !important;
+}
+</style>
 </head>
 <body>
-    <center><h1>MAN, CLOSE THE GODDAMN WEBSITE!!</h1></center> 
+
+<div id="load-overlay" aria-hidden="true">
+  <div class="dust-layer"></div>
+  <div class="spray"></div>
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="WOW Car Detailing home">
+      <img src="images/wow-logo.webp" alt="WOW Car Detailing logo" width="40" height="40">
+      <span>WOW DETAILING</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero halftone" id="hero">
+  <div class="hero-bubbles"></div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow">MOBILE DETAILING · BAHRAIN</span>
+      <h1>WE COME<br>TO YOU.</h1>
+      <p class="sub">Professional mobile car detailing across Bahrain.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://wa.me/97335678906" target="_blank" rel="noopener">Book on WhatsApp</a>
+        <a class="btn btn-secondary" href="#services">View Services</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="speedlines" aria-hidden="true"></div>
+      <img class="van-photo" src="images/wow-van.jpg" alt="WOW Car Detailing branded van with comic-style WOW! decal" width="700" height="875">
+    </div>
+  </div>
+</section>
+
+<!-- WHY WOW -->
+<section class="section why halftone-dark reveal-wrap" id="why">
+  <div class="container">
+    <h2 class="section-title">WHY WOW</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="icon">🚐</div>
+        <h3>We Come To You</h3>
+        <p>We show up at your door, fully equipped — no driving around, no waiting rooms.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">✨</div>
+        <h3>Professional Grade</h3>
+        <p>Trained operators using premium chemicals and equipment on every single job.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🏍️</div>
+        <h3>Every Vehicle</h3>
+        <p>Cars, SUVs, motorbikes, jet skis — if it needs to shine, we detail it.</p>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services halftone reveal-wrap" id="services">
+  <div class="container">
+    <h2 class="section-title">WHAT WE DO</h2>
+    <div class="service-grid">
+
+      <div class="service-card">
+        <h3>Exterior Wash Express</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">3</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">4</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">5</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Exterior Wash Detailed</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">5.5</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">6.5</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">7.5</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Interior Wash Express</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">4</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">5</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">6</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Interior Wash Detailed</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">7.5</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">8.5</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">9.5</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="badge badge-blue">BEST VALUE</span>
+        <h3>Exterior + Interior Combo</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">7</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">9</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">10.5</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="badge badge-yellow">POPULAR</span>
+        <h3>Full Detail</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">12</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">13.5</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">15.5</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>1-Step Polish</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">5.5</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">7</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">9</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <span class="badge badge-blue">SMART PICK</span>
+        <h3>2-Step Polish</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">18</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">20</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">25</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>3-Step Polish</h3>
+        <div class="price-row">
+          <div class="price-col"><span class="amt">30</span><span class="lbl">S</span></div>
+          <div class="price-col"><span class="amt">35</span><span class="lbl">M</span></div>
+          <div class="price-col"><span class="amt">40</span><span class="lbl">L</span></div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Engine Bay</h3>
+        <div class="price-flat"><span class="amt">BD 5</span></div>
+      </div>
+
+      <div class="service-card">
+        <h3>Headlight Restoration</h3>
+        <div class="price-flat"><span class="amt">BD 10</span></div>
+      </div>
+
+      <div class="service-card span-2 premium">
+        <span class="badge badge-yellow">PREMIUM</span>
+        <h3>Ceramic Coating Package</h3>
+        <div class="price-flat"><span class="amt">BD 70</span> <span style="font-size:.75rem;color:#9fb0c3;">all sizes</span></div>
+      </div>
+
+      <div class="service-card span-2">
+        <h3>Motorbike Detailing</h3>
+        <ul class="price-list">
+          <li><span>Basic Wash</span><b>BD 4</b></li>
+          <li><span>Full Detail</span><b>BD 8</b></li>
+          <li><span>Engine Degreasing</span><b>BD 5</b></li>
+        </ul>
+      </div>
+
+      <div class="service-card span-2">
+        <h3>Jet Ski Detailing</h3>
+        <ul class="price-list">
+          <li><span>Basic Wash</span><b>BD 8</b></li>
+          <li><span>Full Detail</span><b>BD 18</b></li>
+          <li><span>1-Step Polish</span><b>BD 25</b></li>
+          <li><span>2-Step Polish</span><b>BD 40</b></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about halftone-dark reveal-wrap" id="about">
+  <div class="container">
+    <h2 class="section-title">THE TEAM BEHIND WOW</h2>
+    <p class="about-text">WOW Car Detailing was built on one idea — your car deserves professional care without the hassle. We are a Bahrain-based mobile detailing team that brings the full service to your door. Trained, equipped, and obsessed with the details.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+        </div>
+        <div class="info">
+          <div class="name">Team Member Name</div>
+          <div class="role">Role / Position</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+        </div>
+        <div class="info">
+          <div class="name">Team Member Name</div>
+          <div class="role">Role / Position</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+<!-- IN ACTION -->
+<section class="section action halftone reveal-wrap" id="action">
+  <div class="container">
+    <h2 class="section-title">THE WORK</h2>
+    <div class="action-grid">
+      <span class="starburst" style="top:-14px;left:44%;"></span>
+      <span class="starburst" style="bottom:20%;right:-14px;width:40px;height:40px;"></span>
+
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">BEFORE</span></div>
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">AFTER</span></div>
+
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">BEFORE</span></div>
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">AFTER</span></div>
+
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">BEFORE</span></div>
+      <div class="action-box"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#33506f"><path d="M4 7h16l-1.5 9.5A2 2 0 0 1 16.53 18H7.47a2 2 0 0 1-1.97-1.5L4 7zm2-4h12v2H6z"/></svg><span class="action-tag">AFTER</span></div>
+    </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+<!-- COVERAGE -->
+<section class="section coverage halftone-dark reveal-wrap" id="contact">
+  <div class="container">
+    <h2 class="section-title">WE COVER ALL OF BAHRAIN</h2>
+    <div class="area-list">
+      <span class="area-pill">Isa Town</span>
+      <span class="area-pill">Jurdab</span>
+      <span class="area-pill">Riffa</span>
+      <span class="area-pill">Salmaniya</span>
+      <span class="area-pill">Saar</span>
+      <span class="area-pill">Amwaj</span>
+      <span class="area-pill">Seef</span>
+      <span class="area-pill">Manama</span>
+      <span class="area-pill">Hamad Town</span>
+      <span class="area-pill">Muharraq</span>
+      <span class="area-pill">Durrat Al Bahrain</span>
+      <span class="area-pill">&amp; surrounding areas</span>
+    </div>
+    <p class="coverage-cta">Don't see your area? <a href="https://wa.me/97335678906" target="_blank" rel="noopener">Message us.</a></p>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <a class="brand" href="#top">
+      <img src="images/wow-logo.webp" alt="WOW Car Detailing logo" width="40" height="40" loading="lazy">
+      <span>WOW DETAILING</span>
+    </a>
+    <p>CR: 196777-01</p>
+    <p>Phone: <a href="tel:+97335678906">35678906</a></p>
+    <div class="socials">
+      <a href="https://instagram.com/wowdetailing.bh" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@wowdetailing.bh" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <p>@wowdetailing.bh</p>
+    <p class="copy">© 2026 WOW Car Detailing</p>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/97335678906" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#0D1B2A"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-2.1c1.9 1 4 1.6 6 1.6 7 0 12.7-5.6 12.7-12.5C28.7 8.6 23 3 16 3zm0 22.7c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.7-5.7C5.3 9.9 10 5.4 16 5.4S26.7 9.9 26.7 15.5 22 25.7 16 25.7zm5.9-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-2.6-1.6 9.6 9.6 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6.3-.5c.1-.2 0-.4 0-.5s-.7-1.7-1-2.3-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.6 3.6 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.4 5.3 4.7a17.9 17.9 0 0 0 1.8.7 4.3 4.3 0 0 0 2 .1c.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){ document.documentElement.classList.add('reduce-motion'); }
+
+  /* ---- Load animation: The Dirty Reveal ---- */
+  var overlay = document.getElementById('load-overlay');
+  if(overlay){
+    var played = sessionStorage.getItem('wowLoadPlayed');
+    if(played || reduceMotion){
+      overlay.remove();
+    } else {
+      sessionStorage.setItem('wowLoadPlayed','1');
+      var dustLayer = overlay.querySelector('.dust-layer');
+      for(var i=0;i<26;i++){
+        var d = document.createElement('span');
+        d.className = 'dust';
+        var sz = 2 + Math.random()*4;
+        d.style.width = sz+'px';
+        d.style.height = sz+'px';
+        d.style.left = (Math.random()*100)+'%';
+        d.style.top = (Math.random()*100)+'%';
+        d.style.setProperty('--d', (3+Math.random()*3)+'s');
+        dustLayer.appendChild(d);
+      }
+      var spray = overlay.querySelector('.spray');
+      for(var j=0;j<10;j++){
+        var s = document.createElement('span');
+        s.className = 'splat';
+        s.style.left = (Math.random()*100)+'%';
+        s.style.top = (10+Math.random()*80)+'%';
+        s.style.animationDelay = (0.3+Math.random()*0.5)+'s';
+        spray.appendChild(s);
+      }
+      overlay.addEventListener('animationend', function handler(e){
+        if(e.animationName === 'load-wipe'){
+          overlay.removeEventListener('animationend', handler);
+          overlay.remove();
+        }
+      });
+    }
+  }
+
+  /* ---- Ambient hero bubbles ---- */
+  var bubbleField = document.querySelector('.hero-bubbles');
+  if(bubbleField && !reduceMotion){
+    var hoverCapable = window.matchMedia('(hover:hover)').matches;
+
+    function popBubble(bubble){
+      var rect = bubble.getBoundingClientRect();
+      var parentRect = bubbleField.getBoundingClientRect();
+      var burst = document.createElement('span');
+      burst.className = 'burst';
+      burst.style.left = (rect.left - parentRect.left + rect.width/2) + 'px';
+      burst.style.top = (rect.top - parentRect.top + rect.height/2) + 'px';
+      burst.style.setProperty('--size', (rect.width*2.2)+'px');
+      bubbleField.appendChild(burst);
+      burst.addEventListener('animationend', function(){ burst.remove(); });
+      bubble.remove();
+      setTimeout(function(){ createBubble(); }, 400 + Math.random()*600);
+    }
+
+    function createBubble(){
+      var b = document.createElement('span');
+      b.className = 'bubble';
+      var size = 8 + Math.random()*32;
+      b.style.setProperty('--size', size+'px');
+      b.style.setProperty('--left', (Math.random()*94)+'%');
+      b.style.setProperty('--dur', (7+Math.random()*6)+'s');
+      b.style.setProperty('--delay', (-(Math.random()*12))+'s');
+      b.style.setProperty('--wobble', (10+Math.random()*20)+'px');
+      b.addEventListener('click', function(e){ e.stopPropagation(); popBubble(b); });
+      if(hoverCapable){
+        b.addEventListener('mouseenter', function(e){ popBubble(b); });
+      }
+      bubbleField.appendChild(b);
+    }
+
+    for(var k=0;k<15;k++){ createBubble(); }
+  }
+
+  /* ---- Squeegee section reveal ---- */
+  var revealSections = document.querySelectorAll('.reveal-wrap');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    revealSections.forEach(function(s){ io.observe(s); });
+  } else {
+    revealSections.forEach(function(s){ s.classList.add('in-view'); });
+  }
+
+  /* ---- Ripple micro-interaction on cards ---- */
+  function addRipple(e){
+    var card = e.currentTarget;
+    var rect = card.getBoundingClientRect();
+    var point = e.touches ? e.touches[0] : e;
+    var x = point.clientX - rect.left;
+    var y = point.clientY - rect.top;
+    var ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.left = x+'px';
+    ripple.style.top = y+'px';
+    card.appendChild(ripple);
+    ripple.addEventListener('animationend', function(){ ripple.remove(); });
+  }
+  document.querySelectorAll('.service-card, .why-card').forEach(function(card){
+    card.addEventListener('pointerdown', addRipple);
+  });
+})();
+</script>
 </body>
 </html>
