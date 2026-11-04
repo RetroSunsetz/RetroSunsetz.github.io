@@ -63,16 +63,29 @@ section[id]{scroll-margin-top:var(--header-h);}
   background-size:9px 9px;
 }
 
-/* ---------- Starburst decoration ---------- */
+/* ---------- Starburst decoration (two-tone, matches the WOW! logo) ---------- */
 .starburst{
   position:absolute;
   width:60px;height:60px;
-  background:var(--yellow);
-  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-  filter:drop-shadow(2px 2px 0 #000);
   pointer-events:none;
   z-index:1;
 }
+.starburst::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--red);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform:rotate(16deg);
+  filter:drop-shadow(2px 2px 0 #000);
+}
+.starburst::after{
+  content:'';
+  position:absolute;inset:12%;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.starburst.sm{width:34px;height:34px;}
+.starburst.lg{width:90px;height:90px;}
 
 /* ---------- Header ---------- */
 .site-header{
@@ -135,11 +148,22 @@ section[id]{scroll-margin-top:var(--header-h);}
   position:absolute;
   width:var(--size);height:var(--size);
   transform:translate(-50%,-50%) scale(0);
-  background:var(--yellow);
-  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
   animation:burst-pop .3s ease-out forwards;
   pointer-events:none;
   z-index:3;
+}
+.burst::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--red);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform:rotate(16deg);
+}
+.burst::after{
+  content:'';
+  position:absolute;inset:12%;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
 }
 @keyframes burst-pop{
   0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
@@ -365,9 +389,9 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Checkered finish-line divider ---------- */
 .checker-stripe{
-  height:16px;
-  background-image:repeating-linear-gradient(45deg,#000 0 10px,#fff 10px 20px);
-  border-top:3px solid #000;border-bottom:3px solid #000;
+  height:24px;
+  background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
+  border-top:4px solid #000;border-bottom:4px solid #000;
 }
 
 /* ---------- Footer ---------- */
@@ -480,10 +504,13 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   </div>
 </header>
 
+<div class="checker-stripe" aria-hidden="true"></div>
+
 <main id="top">
 
 <!-- HERO -->
 <section class="hero halftone" id="hero">
+  <span class="starburst lg" style="top:4%;right:2%;transform:rotate(12deg);" aria-hidden="true"></span>
   <div class="hero-bubbles"></div>
   <div class="container hero-inner">
     <div class="hero-text">
@@ -503,6 +530,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
 
 <!-- WHY WOW -->
 <section class="section why halftone-dark reveal-wrap" id="why">
+  <span class="starburst" style="top:18px;left:4%;" aria-hidden="true"></span>
+  <span class="starburst sm" style="top:30px;right:6%;transform:rotate(-12deg);" aria-hidden="true"></span>
   <div class="container">
     <h2 class="section-title">WHY WOW</h2>
     <div class="why-grid">
@@ -529,6 +558,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
 
 <!-- SERVICES -->
 <section class="section services halftone reveal-wrap" id="services">
+  <span class="starburst sm" style="top:20px;left:6%;transform:rotate(10deg);" aria-hidden="true"></span>
+  <span class="starburst" style="top:10px;right:4%;transform:rotate(-8deg);" aria-hidden="true"></span>
   <div class="container">
     <h2 class="section-title">WHAT WE DO</h2>
 
