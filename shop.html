@@ -64,16 +64,29 @@ section[id]{scroll-margin-top:var(--header-h);}
   background-size:9px 9px;
 }
 
-/* ---------- Starburst decoration ---------- */
+/* ---------- Starburst decoration (two-tone, matches the WOW! logo) ---------- */
 .starburst{
   position:absolute;
   width:60px;height:60px;
-  background:var(--yellow);
-  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-  filter:drop-shadow(2px 2px 0 #000);
   pointer-events:none;
   z-index:1;
 }
+.starburst::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--red);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform:rotate(16deg);
+  filter:drop-shadow(2px 2px 0 #000);
+}
+.starburst::after{
+  content:'';
+  position:absolute;inset:12%;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.starburst.sm{width:34px;height:34px;}
+.starburst.lg{width:90px;height:90px;}
 
 /* ---------- Header ---------- */
 .site-header{
@@ -120,7 +133,7 @@ section[id]{scroll-margin-top:var(--header-h);}
 .btn-secondary{background:var(--blue);color:var(--white);}
 
 /* ---------- Shop intro ---------- */
-.shop-hero{padding-top:44px;padding-bottom:20px;text-align:center;}
+.shop-hero{position:relative;padding-top:44px;padding-bottom:20px;text-align:center;}
 .shop-hero h1{
   font-size:clamp(2.4rem,9vw,4rem);
   color:var(--yellow);
@@ -192,9 +205,16 @@ section[id]{scroll-margin-top:var(--header-h);}
   border-bottom:3px solid #000;
   overflow:hidden;
 }
-.product-icon img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.product-icon img{width:100%;height:100%;object-fit:cover;object-position:center;}
 .product-info{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;}
 .product-info h4{font-size:.95rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);min-height:2.3em;}
+.product-info h4 .unit{
+  display:inline-block;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:.6rem;
+  color:#dfe6ef;background:var(--navy-lighter);
+  border:1px solid rgba(255,255,255,.3);border-radius:6px;
+  padding:2px 6px;margin-left:5px;vertical-align:middle;
+}
 .product-price{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.3rem;}
 .product-price .unit{font-family:'Inter',sans-serif;font-size:.7rem;color:#9fb0c3;font-weight:500;margin-left:4px;}
 .qty-stepper{
@@ -289,9 +309,9 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Checkered finish-line divider ---------- */
 .checker-stripe{
-  height:16px;
-  background-image:repeating-linear-gradient(45deg,#000 0 10px,#fff 10px 20px);
-  border-top:3px solid #000;border-bottom:3px solid #000;
+  height:24px;
+  background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
+  border-top:4px solid #000;border-bottom:4px solid #000;
 }
 
 /* ---------- Footer ---------- */
@@ -403,10 +423,14 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   </div>
 </header>
 
+<div class="checker-stripe" aria-hidden="true"></div>
+
 <main id="top">
 
 <!-- SHOP HERO -->
 <section class="shop-hero halftone">
+  <span class="starburst" style="top:10px;right:5%;transform:rotate(10deg);" aria-hidden="true"></span>
+  <span class="starburst sm" style="top:40px;left:5%;transform:rotate(-14deg);" aria-hidden="true"></span>
   <div class="container">
     <h1>THE WOW SHOP</h1>
     <p>Pro-grade wash products and equipment, delivered anywhere in Bahrain.</p>
@@ -418,11 +442,11 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   <div class="container">
     <div class="product-grid">
 
-      <div class="product-card" data-id="cart" data-name="Car Wash Cart" data-price="90">
-        <div class="product-icon">🧺</div>
+      <div class="product-card" data-id="tireshine" data-name="Tire Shine" data-price="TBD">
+        <div class="product-icon"><img src="images/product-tireshine.jpg" alt="WOW Tire Shine 500ml" loading="lazy"></div>
         <div class="product-info">
-          <h4>Car Wash Cart</h4>
-          <div class="product-price">BD 90</div>
+          <h4>Tire Shine<span class="unit">500ml</span></h4>
+          <div class="product-price">BD TBD</div>
           <div class="qty-stepper">
             <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
             <span class="qty-val">1</span>
@@ -432,11 +456,11 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         </div>
       </div>
 
-      <div class="product-card" data-id="tireshine" data-name="Tire Shine" data-price="5">
-        <div class="product-icon">✨</div>
+      <div class="product-card" data-id="waxshampoo" data-name="Wax Shampoo" data-price="TBD">
+        <div class="product-icon"><img src="images/product-waxshampoo.jpg" alt="WOW Wax Shampoo 500ml" loading="lazy"></div>
         <div class="product-info">
-          <h4>Tire Shine</h4>
-          <div class="product-price">BD 5<span class="unit">per bottle</span></div>
+          <h4>Wax Shampoo<span class="unit">500ml</span></h4>
+          <div class="product-price">BD TBD</div>
           <div class="qty-stepper">
             <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
             <span class="qty-val">1</span>
@@ -446,11 +470,11 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         </div>
       </div>
 
-      <div class="product-card" data-id="apc" data-name="All Purpose Cleaner" data-price="7">
-        <div class="product-icon">🧴</div>
+      <div class="product-card" data-id="rimcleaner" data-name="Rim Cleaner" data-price="TBD">
+        <div class="product-icon"><img src="images/product-rimcleaner.jpg" alt="WOW Rim Cleaner 500ml" loading="lazy"></div>
         <div class="product-info">
-          <h4>All Purpose Cleaner</h4>
-          <div class="product-price">BD 7<span class="unit">per bottle</span></div>
+          <h4>Rim Cleaner<span class="unit">500ml</span></h4>
+          <div class="product-price">BD TBD</div>
           <div class="qty-stepper">
             <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
             <span class="qty-val">1</span>
@@ -460,25 +484,11 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         </div>
       </div>
 
-      <div class="product-card" data-id="airfresh" data-name="Car Air Freshener" data-price="2">
-        <div class="product-icon">🌼</div>
+      <div class="product-card" data-id="hoodie" data-name="Hoodie" data-price="TBD">
+        <div class="product-icon"><img src="images/product-hoodie.jpg" alt="WOW branded hoodie" loading="lazy"></div>
         <div class="product-info">
-          <h4>Car Air Freshener</h4>
-          <div class="product-price">BD 2<span class="unit">per 5 pieces</span></div>
-          <div class="qty-stepper">
-            <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span class="qty-val">1</span>
-            <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button type="button" class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card" data-id="wipes" data-name="Interior Wet Wipes" data-price="6.5">
-        <div class="product-icon">🧻</div>
-        <div class="product-info">
-          <h4>Interior Wet Wipes</h4>
-          <div class="product-price">BD 6.5</div>
+          <h4>Hoodie</h4>
+          <div class="product-price">BD TBD</div>
           <div class="qty-stepper">
             <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
             <span class="qty-val">1</span>
@@ -623,7 +633,10 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   var products = {};
   document.querySelectorAll('.product-card').forEach(function(card){
     var id = card.dataset.id;
-    products[id] = { name: card.dataset.name, price: parseFloat(card.dataset.price) };
+    var rawPrice = card.dataset.price;
+    var parsed = parseFloat(rawPrice);
+    var tbd = isNaN(parsed);
+    products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
 
     var qtyVal = card.querySelector('.qty-val');
     var minus = card.querySelector('.qty-minus');
@@ -658,10 +671,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     try{ localStorage.setItem('wowShopCart', JSON.stringify(cart)); }catch(e){}
   }
 
+  function cartHasTbd(){
+    return Object.keys(cart).some(function(id){
+      return cart[id] > 0 && products[id] && products[id].tbd;
+    });
+  }
+
   function cartTotal(){
     var total = 0;
     Object.keys(cart).forEach(function(id){
-      if(products[id]){ total += products[id].price * cart[id]; }
+      if(products[id] && !products[id].tbd){ total += products[id].price * cart[id]; }
     });
     return total;
   }
@@ -679,13 +698,19 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   var cartLines = document.getElementById('cartLines');
   var cartPanelTotal = document.getElementById('cartPanelTotal');
 
+  function formatTotal(hasTbd, total){
+    if(hasTbd){ return total > 0 ? 'BD ' + total.toFixed(2) + ' + TBD' : 'Price TBD'; }
+    return 'BD ' + total.toFixed(2);
+  }
+
   function updateCartUI(){
     var count = cartCount();
     var total = cartTotal();
+    var hasTbd = cartHasTbd();
     cartBar.classList.toggle('visible', count > 0);
     cartBarInfo.textContent = count + (count === 1 ? ' item' : ' items');
-    cartBarTotal.textContent = 'BD ' + total.toFixed(2);
-    cartPanelTotal.textContent = 'BD ' + total.toFixed(2);
+    cartBarTotal.textContent = formatTotal(hasTbd, total);
+    cartPanelTotal.textContent = formatTotal(hasTbd, total);
 
     cartLines.innerHTML = '';
     var ids = Object.keys(cart).filter(function(id){ return cart[id] > 0; });
@@ -698,9 +723,11 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
       if(!p) return;
       var line = document.createElement('div');
       line.className = 'cart-line';
+      var sub = p.tbd ? ('Qty ' + cart[id] + ' &times; price TBD') : ('Qty ' + cart[id] + ' &times; BD ' + p.price.toFixed(2));
+      var lineTotal = p.tbd ? 'TBD' : ('BD ' + (p.price*cart[id]).toFixed(2));
       line.innerHTML =
-        '<div><div class="cl-name">'+p.name+'</div><div class="cl-sub">Qty '+cart[id]+' &times; BD '+p.price.toFixed(2)+'</div></div>' +
-        '<div class="cl-price">BD '+(p.price*cart[id]).toFixed(2)+'</div>' +
+        '<div><div class="cl-name">'+p.name+'</div><div class="cl-sub">'+sub+'</div></div>' +
+        '<div class="cl-price">'+lineTotal+'</div>' +
         '<button type="button" class="cl-remove" aria-label="Remove '+p.name+'">&times;</button>';
       line.querySelector('.cl-remove').addEventListener('click', function(){
         delete cart[id];
@@ -723,9 +750,14 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     if(ids.length === 0) return;
     var lines = ids.map(function(id){
       var p = products[id];
+      if(p.tbd){ return '- ' + p.name + ' x' + cart[id] + ' (price TBD, please confirm)'; }
       return '- ' + p.name + ' x' + cart[id] + ' - BD ' + (p.price*cart[id]).toFixed(2);
     });
-    var message = 'Hi WOW Car Detailing! I\'d like to order:\n' + lines.join('\n') + '\n\nTotal: BD ' + cartTotal().toFixed(2);
+    var hasTbd = cartHasTbd();
+    var totalLine = hasTbd
+      ? 'Total: ' + (cartTotal() > 0 ? 'BD ' + cartTotal().toFixed(2) + ' + items pending pricing' : 'to be confirmed')
+      : 'Total: BD ' + cartTotal().toFixed(2);
+    var message = 'Hi WOW Car Detailing! I\'d like to order:\n' + lines.join('\n') + '\n\n' + totalLine;
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
   });
 
