@@ -313,6 +313,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   object-fit:cover;
   object-position:bottom;
   aspect-ratio:1/1;
+  filter:saturate(1.15) contrast(1.08);
 }
 @media (min-width:900px){
   .van-photo{aspect-ratio:4/5;}
@@ -374,7 +375,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 14px;
 }
-.icon-badge svg{width:28px;height:28px;}
+.icon-badge svg{width:32px;height:32px;}
 .why-card:nth-child(1) h3{color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;}
 .why-card:nth-child(2) h3,.why-card:nth-child(3) h3{color:var(--navy);-webkit-text-stroke:0;}
 .why-card h3{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.4rem;margin-bottom:8px;}
@@ -415,10 +416,9 @@ section[id]{scroll-margin-top:var(--header-h);}
   border:3px solid #000;border-top:6px solid var(--yellow);
   border-radius:10px;
   box-shadow:5px 5px 0 #000;
-  padding:22px 18px;
+  padding:16px 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;
-  min-height:100px;
 }
 .service-card.with-list{align-items:stretch;}
 .service-grid.cols-fixed-2{grid-template-columns:repeat(2,1fr);}
@@ -465,7 +465,8 @@ section[id]{scroll-margin-top:var(--header-h);}
   border-bottom:3px solid #000;
 }
 .team-photo svg{width:46%;height:46%;opacity:.5;}
-.team-photo img{width:100%;height:100%;object-fit:cover;}
+.team-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.08);}
+.team-photo img[src*="khaled"]{filter:saturate(1.15) contrast(1.12) brightness(1.4);}
 .team-card .info{padding:12px;}
 .team-card .name{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.05rem;}
 .team-card .role{font-size:.8rem;color:#a9b8c9;margin-top:2px;}
@@ -634,17 +635,17 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     <h2 class="section-title">WHY WOW</h2>
     <div class="why-grid">
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l2-5h11l3 5v6h-2M3 11v6h2M3 11h16M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/></svg></div>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.8A2.8 2.8 0 1 1 12 6.2a2.8 2.8 0 0 1 0 5.6z"/></svg></div>
         <h3>We Come To You</h3>
         <p>We show up at your door, fully equipped — no driving around, no waiting rooms.</p>
       </div>
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></div>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2l7.5 2.8v5.4c0 4.8-3.2 8.9-7.5 10.6C7.7 19.1 4.5 15 4.5 10.2V4.8L12 2z"/><path fill="none" stroke="#0D1B2A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.3l2.3 2.3 4.5-4.8"/></svg></div>
         <h3>Professional Grade</h3>
         <p>Trained operators using premium chemicals and equipment on every single job.</p>
       </div>
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="2.5"/><circle cx="18" cy="17" r="2.5"/><path d="M6 17h7l2-7h4M11 10l-2-3H6"/></svg></div>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/><circle cx="7" cy="17" r="1.4" fill="#0D1B2A"/><circle cx="17" cy="17" r="1.4" fill="#0D1B2A"/></svg></div>
         <h3>Every Vehicle</h3>
         <p>Cars, SUVs, motorbikes, jet skis — if it needs to shine, we detail it.</p>
       </div>
@@ -653,6 +654,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   <div class="reveal-overlay"></div>
   <div class="reveal-blade"></div>
 </section>
+
+<div class="checker-stripe" aria-hidden="true"></div>
 
 <!-- SERVICES -->
 <section class="section services halftone reveal-wrap" id="services">
