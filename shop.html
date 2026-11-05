@@ -79,11 +79,11 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 /* ---------- Halftone texture ---------- */
 .halftone{
-  background-image:radial-gradient(circle,rgba(255,255,255,.28) 1.6px,transparent 2.2px);
+  background-image:radial-gradient(circle,rgba(255,255,255,.14) 1.6px,transparent 2.2px);
   background-size:15px 15px;
 }
 .halftone-dark{
-  background-image:radial-gradient(circle,rgba(0,0,0,.5) 1.8px,transparent 2.4px);
+  background-image:radial-gradient(circle,rgba(0,0,0,.22) 1.8px,transparent 2.4px);
   background-size:15px 15px;
 }
 
@@ -133,6 +133,7 @@ section[id]{scroll-margin-top:var(--header-h);}
 @media (max-width:480px){
   .site-header .brand span{display:none;}
 }
+.header-actions{display:flex;align-items:center;gap:12px;}
 .nav-links{display:flex;gap:14px;}
 .nav-links a{
   font-weight:600;font-size:.82rem;
@@ -143,6 +144,17 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 .nav-links a.active{color:var(--yellow);border-color:var(--yellow);}
 .nav-links a:hover{color:var(--yellow);border-color:var(--yellow);}
+.header-cta{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:.78rem;white-space:nowrap;
+  padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;
+  border-radius:8px;
+  background:var(--yellow);color:#0D1B2A;
+  border:2px solid #000;
+  box-shadow:2px 2px 0 #000;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.header-cta:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 #000;}
+.header-cta:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #000;}
 
 .btn{
   position:relative;overflow:visible;
@@ -171,6 +183,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   margin-top:14px;
   font-size:clamp(1rem,3.4vw,1.2rem);
   color:var(--navy);
+  text-shadow:0 1px 0 rgba(255,255,255,.55),0 0 10px rgba(255,255,255,.4);
   font-weight:600;
   max-width:520px;
   margin-left:auto;margin-right:auto;
@@ -498,12 +511,12 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#9fb0c3;}
       <img src="images/wow-logo.webp" alt="WOW Car Detailing logo" width="59" height="40">
       <span>WOW DETAILING</span>
     </a>
-    <nav class="nav-links">
-      <a href="index.html#services">Services</a>
-      <a href="shop.html" class="active">Shop</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
+    <div class="header-actions">
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+      </nav>
+      <a class="header-cta" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%27d%20like%20to%20book%20a%20detail." target="_blank" rel="noopener">Book Now</a>
+    </div>
   </div>
 </header>
 
