@@ -17,7 +17,13 @@
 <meta name="twitter:title" content="The WOW Shop | WOW Car Detailing">
 <meta name="twitter:description" content="Pro-grade wash products and equipment from WOW Car Detailing, delivered across Bahrain.">
 <meta name="twitter:image" content="https://retrosunsetz.github.io/images/product-rimcleaner.jpg">
-<link rel="icon" href="images/wow-logo.webp" type="image/webp">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WOW Detailing">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -207,6 +213,32 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 @keyframes ripple-spread{to{transform:translate(-50%,-50%) scale(22);opacity:0;}}
 
+/* ---------- Tap-burst on WhatsApp / booking CTAs ---------- */
+@keyframes burst-pop{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(1);opacity:0;}
+}
+.tap-burst{
+  position:fixed;
+  left:var(--x);top:var(--y);
+  width:var(--size);height:var(--size);
+  transform:translate(-50%,-50%) scale(0);
+  animation:burst-pop .35s ease-out forwards;
+  pointer-events:none;
+  z-index:9999;
+}
+.tap-burst::before{
+  content:'';position:absolute;inset:0;
+  background:var(--red);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform:rotate(16deg);
+}
+.tap-burst::after{
+  content:'';position:absolute;inset:12%;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+
 /* ---------- Products: capsule cards ---------- */
 .shop-products{background-color:var(--navy-light);}
 .product-grid{display:flex;flex-direction:column;gap:18px;}
@@ -238,6 +270,15 @@ section[id]{scroll-margin-top:var(--header-h);}
   padding:2px 6px;margin-left:5px;vertical-align:middle;
 }
 .product-price{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.1rem;margin-top:2px;}
+.size-picker{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
+.size-chip{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:.65rem;
+  padding:4px 9px;border:2px solid #000;border-radius:20px;
+  background:var(--navy-lighter);color:#dfe6ef;
+  cursor:pointer;transition:transform .1s ease, background .15s ease, color .15s ease;
+}
+.size-chip:active{transform:scale(.92);}
+.size-chip.selected{background:var(--yellow);color:var(--navy);}
 .add-to-cart-cap{
   position:relative;flex-shrink:0;
   width:58px;height:58px;margin-right:4px;
@@ -371,7 +412,7 @@ footer .socials{display:flex;justify-content:center;gap:16px;margin:14px 0;}
 footer .socials a{
   font-weight:700;color:var(--yellow);min-height:44px;display:flex;align-items:center;padding:0 6px;
 }
-footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
+footer .copy{margin-top:12px;font-size:.75rem;color:#9fb0c3;}
 
 /* ---------- WhatsApp FAB ---------- */
 .whatsapp-fab{
@@ -521,11 +562,17 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         <button type="button" class="add-to-cart-cap" aria-label="Add Rim Cleaner to cart">+<span class="qty-badge">0</span></button>
       </div>
 
-      <div class="product-card" data-id="hoodie" data-name="Hoodie" data-price="TBD">
+      <div class="product-card" data-id="hoodie" data-name="Hoodie" data-price="TBD" data-sizes="M,L,XL,XXL">
         <div class="product-icon"><img src="images/product-hoodie.jpg" alt="WOW branded hoodie" loading="lazy"></div>
         <div class="product-info">
           <h4>Hoodie</h4>
           <div class="product-price">BD TBD</div>
+          <div class="size-picker" role="group" aria-label="Select hoodie size">
+            <button type="button" class="size-chip selected" data-size="M" aria-pressed="true">M</button>
+            <button type="button" class="size-chip" data-size="L" aria-pressed="false">L</button>
+            <button type="button" class="size-chip" data-size="XL" aria-pressed="false">XL</button>
+            <button type="button" class="size-chip" data-size="XXL" aria-pressed="false">XXL</button>
+          </div>
         </div>
         <button type="button" class="add-to-cart-cap" aria-label="Add Hoodie to cart">+<span class="qty-badge">0</span></button>
       </div>
@@ -695,11 +742,33 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     var rawPrice = card.dataset.price;
     var parsed = parseFloat(rawPrice);
     var tbd = isNaN(parsed);
-    products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
+    var sizes = card.dataset.sizes ? card.dataset.sizes.split(',') : null;
+
+    if(sizes){
+      sizes.forEach(function(size){
+        products[id + '-' + size] = { name: card.dataset.name + ' (' + size + ')', price: tbd ? 0 : parsed, tbd: tbd };
+      });
+
+      var sizeChips = card.querySelectorAll('.size-chip');
+      sizeChips.forEach(function(chip){
+        chip.addEventListener('click', function(){
+          sizeChips.forEach(function(c){ c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
+          chip.classList.add('selected');
+          chip.setAttribute('aria-pressed', 'true');
+        });
+      });
+    } else {
+      products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
+    }
 
     var addBtn = card.querySelector('.add-to-cart-cap');
     addBtn.addEventListener('click', function(){
-      cart[id] = (cart[id] || 0) + 1;
+      var cartId = id;
+      if(sizes){
+        var selectedChip = card.querySelector('.size-chip.selected') || card.querySelector('.size-chip');
+        cartId = id + '-' + selectedChip.dataset.size;
+      }
+      cart[cartId] = (cart[cartId] || 0) + 1;
       saveCart();
       updateCartUI();
       addBtn.classList.add('added');
@@ -710,8 +779,14 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   function syncCardBadges(){
     document.querySelectorAll('.product-card').forEach(function(card){
       var id = card.dataset.id;
+      var sizes = card.dataset.sizes ? card.dataset.sizes.split(',') : null;
       var badge = card.querySelector('.qty-badge');
-      var qty = cart[id] || 0;
+      var qty;
+      if(sizes){
+        qty = sizes.reduce(function(sum, size){ return sum + (cart[id + '-' + size] || 0); }, 0);
+      } else {
+        qty = cart[id] || 0;
+      }
       badge.textContent = qty;
       badge.classList.toggle('show', qty > 0);
     });
@@ -813,6 +888,23 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   });
 
   updateCartUI();
+
+  /* ---- Comic tap-burst on WhatsApp / booking CTAs ---- */
+  if(!reduceMotion){
+    document.querySelectorAll('a[href*="wa.me"], #checkoutBtn').forEach(function(btn){
+      btn.addEventListener('pointerdown', function(e){
+        var x = e.clientX, y = e.clientY;
+        if(!x && !y){ var r = btn.getBoundingClientRect(); x = r.left + r.width/2; y = r.top + r.height/2; }
+        var burst = document.createElement('span');
+        burst.className = 'tap-burst';
+        burst.style.setProperty('--x', x+'px');
+        burst.style.setProperty('--y', y+'px');
+        burst.style.setProperty('--size', '70px');
+        document.body.appendChild(burst);
+        burst.addEventListener('animationend', function(){ burst.remove(); });
+      });
+    });
+  }
 })();
 </script>
 </body>
