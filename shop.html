@@ -107,6 +107,9 @@ section[id]{scroll-margin-top:var(--header-h);}
   flex-shrink:0;
 }
 .brand span{font-family:'Bangers',cursive;font-size:1.1rem;color:var(--yellow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+@media (max-width:480px){
+  .site-header .brand span{display:none;}
+}
 .nav-links{display:flex;gap:14px;}
 .nav-links a{
   font-weight:600;font-size:.82rem;
@@ -144,7 +147,7 @@ section[id]{scroll-margin-top:var(--header-h);}
 .shop-hero p{
   margin-top:14px;
   font-size:clamp(1rem,3.4vw,1.2rem);
-  color:#fff;
+  color:var(--navy);
   font-weight:600;
   max-width:520px;
   margin-left:auto;margin-right:auto;
@@ -228,11 +231,11 @@ section[id]{scroll-margin-top:var(--header-h);}
   background:var(--navy-lighter);color:var(--yellow);
   border:none;font-size:1.2rem;font-weight:800;cursor:pointer;
 }
-.qty-stepper button:active{background:var(--blue);}
+.qty-stepper button:active{background:var(--blue);color:var(--navy);}
 .qty-stepper .qty-val{flex:1;text-align:center;font-weight:700;}
 .add-to-cart{
   margin-top:auto;
-  background:var(--blue);color:var(--white);
+  background:var(--blue);color:var(--navy);
   border:2px solid #000;border-radius:8px;
   font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.5px;
   padding:10px;min-height:44px;
