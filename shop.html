@@ -207,62 +207,60 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 @keyframes ripple-spread{to{transform:translate(-50%,-50%) scale(22);opacity:0;}}
 
-/* ---------- Products ---------- */
+/* ---------- Products: capsule cards ---------- */
 .shop-products{background-color:var(--navy-light);}
-.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
-@media (min-width:700px){.product-grid{grid-template-columns:repeat(3,1fr);}}
+.product-grid{display:flex;flex-direction:column;gap:18px;}
+@media (min-width:860px){.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}}
 .product-card{
-  position:relative;overflow:hidden;
+  position:relative;
   background:var(--navy);
-  border:3px solid #000;border-top:6px solid var(--yellow);
-  border-radius:10px;
+  border:3px solid #000;border-radius:999px;
   box-shadow:5px 5px 0 #000;
-  display:flex;flex-direction:column;
+  display:flex;align-items:center;gap:12px;
+  padding:7px 7px 7px 7px;
+  min-height:92px;
 }
 .product-icon{
-  aspect-ratio:1;
+  width:78px;height:78px;flex-shrink:0;
+  border-radius:50%;
+  border:3px solid #000;
   background:var(--navy-lighter);
-  display:flex;align-items:center;justify-content:center;
-  font-size:2.8rem;
-  border-bottom:3px solid #000;
   overflow:hidden;
 }
 .product-icon img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.15) contrast(1.08);}
-.product-info{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;}
-.product-info h4{font-size:.95rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);min-height:2.3em;}
+.product-info{flex:1;min-width:0;}
+.product-info h4{font-size:.98rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);}
 .product-info h4 .unit{
   display:inline-block;
-  font-family:'Inter',sans-serif;font-weight:700;font-size:.6rem;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:.58rem;
   color:#dfe6ef;background:var(--navy-lighter);
   border:1px solid rgba(255,255,255,.3);border-radius:6px;
   padding:2px 6px;margin-left:5px;vertical-align:middle;
 }
-.product-price{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.3rem;}
-.product-price .unit{font-family:'Inter',sans-serif;font-size:.7rem;color:#9fb0c3;font-weight:500;margin-left:4px;}
-.qty-stepper{
-  display:flex;align-items:center;justify-content:space-between;
-  border:2px solid #000;border-radius:8px;overflow:hidden;
-  background:var(--navy-light);
-}
-.qty-stepper button{
-  width:40px;height:40px;min-width:44px;min-height:44px;
-  background:var(--navy-lighter);color:var(--yellow);
-  border:none;font-size:1.2rem;font-weight:800;cursor:pointer;
-}
-.qty-stepper button:active{background:var(--blue);color:var(--navy);}
-.qty-stepper .qty-val{flex:1;text-align:center;font-weight:700;}
-.add-to-cart{
-  margin-top:auto;
-  background:var(--blue);color:var(--navy);
-  border:2px solid #000;border-radius:8px;
-  font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.5px;
-  padding:10px;min-height:44px;
+.product-price{font-family:'Bangers',cursive;color:var(--yellow);font-size:1.1rem;margin-top:2px;}
+.add-to-cart-cap{
+  position:relative;flex-shrink:0;
+  width:58px;height:58px;margin-right:4px;
+  border-radius:50%;
+  background:var(--yellow);
+  border:3px solid #000;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;font-weight:800;color:#0D1B2A;line-height:1;
   cursor:pointer;
   box-shadow:3px 3px 0 #000;
   transition:transform .15s ease;
 }
-.add-to-cart:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #000;}
-.add-to-cart.added{background:var(--yellow);color:#000;}
+.add-to-cart-cap:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #000;}
+.add-to-cart-cap.added{background:#fff;}
+.add-to-cart-cap .qty-badge{
+  position:absolute;top:-8px;right:-8px;
+  width:24px;height:24px;
+  background:var(--red);color:#fff;
+  border:2px solid #000;border-radius:50%;
+  font-family:'Inter',sans-serif;font-size:.72rem;font-weight:800;
+  display:none;align-items:center;justify-content:center;
+}
+.add-to-cart-cap .qty-badge.show{display:flex;}
 
 /* ---------- Cart bar & panel ---------- */
 .cart-bar{
@@ -334,6 +332,27 @@ section[id]{scroll-margin-top:var(--header-h);}
   height:24px;
   background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
   border-top:4px solid #000;border-bottom:4px solid #000;
+}
+
+/* ---------- Road band: van drives across on scroll ---------- */
+.road-band{
+  position:relative;
+  height:48px;
+  overflow:hidden;
+  background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
+  border-top:4px solid #000;border-bottom:4px solid #000;
+}
+.van-drive{
+  position:absolute;top:50%;left:-22%;width:92px;
+  transform:translateY(-50%);
+  z-index:2;
+  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45));
+}
+.in-view .van-drive{animation:drive-across 2.6s linear forwards;}
+@keyframes drive-across{from{left:-22%;}to{left:118%;}}
+.van-drive .wheel{animation:wheel-spin .35s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes wheel-spin{to{transform:rotate(360deg);}}
+.reduce-motion .van-drive{display:none;}
 }
 
 /* ---------- Footer ---------- */
@@ -447,7 +466,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   </div>
 </header>
 
-<div class="checker-stripe" aria-hidden="true"></div>
+<div class="road-band" aria-hidden="true">
+  <svg class="van-drive" viewBox="0 0 100 50">
+    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
+    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
+    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
+    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
+  </svg>
+</div>
 
 <main id="top">
 
@@ -471,13 +499,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         <div class="product-info">
           <h4>Tire Shine<span class="unit">500ml</span></h4>
           <div class="product-price">BD TBD</div>
-          <div class="qty-stepper">
-            <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span class="qty-val">1</span>
-            <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button type="button" class="add-to-cart">Add to Cart</button>
         </div>
+        <button type="button" class="add-to-cart-cap" aria-label="Add Tire Shine to cart">+<span class="qty-badge">0</span></button>
       </div>
 
       <div class="product-card" data-id="waxshampoo" data-name="Wax Shampoo" data-price="TBD">
@@ -485,13 +508,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         <div class="product-info">
           <h4>Wax Shampoo<span class="unit">500ml</span></h4>
           <div class="product-price">BD TBD</div>
-          <div class="qty-stepper">
-            <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span class="qty-val">1</span>
-            <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button type="button" class="add-to-cart">Add to Cart</button>
         </div>
+        <button type="button" class="add-to-cart-cap" aria-label="Add Wax Shampoo to cart">+<span class="qty-badge">0</span></button>
       </div>
 
       <div class="product-card" data-id="rimcleaner" data-name="Rim Cleaner" data-price="TBD">
@@ -499,13 +517,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         <div class="product-info">
           <h4>Rim Cleaner<span class="unit">500ml</span></h4>
           <div class="product-price">BD TBD</div>
-          <div class="qty-stepper">
-            <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span class="qty-val">1</span>
-            <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button type="button" class="add-to-cart">Add to Cart</button>
         </div>
+        <button type="button" class="add-to-cart-cap" aria-label="Add Rim Cleaner to cart">+<span class="qty-badge">0</span></button>
       </div>
 
       <div class="product-card" data-id="hoodie" data-name="Hoodie" data-price="TBD">
@@ -513,13 +526,8 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
         <div class="product-info">
           <h4>Hoodie</h4>
           <div class="product-price">BD TBD</div>
-          <div class="qty-stepper">
-            <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span class="qty-val">1</span>
-            <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button type="button" class="add-to-cart">Add to Cart</button>
         </div>
+        <button type="button" class="add-to-cart-cap" aria-label="Add Hoodie to cart">+<span class="qty-badge">0</span></button>
       </div>
 
     </div>
@@ -530,7 +538,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
 
 </main>
 
-<div class="checker-stripe" aria-hidden="true"></div>
+<div class="road-band" aria-hidden="true">
+  <svg class="van-drive" viewBox="0 0 100 50">
+    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
+    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
+    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
+    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
+  </svg>
+</div>
 
 <footer>
   <div class="container">
@@ -615,7 +632,7 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   }
 
   /* ---- Squeegee section reveal ---- */
-  var revealSections = document.querySelectorAll('.reveal-wrap');
+  var revealSections = document.querySelectorAll('.reveal-wrap, .road-band');
   if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -680,34 +697,25 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     var tbd = isNaN(parsed);
     products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
 
-    var qtyVal = card.querySelector('.qty-val');
-    var minus = card.querySelector('.qty-minus');
-    var plus = card.querySelector('.qty-plus');
-    var addBtn = card.querySelector('.add-to-cart');
-    var stepQty = 1;
-
-    minus.addEventListener('click', function(){
-      stepQty = Math.max(1, stepQty - 1);
-      qtyVal.textContent = stepQty;
-    });
-    plus.addEventListener('click', function(){
-      stepQty = Math.min(20, stepQty + 1);
-      qtyVal.textContent = stepQty;
-    });
+    var addBtn = card.querySelector('.add-to-cart-cap');
     addBtn.addEventListener('click', function(){
-      cart[id] = (cart[id] || 0) + stepQty;
+      cart[id] = (cart[id] || 0) + 1;
       saveCart();
       updateCartUI();
-      stepQty = 1;
-      qtyVal.textContent = stepQty;
       addBtn.classList.add('added');
-      addBtn.textContent = 'Added!';
-      setTimeout(function(){
-        addBtn.classList.remove('added');
-        addBtn.textContent = 'Add to Cart';
-      }, 900);
+      setTimeout(function(){ addBtn.classList.remove('added'); }, 350);
     });
   });
+
+  function syncCardBadges(){
+    document.querySelectorAll('.product-card').forEach(function(card){
+      var id = card.dataset.id;
+      var badge = card.querySelector('.qty-badge');
+      var qty = cart[id] || 0;
+      badge.textContent = qty;
+      badge.classList.toggle('show', qty > 0);
+    });
+  }
 
   function saveCart(){
     try{ localStorage.setItem('wowShopCart', JSON.stringify(cart)); }catch(e){}
@@ -749,6 +757,7 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
     var count = cartCount();
     var total = cartTotal();
     var hasTbd = cartHasTbd();
+    syncCardBadges();
     cartBar.classList.toggle('visible', count > 0);
     cartBarInfo.textContent = count + (count === 1 ? ' item' : ' items');
     cartBarTotal.textContent = formatTotal(hasTbd, total);

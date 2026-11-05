@@ -502,6 +502,26 @@ section[id]{scroll-margin-top:var(--header-h);}
   border-top:4px solid #000;border-bottom:4px solid #000;
 }
 
+/* ---------- Road band: van drives across on scroll ---------- */
+.road-band{
+  position:relative;
+  height:48px;
+  overflow:hidden;
+  background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
+  border-top:4px solid #000;border-bottom:4px solid #000;
+}
+.van-drive{
+  position:absolute;top:50%;left:-22%;width:92px;
+  transform:translateY(-50%);
+  z-index:2;
+  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45));
+}
+.in-view .van-drive{animation:drive-across 2.6s linear forwards;}
+@keyframes drive-across{from{left:-22%;}to{left:118%;}}
+.van-drive .wheel{animation:wheel-spin .35s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes wheel-spin{to{transform:rotate(360deg);}}
+.reduce-motion .van-drive{display:none;}
+
 /* ---------- Footer ---------- */
 footer{
   background:#081221;
@@ -614,7 +634,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   </div>
 </header>
 
-<div class="checker-stripe" aria-hidden="true"></div>
+<div class="road-band" aria-hidden="true">
+  <svg class="van-drive" viewBox="0 0 100 50">
+    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
+    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
+    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
+    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
+  </svg>
+</div>
 
 <main id="top">
 
@@ -670,7 +699,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   <div class="reveal-blade"></div>
 </section>
 
-<div class="checker-stripe" aria-hidden="true"></div>
+<div class="road-band" aria-hidden="true">
+  <svg class="van-drive" viewBox="0 0 100 50">
+    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
+    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
+    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
+    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
+  </svg>
+</div>
 
 <!-- SERVICES -->
 <section class="section services halftone reveal-wrap" id="services">
@@ -819,7 +857,16 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
 
 </main>
 
-<div class="checker-stripe" aria-hidden="true"></div>
+<div class="road-band" aria-hidden="true">
+  <svg class="van-drive" viewBox="0 0 100 50">
+    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
+    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
+    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
+    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
+  </svg>
+</div>
 
 <footer>
   <div class="container">
@@ -926,7 +973,7 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
   }
 
   /* ---- Squeegee section reveal ---- */
-  var revealSections = document.querySelectorAll('.reveal-wrap');
+  var revealSections = document.querySelectorAll('.reveal-wrap, .road-band');
   if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
