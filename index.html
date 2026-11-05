@@ -17,7 +17,13 @@
 <meta name="twitter:title" content="WOW Car Detailing | Mobile Car Wash & Detailing in Bahrain">
 <meta name="twitter:description" content="Professional mobile car detailing across Bahrain. We come to you — book on WhatsApp.">
 <meta name="twitter:image" content="https://retrosunsetz.github.io/images/wow-van.jpg">
-<link rel="icon" href="images/wow-logo.webp" type="image/webp">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WOW Detailing">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -63,6 +69,7 @@
   --yellow:#F9CC21;
   --blue:#29ABE2;
   --red:#E4342B;
+  --red-deep:#C21F1F;
   --white:#FFFFFF;
   --black:#000000;
   --header-h:64px;
@@ -234,6 +241,26 @@ section[id]{scroll-margin-top:var(--header-h);}
   0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
   100%{transform:translate(-50%,-50%) scale(1);opacity:0;}
 }
+.tap-burst{
+  position:fixed;
+  left:var(--x);top:var(--y);
+  width:var(--size);height:var(--size);
+  transform:translate(-50%,-50%) scale(0);
+  animation:burst-pop .35s ease-out forwards;
+  pointer-events:none;
+  z-index:9999;
+}
+.tap-burst::before{
+  content:'';position:absolute;inset:0;
+  background:var(--red);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform:rotate(16deg);
+}
+.tap-burst::after{
+  content:'';position:absolute;inset:12%;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
 .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px;align-items:center;text-align:center;}
 .hero-text{max-width:640px;}
 .hero-text h1{
@@ -376,7 +403,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   padding:26px 20px;
   text-align:center;
 }
-.why-card:nth-child(1){background:var(--red);border-top-color:#000;}
+.why-card:nth-child(1){background:var(--red-deep);border-top-color:#000;}
 .why-card:nth-child(2){background:var(--yellow);border-top-color:#000;}
 .why-card:nth-child(3){background:var(--blue);border-top-color:#000;}
 .icon-badge{
@@ -444,8 +471,8 @@ section[id]{scroll-margin-top:var(--header-h);}
   margin-bottom:10px;
 }
 .badge-yellow{background:var(--yellow);color:#000;}
-.badge-blue{background:var(--blue);color:#fff;}
-.badge-red{background:var(--red);color:#fff;}
+.badge-blue{background:var(--blue);color:var(--navy);}
+.badge-red{background:var(--red-deep);color:#fff;}
 .service-card h4{font-size:1.05rem;font-family:'Inter',sans-serif;font-weight:800;color:var(--white);margin:0;}
 .service-card.with-list h4{text-align:center;margin-bottom:14px;}
 .price-list{list-style:none;margin:0;padding:0;}
@@ -493,7 +520,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   box-shadow:3px 3px 0 #000;
 }
 .area-pill:nth-child(odd){background:var(--yellow);color:#000;}
-.area-pill:nth-child(even){background:var(--blue);color:#fff;}
+.area-pill:nth-child(even){background:var(--blue);color:var(--navy);}
 
 /* ---------- Checkered finish-line divider ---------- */
 .checker-stripe{
@@ -538,7 +565,7 @@ footer .socials{display:flex;justify-content:center;gap:16px;margin:14px 0;}
 footer .socials a{
   font-weight:700;color:var(--yellow);min-height:44px;display:flex;align-items:center;padding:0 6px;
 }
-footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
+footer .copy{margin-top:12px;font-size:.75rem;color:#9fb0c3;}
 
 /* ---------- WhatsApp FAB ---------- */
 .whatsapp-fab{
@@ -1018,6 +1045,23 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#5f7086;}
       });
       card.addEventListener('mouseleave', function(){
         card.style.transform = '';
+      });
+    });
+  }
+
+  /* ---- Comic tap-burst on WhatsApp / booking CTAs ---- */
+  if(!reduceMotion){
+    document.querySelectorAll('a[href*="wa.me"], #checkoutBtn').forEach(function(btn){
+      btn.addEventListener('pointerdown', function(e){
+        var x = e.clientX, y = e.clientY;
+        if(!x && !y){ var r = btn.getBoundingClientRect(); x = r.left + r.width/2; y = r.top + r.height/2; }
+        var burst = document.createElement('span');
+        burst.className = 'tap-burst';
+        burst.style.setProperty('--x', x+'px');
+        burst.style.setProperty('--y', y+'px');
+        burst.style.setProperty('--size', '70px');
+        document.body.appendChild(burst);
+        burst.addEventListener('animationend', function(){ burst.remove(); });
       });
     });
   }
