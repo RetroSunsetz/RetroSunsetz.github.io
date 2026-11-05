@@ -388,7 +388,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   border-top:4px solid #000;border-bottom:4px solid #000;
 }
 
-/* ---------- Road band: van drives across on scroll ---------- */
+/* ---------- Road band: speed-line + suds sweep on scroll ---------- */
 .road-band{
   position:relative;
   height:48px;
@@ -396,18 +396,46 @@ section[id]{scroll-margin-top:var(--header-h);}
   background-image:repeating-linear-gradient(45deg,#000 0 12px,#fff 12px 24px);
   border-top:4px solid #000;border-bottom:4px solid #000;
 }
-.van-drive{
-  position:absolute;top:50%;left:-22%;width:92px;
+.speed-line{
+  position:absolute;left:-30%;width:130px;height:9px;border-radius:3px;
+  transform:translateY(-50%) skewX(-28deg);
+  opacity:0;
+  z-index:2;
+  box-shadow:1px 1px 0 #000;
+}
+.speed-line.sl1{background:var(--yellow);top:28%;}
+.speed-line.sl2{background:var(--blue);top:52%;}
+.speed-line.sl3{background:#fff;top:76%;}
+.in-view .speed-line{animation:speed-sweep 1.2s cubic-bezier(.4,0,.2,1) forwards;}
+.in-view .speed-line.sl2{animation-delay:.1s;}
+.in-view .speed-line.sl3{animation-delay:.2s;}
+@keyframes speed-sweep{
+  0%{left:-30%;opacity:0;}
+  12%{opacity:1;}
+  82%{opacity:1;}
+  100%{left:130%;opacity:0;}
+}
+.suds{
+  position:absolute;left:-8%;width:var(--s-size,16px);height:var(--s-size,16px);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.95),rgba(255,255,255,.4) 45%,rgba(13,27,42,.15) 100%);
+  border:2px solid rgba(13,27,42,.3);
+  opacity:0;
   transform:translateY(-50%);
   z-index:2;
-  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45));
 }
-.in-view .van-drive{animation:drive-across 2.6s linear forwards;}
-@keyframes drive-across{from{left:-22%;}to{left:118%;}}
-.van-drive .wheel{animation:wheel-spin .35s linear infinite;transform-box:fill-box;transform-origin:center;}
-@keyframes wheel-spin{to{transform:rotate(360deg);}}
-.reduce-motion .van-drive{display:none;}
+.in-view .suds{animation:suds-sweep 1.6s ease-out forwards;}
+.suds.s1{--s-size:13px;top:22%;animation-delay:.08s;}
+.suds.s2{--s-size:9px;top:68%;animation-delay:.22s;}
+.suds.s3{--s-size:17px;top:40%;animation-delay:.38s;}
+.suds.s4{--s-size:11px;top:58%;animation-delay:.52s;}
+@keyframes suds-sweep{
+  0%{left:-8%;opacity:0;transform:translateY(-50%) scale(.6);}
+  18%{opacity:1;}
+  75%{opacity:.85;}
+  100%{left:112%;opacity:0;transform:translateY(-75%) scale(1.15);}
 }
+.reduce-motion .speed-line,.reduce-motion .suds{display:none;}
 
 /* ---------- Footer ---------- */
 footer{
@@ -521,14 +549,13 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#9fb0c3;}
 </header>
 
 <div class="road-band" aria-hidden="true">
-  <svg class="van-drive" viewBox="0 0 100 50">
-    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
-    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
-    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
-    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
-    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
-  </svg>
+  <span class="speed-line sl1"></span>
+  <span class="speed-line sl2"></span>
+  <span class="speed-line sl3"></span>
+  <span class="suds s1"></span>
+  <span class="suds s2"></span>
+  <span class="suds s3"></span>
+  <span class="suds s4"></span>
 </div>
 
 <main id="top">
@@ -599,14 +626,13 @@ footer .copy{margin-top:12px;font-size:.75rem;color:#9fb0c3;}
 </main>
 
 <div class="road-band" aria-hidden="true">
-  <svg class="van-drive" viewBox="0 0 100 50">
-    <path d="M6 38 L6 14 L61 14 L61 24 L78 24 L94 34 L94 38 Z" fill="#F9CC21" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M81 26 L91 26 L91 33 L83 33 Z" fill="#29ABE2" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
-    <circle cx="30" cy="25" r="9" fill="#E4342B" stroke="#000" stroke-width="2"/>
-    <text x="30" y="29" font-family="Bangers,cursive" font-size="9" fill="#fff" text-anchor="middle">WOW</text>
-    <g class="wheel"><circle cx="22" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="22" cy="40" r="2.5" fill="#ccc"/></g>
-    <g class="wheel"><circle cx="78" cy="40" r="7" fill="#111" stroke="#000" stroke-width="2.5"/><circle cx="78" cy="40" r="2.5" fill="#ccc"/></g>
-  </svg>
+  <span class="speed-line sl1"></span>
+  <span class="speed-line sl2"></span>
+  <span class="speed-line sl3"></span>
+  <span class="suds s1"></span>
+  <span class="suds s2"></span>
+  <span class="suds s3"></span>
+  <span class="suds s4"></span>
 </div>
 
 <footer>
