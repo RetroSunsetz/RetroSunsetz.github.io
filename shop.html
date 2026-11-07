@@ -10,13 +10,13 @@
 <meta property="og:site_name" content="WOW Car Detailing">
 <meta property="og:title" content="The WOW Shop | WOW Car Detailing">
 <meta property="og:description" content="Pro-grade wash products and equipment from WOW Car Detailing, delivered across Bahrain.">
-<meta property="og:image" content="https://retrosunsetz.github.io/images/product-rimcleaner.jpg">
+<meta property="og:image" content="https://retrosunsetz.github.io/images/product-rimcleaner-bottle.jpg">
 <meta property="og:url" content="https://retrosunsetz.github.io/shop.html">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The WOW Shop | WOW Car Detailing">
 <meta name="twitter:description" content="Pro-grade wash products and equipment from WOW Car Detailing, delivered across Bahrain.">
-<meta name="twitter:image" content="https://retrosunsetz.github.io/images/product-rimcleaner.jpg">
+<meta name="twitter:image" content="https://retrosunsetz.github.io/images/product-rimcleaner-bottle.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
 <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
@@ -262,28 +262,62 @@ section[id]{scroll-margin-top:var(--header-h);}
   clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
 }
 
-/* ---------- Products: capsule cards ---------- */
+/* ---------- Products: showcase cards ---------- */
 .shop-products{background-color:var(--navy-light);}
-.product-grid{display:flex;flex-direction:column;gap:18px;}
-@media (min-width:860px){.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}}
+.product-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media (min-width:700px){.product-grid{grid-template-columns:repeat(3,1fr);gap:22px;}}
 .product-card{
   position:relative;
   background:var(--navy);
-  border:3px solid #000;border-radius:999px;
-  box-shadow:5px 5px 0 #000;
-  display:flex;align-items:center;gap:12px;
-  padding:7px 7px 7px 7px;
-  min-height:92px;
-}
-.product-icon{
-  width:78px;height:78px;flex-shrink:0;
-  border-radius:50%;
-  border:3px solid #000;
-  background:var(--navy-lighter);
+  border:3px solid #000;border-radius:16px;
+  box-shadow:6px 6px 0 #000;
   overflow:hidden;
+  display:flex;flex-direction:column;
 }
-.product-icon img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.15) contrast(1.08);}
-.product-info{flex:1;min-width:0;}
+.product-stage{
+  position:relative;
+  height:260px;
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+  border-bottom:3px solid #000;
+}
+.product-stage.stage-yellow{background:radial-gradient(ellipse at 50% 28%,#ffe066 0%,var(--yellow) 55%,#b58e16 100%);}
+.product-stage.stage-blue{background:radial-gradient(ellipse at 50% 28%,#8adcf7 0%,var(--blue) 55%,#176a90 100%);}
+.product-stage.stage-red{background:radial-gradient(ellipse at 50% 28%,#ff8f83 0%,var(--red) 55%,#7a0f0f 100%);}
+.stage-burst{
+  position:absolute;top:12px;right:12px;width:42px;height:42px;
+  background:rgba(0,0,0,.16);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  pointer-events:none;
+}
+.bottle-wrap{
+  position:relative;
+  height:220px;width:auto;
+  margin-bottom:12px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
+  mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
+  filter:drop-shadow(0 12px 8px rgba(0,0,0,.4));
+  animation:bottle-float 3.6s ease-in-out infinite;
+}
+.bottle-wrap img{display:block;height:100%;width:auto;filter:saturate(1.2) contrast(1.1);}
+.bottle-wrap::after{
+  content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.6) 45%,transparent 70%);
+  transform:skewX(-20deg);
+  animation:bottle-gloss 3.6s ease-in-out infinite;
+  mix-blend-mode:screen;
+}
+@keyframes bottle-float{
+  0%,100%{transform:translateY(0) rotate(-1.5deg);}
+  50%{transform:translateY(-8px) rotate(1.5deg);}
+}
+@keyframes bottle-gloss{
+  0%,15%{left:-60%;}
+  65%,100%{left:120%;}
+}
+.reduce-motion .bottle-wrap{animation:none;}
+.reduce-motion .bottle-wrap::after{display:none;}
+.product-info{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;}
 .product-info h4{font-size:var(--text-md);font-family:'Inter',sans-serif;font-weight:800;color:var(--white);}
 .product-info h4 .unit{
   display:inline-block;
@@ -293,23 +327,15 @@ section[id]{scroll-margin-top:var(--header-h);}
   padding:2px 6px;margin-left:5px;vertical-align:middle;
 }
 .product-price{font-family:'Bangers',cursive;color:var(--yellow);font-size:var(--text-md);margin-top:2px;}
-.size-picker{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
-.size-chip{
-  font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-3xs);
-  padding:4px 9px;border:2px solid #000;border-radius:20px;
-  background:var(--navy-lighter);color:#dfe6ef;
-  cursor:pointer;transition:transform .1s ease, background .15s ease, color .15s ease;
-}
-.size-chip:active{transform:scale(.92);}
-.size-chip.selected{background:var(--yellow);color:var(--navy);}
+.product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;}
 .add-to-cart-cap{
   position:relative;flex-shrink:0;
-  width:58px;height:58px;margin-right:4px;
+  width:52px;height:52px;
   border-radius:50%;
   background:var(--yellow);
   border:3px solid #000;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.7rem;font-weight:800;color:#0D1B2A;line-height:1;
+  font-size:1.6rem;font-weight:800;color:#0D1B2A;line-height:1;
   cursor:pointer;
   box-shadow:3px 3px 0 #000;
   transition:transform .15s ease;
@@ -586,45 +612,45 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     <div class="product-grid">
 
       <div class="product-card" data-id="tireshine" data-name="Tire Shine" data-price="TBD">
-        <div class="product-icon"><img src="images/product-tireshine.jpg" alt="WOW Tire Shine 500ml" loading="lazy"></div>
+        <div class="product-stage stage-yellow">
+          <span class="stage-burst" aria-hidden="true"></span>
+          <div class="bottle-wrap"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy"></div>
+        </div>
         <div class="product-info">
           <h4>Tire Shine<span class="unit">500ml</span></h4>
-          <div class="product-price">BD TBD</div>
+          <div class="product-footer">
+            <div class="product-price">BD TBD</div>
+            <button type="button" class="add-to-cart-cap" aria-label="Add Tire Shine to cart">+<span class="qty-badge">0</span></button>
+          </div>
         </div>
-        <button type="button" class="add-to-cart-cap" aria-label="Add Tire Shine to cart">+<span class="qty-badge">0</span></button>
       </div>
 
       <div class="product-card" data-id="waxshampoo" data-name="Wax Shampoo" data-price="TBD">
-        <div class="product-icon"><img src="images/product-waxshampoo.jpg" alt="WOW Wax Shampoo 500ml" loading="lazy"></div>
+        <div class="product-stage stage-blue">
+          <span class="stage-burst" aria-hidden="true"></span>
+          <div class="bottle-wrap"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy"></div>
+        </div>
         <div class="product-info">
           <h4>Wax Shampoo<span class="unit">500ml</span></h4>
-          <div class="product-price">BD TBD</div>
+          <div class="product-footer">
+            <div class="product-price">BD TBD</div>
+            <button type="button" class="add-to-cart-cap" aria-label="Add Wax Shampoo to cart">+<span class="qty-badge">0</span></button>
+          </div>
         </div>
-        <button type="button" class="add-to-cart-cap" aria-label="Add Wax Shampoo to cart">+<span class="qty-badge">0</span></button>
       </div>
 
       <div class="product-card" data-id="rimcleaner" data-name="Rim Cleaner" data-price="TBD">
-        <div class="product-icon"><img src="images/product-rimcleaner.jpg" alt="WOW Rim Cleaner 500ml" loading="lazy"></div>
+        <div class="product-stage stage-red">
+          <span class="stage-burst" aria-hidden="true"></span>
+          <div class="bottle-wrap"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy"></div>
+        </div>
         <div class="product-info">
           <h4>Rim Cleaner<span class="unit">500ml</span></h4>
-          <div class="product-price">BD TBD</div>
-        </div>
-        <button type="button" class="add-to-cart-cap" aria-label="Add Rim Cleaner to cart">+<span class="qty-badge">0</span></button>
-      </div>
-
-      <div class="product-card" data-id="hoodie" data-name="Hoodie" data-price="TBD" data-sizes="M,L,XL,XXL">
-        <div class="product-icon"><img src="images/product-hoodie.jpg" alt="WOW branded hoodie" loading="lazy"></div>
-        <div class="product-info">
-          <h4>Hoodie</h4>
-          <div class="product-price">BD TBD</div>
-          <div class="size-picker" role="group" aria-label="Select hoodie size">
-            <button type="button" class="size-chip selected" data-size="M" aria-pressed="true">M</button>
-            <button type="button" class="size-chip" data-size="L" aria-pressed="false">L</button>
-            <button type="button" class="size-chip" data-size="XL" aria-pressed="false">XL</button>
-            <button type="button" class="size-chip" data-size="XXL" aria-pressed="false">XXL</button>
+          <div class="product-footer">
+            <div class="product-price">BD TBD</div>
+            <button type="button" class="add-to-cart-cap" aria-label="Add Rim Cleaner to cart">+<span class="qty-badge">0</span></button>
           </div>
         </div>
-        <button type="button" class="add-to-cart-cap" aria-label="Add Hoodie to cart">+<span class="qty-badge">0</span></button>
       </div>
 
     </div>
@@ -791,33 +817,11 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     var rawPrice = card.dataset.price;
     var parsed = parseFloat(rawPrice);
     var tbd = isNaN(parsed);
-    var sizes = card.dataset.sizes ? card.dataset.sizes.split(',') : null;
-
-    if(sizes){
-      sizes.forEach(function(size){
-        products[id + '-' + size] = { name: card.dataset.name + ' (' + size + ')', price: tbd ? 0 : parsed, tbd: tbd };
-      });
-
-      var sizeChips = card.querySelectorAll('.size-chip');
-      sizeChips.forEach(function(chip){
-        chip.addEventListener('click', function(){
-          sizeChips.forEach(function(c){ c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
-          chip.classList.add('selected');
-          chip.setAttribute('aria-pressed', 'true');
-        });
-      });
-    } else {
-      products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
-    }
+    products[id] = { name: card.dataset.name, price: tbd ? 0 : parsed, tbd: tbd };
 
     var addBtn = card.querySelector('.add-to-cart-cap');
     addBtn.addEventListener('click', function(){
-      var cartId = id;
-      if(sizes){
-        var selectedChip = card.querySelector('.size-chip.selected') || card.querySelector('.size-chip');
-        cartId = id + '-' + selectedChip.dataset.size;
-      }
-      cart[cartId] = (cart[cartId] || 0) + 1;
+      cart[id] = (cart[id] || 0) + 1;
       saveCart();
       updateCartUI();
       addBtn.classList.add('added');
@@ -828,14 +832,8 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   function syncCardBadges(){
     document.querySelectorAll('.product-card').forEach(function(card){
       var id = card.dataset.id;
-      var sizes = card.dataset.sizes ? card.dataset.sizes.split(',') : null;
       var badge = card.querySelector('.qty-badge');
-      var qty;
-      if(sizes){
-        qty = sizes.reduce(function(sum, size){ return sum + (cart[id + '-' + size] || 0); }, 0);
-      } else {
-        qty = cart[id] || 0;
-      }
+      var qty = cart[id] || 0;
       badge.textContent = qty;
       badge.classList.toggle('show', qty > 0);
     });
