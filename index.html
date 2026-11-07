@@ -458,11 +458,11 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Services ---------- */
 .services{background-color:var(--navy-light);}
-.services-cta{text-align:center;margin-top:44px;}
-.services-sub{text-align:center;color:#a9b8c9;font-size:var(--text-sm);margin:-14px 0 24px;}
+.services-cta{text-align:center;margin-top:36px;}
+.services-sub{text-align:center;color:#a9b8c9;font-size:var(--text-sm);margin:-14px 0 20px;}
 
 /* interactive car explorer */
-.car-explorer{max-width:460px;margin:0 auto 20px;}
+.car-explorer{max-width:520px;margin:0 auto 4px;}
 .car-stage{position:relative;}
 .car-svg{display:block;width:100%;height:auto;overflow:visible;}
 .car-illust{animation:car-idle 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
@@ -472,111 +472,51 @@ section[id]{scroll-margin-top:var(--header-h);}
 .car-gloss{transform-box:fill-box;transform-origin:center;animation:car-gloss-sweep 4.4s ease-in-out infinite;}
 @keyframes car-gloss-sweep{0%,20%{transform:translateX(-160%);}70%,100%{transform:translateX(220%);}}
 .reduce-motion .car-illust,.reduce-motion .car-wheel,.reduce-motion .car-gloss{animation:none;}
-.car-pin{
-  position:absolute;width:0;height:0;
-  background:none;border:none;cursor:pointer;padding:0;
-  z-index:2;
-}
-.car-pin .pin-dot{
-  position:absolute;top:0;left:0;transform:translate(-50%,-50%);
-  width:44px;height:44px;border-radius:50%;
-  background:var(--navy-lighter);border:3px solid #000;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:2px 2px 0 #000;
-  transition:transform .15s ease,background .15s ease;
-}
-.car-pin .pin-dot svg{width:22px;height:22px;}
-.car-pin .pin-label{
-  position:absolute;top:26px;left:0;transform:translateX(-50%);
-  font-family:'Bangers',cursive;font-size:var(--text-2xs);letter-spacing:.5px;
-  color:#dfe6ef;background:rgba(13,27,42,.85);
-  padding:2px 8px;border-radius:8px;white-space:nowrap;
-}
-.car-pin.is-active .pin-dot{background:var(--yellow);transform:translate(-50%,-50%) scale(1.12);}
-.car-pin.is-active .pin-label{color:#0D1B2A;background:var(--yellow);}
-.car-pin:active .pin-dot{transform:translate(-50%,-50%) scale(.92);}
-.pin-interior{top:34%;left:50%;}
-.pin-exterior{top:60%;left:22%;}
-.pin-addons{top:40%;left:76%;}
+.car-hit{cursor:pointer;transition:fill .2s ease;}
+.car-hit.is-active{fill:rgba(255,255,255,.4);}
 
-.cat-chip-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:28px;}
-.cat-chip{
-  font-family:'Bangers',cursive;font-size:var(--text-sm);letter-spacing:.5px;
-  padding:10px 18px;border:3px solid #000;border-radius:10px;
-  background:var(--navy-lighter);color:#dfe6ef;
-  box-shadow:3px 3px 0 #000;
-  cursor:pointer;
-  display:inline-flex;align-items:center;gap:8px;
-  transition:transform .15s ease,background .15s ease,color .15s ease;
+/* minimal zone switch — plain underline tabs, no boxes */
+.zone-switch{
+  display:flex;gap:10px 24px;flex-wrap:wrap;overflow-x:auto;justify-content:center;
+  margin:14px 0 30px;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
-.cat-chip:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #000;}
-.cat-chip.is-active{background:var(--yellow);color:#0D1B2A;}
-.cat-chip svg{width:18px;height:18px;}
+.zone-switch::-webkit-scrollbar{display:none;}
+.zone-btn{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;gap:7px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Bangers',cursive;font-size:var(--text-md);letter-spacing:.5px;
+  color:#9fb0c3;
+  padding:4px 2px 8px;
+  border-bottom:3px solid transparent;
+  transition:color .15s ease,border-color .15s ease;
+}
+.zone-btn svg{width:18px;height:18px;opacity:.65;}
+.zone-btn.is-active{color:var(--yellow);border-bottom-color:var(--yellow);}
+.zone-btn.is-active svg{opacity:1;}
 
 .service-panel{display:none;}
 .service-panel.is-active{display:block;animation:panel-pop .25s ease-out;}
 @keyframes panel-pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .reduce-motion .service-panel.is-active{animation:none;}
 
-.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-@media (min-width:900px){.service-grid{grid-template-columns:repeat(3,1fr);}}
-.service-grid.cols-fixed-2{grid-template-columns:repeat(2,1fr);}
-.service-card{
-  position:relative;
-  background:var(--navy);
-  border:3px solid #000;border-top:6px solid var(--yellow);
-  border-radius:10px;
-  box-shadow:5px 5px 0 #000;
-  padding:16px 16px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;
+/* minimal service rows — no card boxes */
+.service-list{list-style:none;margin:0 auto 24px;padding:0;max-width:440px;}
+.service-list li{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:15px 2px;
+  border-bottom:1px dashed rgba(255,255,255,.18);
+  font-weight:700;color:var(--white);font-size:var(--text-md);
+  text-align:left;
 }
-.service-card.with-list{align-items:stretch;}
+.service-list li:last-child{border-bottom:none;}
+.tag{font-family:'Bangers',cursive;font-size:var(--text-2xs);letter-spacing:.5px;white-space:nowrap;}
+.tag-blue{color:var(--blue);}
+.tag-red{color:#ff8a80;}
 
-/* single feature-row cards (Exterior / Interior) */
-.service-card.feature-row{
-  flex-direction:row;justify-content:flex-start;gap:16px;
-  text-align:left;max-width:460px;margin:0 auto;
-  padding:18px 22px;transform:rotate(-1deg);
-}
-.feature-row .feature-icon{
-  flex-shrink:0;width:52px;height:52px;border-radius:50%;
-  background:var(--yellow);border:3px solid #000;
-  display:flex;align-items:center;justify-content:center;
-}
-.feature-row .feature-icon svg{width:28px;height:28px;}
-.feature-row h4{font-size:var(--text-md);}
-
-/* polishing step ladder */
-.polish-ladder{display:flex;flex-direction:column;align-items:center;gap:14px;}
-@media (min-width:640px){.polish-ladder{flex-direction:row;justify-content:center;gap:14px;}}
-.service-card.polish-step{
-  width:100%;max-width:280px;transform:none;
-}
-.polish-step.is-smart{border-top-color:var(--blue);transform:scale(1.06);z-index:1;}
-.step-num{
-  display:flex;align-items:center;justify-content:center;
-  width:34px;height:34px;margin:0 auto 10px;
-  background:var(--yellow);color:#0D1B2A;border:2px solid #000;border-radius:50%;
-  font-family:'Bangers',cursive;font-size:var(--text-md);
-}
-.polish-step.is-smart .step-num{background:var(--blue);}
-.step-arrow{
-  color:var(--yellow);font-size:var(--text-xl);font-weight:800;
-  transform:rotate(90deg);
-}
-@media (min-width:640px){.step-arrow{transform:none;}}
-
-/* add-on patches */
-.patch-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px 20px;padding:10px 0;}
-.service-card.patch{
-  width:148px;height:148px;border-radius:50%;
-  border:3px dashed var(--yellow);
-  padding:14px;
-}
-.service-card.patch:nth-child(1){transform:rotate(-7deg);}
-.service-card.patch:nth-child(2){transform:rotate(6deg);}
-.service-card.patch h4{font-size:var(--text-xs);line-height:1.3;}
+.list-heading{font-family:'Inter',sans-serif;font-weight:800;color:var(--white);font-size:var(--text-md);text-align:center;margin-bottom:2px;}
+.moto-split{display:flex;flex-direction:column;gap:26px;max-width:440px;margin:0 auto;}
+@media (min-width:640px){.moto-split{flex-direction:row;gap:36px;}.moto-split>div{flex:1;}}
 
 .badge{
   display:inline-block;
@@ -587,20 +527,13 @@ section[id]{scroll-margin-top:var(--header-h);}
   margin-bottom:10px;
 }
 .badge-yellow{background:var(--yellow);color:#000;}
-.badge-blue{background:var(--blue);color:var(--navy);}
-.badge-red{background:var(--red-deep);color:#fff;}
-.service-card h4{font-size:var(--text-md);font-family:'Inter',sans-serif;font-weight:800;color:var(--white);margin:0;}
-.service-card.with-list h4{text-align:center;margin-bottom:14px;}
-.price-list{list-style:none;margin:0;padding:0;}
-.price-list li{font-size:var(--text-sm);padding:8px 0;color:#dfe6ef;text-align:center;border-top:1px dashed rgba(255,255,255,.2);}
-.price-list li:first-child{border-top:none;}
 .premium-banner{
   position:relative;text-align:center;
   background:linear-gradient(135deg,var(--red) 0%,#c21f1f 55%,var(--navy) 140%);
   border:3px solid #000;border-radius:14px;
   box-shadow:6px 6px 0 #000,0 0 28px rgba(228,52,43,.4);
   padding:30px 24px;
-  margin-bottom:38px;
+  max-width:440px;margin:0 auto;
 }
 .premium-banner h3{
   font-family:'Bangers',cursive;color:#fff;font-size:var(--text-2xl);
@@ -890,7 +823,7 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   <span class="starburst" style="top:10px;right:4%;transform:rotate(-8deg);" aria-hidden="true"></span>
   <div class="container">
     <h2 class="section-title">WHAT WE DO</h2>
-    <p class="services-sub">Tap a part of the car to see what we do there.</p>
+    <p class="services-sub">Tap the car, or pick a part below.</p>
 
     <div class="car-explorer">
       <div class="car-stage">
@@ -923,102 +856,83 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
             <line x1="200" y1="57" x2="200" y2="92" stroke="#000" stroke-width="3"/>
             <ellipse cx="348" cy="108" rx="9" ry="7" fill="#fff8d6" stroke="#000" stroke-width="2.5"/>
             <rect x="40" y="128" width="320" height="6" fill="#000" opacity=".15"/>
+            <rect class="car-hit" data-target="interior" x="122" y="48" width="156" height="50" fill="transparent" aria-label="Interior services"/>
+            <rect class="car-hit is-active" data-target="exterior" x="40" y="98" width="240" height="47" fill="transparent" aria-label="Exterior services"/>
+            <rect class="car-hit" data-target="addons" x="280" y="48" width="80" height="60" fill="transparent" aria-label="Add-on services"/>
           </g>
         </svg>
-        <button type="button" class="car-pin pin-interior" data-target="interior" aria-label="Interior services">
-          <span class="pin-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#0D1B2A" stroke-width="2.3"/><circle cx="12" cy="12" r="2.4" fill="#0D1B2A"/><path stroke="#0D1B2A" stroke-width="2.3" stroke-linecap="round" d="M12 5.3v4M7.3 14.8l3.2-2M16.7 14.8l-3.2-2"/></svg></span>
-          <span class="pin-label">Interior</span>
-        </button>
-        <button type="button" class="car-pin pin-exterior is-active" data-target="exterior" aria-label="Exterior services">
-          <span class="pin-dot"><svg viewBox="0 0 24 24"><path fill="#0D1B2A" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/><circle cx="7" cy="17" r="1.4" fill="#F9CC21"/><circle cx="17" cy="17" r="1.4" fill="#F9CC21"/></svg></span>
-          <span class="pin-label">Exterior</span>
-        </button>
-        <button type="button" class="car-pin pin-addons" data-target="addons" aria-label="Add-on services">
-          <span class="pin-dot"><svg viewBox="0 0 40 40"><polygon points="20,2 24.4,16 38.8,16 27.2,24.8 31.6,38.4 20,30 8.4,38.4 12.8,24.8 1.2,16 15.6,16" fill="#0D1B2A"/></svg></span>
-          <span class="pin-label">Add-Ons</span>
-        </button>
       </div>
     </div>
 
-    <div class="cat-chip-row">
-      <button type="button" class="cat-chip" data-target="combo" aria-label="Combo and full detail packages">
-        <svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2l7.5 2.8v5.4c0 4.8-3.2 8.9-7.5 10.6C7.7 19.1 4.5 15 4.5 10.2V4.8L12 2z"/><path fill="none" stroke="#0D1B2A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.3l2.3 2.3 4.5-4.8"/></svg>
+    <div class="zone-switch" role="tablist">
+      <button type="button" class="zone-btn is-active" data-target="exterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/></svg>
+        Exterior
+      </button>
+      <button type="button" class="zone-btn" data-target="interior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/><path stroke="currentColor" stroke-width="2.3" stroke-linecap="round" d="M12 5.3v4M7.3 14.8l3.2-2M16.7 14.8l-3.2-2"/></svg>
+        Interior
+      </button>
+      <button type="button" class="zone-btn" data-target="addons">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,2 24.4,16 38.8,16 27.2,24.8 31.6,38.4 20,30 8.4,38.4 12.8,24.8 1.2,16 15.6,16" fill="currentColor"/></svg>
+        Add-Ons
+      </button>
+      <button type="button" class="zone-btn" data-target="combo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l7.5 2.8v5.4c0 4.8-3.2 8.9-7.5 10.6C7.7 19.1 4.5 15 4.5 10.2V4.8L12 2z"/></svg>
         Combo &amp; Full Detail
       </button>
-      <button type="button" class="cat-chip" data-target="moto" aria-label="Motorbike and jet ski detailing">
-        <svg viewBox="0 0 24 24"><circle cx="5" cy="17" r="3" fill="none" stroke="#fff" stroke-width="2"/><circle cx="19" cy="17" r="3" fill="none" stroke="#fff" stroke-width="2"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 17 L9 10 L15 10 L15 17 M9 10 L11 6 L16 6 M15 13 L19 13"/></svg>
+      <button type="button" class="zone-btn" data-target="moto">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 17 L9 10 L15 10 L15 17 M9 10 L11 6 L16 6 M15 13 L19 13"/></svg>
         Moto &amp; Jet Ski
       </button>
     </div>
 
-    <div class="service-panel" data-panel="interior" role="tabpanel">
-      <div class="service-card feature-row">
-        <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#0D1B2A" stroke-width="2.3"/><circle cx="12" cy="12" r="2.4" fill="#0D1B2A"/><path stroke="#0D1B2A" stroke-width="2.3" stroke-linecap="round" d="M12 5.3v4M7.3 14.8l3.2-2M16.7 14.8l-3.2-2"/></svg></span>
-        <h4>Interior Wash Detailed</h4>
-      </div>
-    </div>
-
-    <div class="service-panel is-active" data-panel="exterior" role="tabpanel">
-      <div class="service-card feature-row">
-        <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="#0D1B2A" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/><circle cx="7" cy="17" r="1.4" fill="#F9CC21"/><circle cx="17" cy="17" r="1.4" fill="#F9CC21"/></svg></span>
-        <h4>Exterior Wash Detailed</h4>
-      </div>
-      <div class="polish-ladder">
-        <div class="service-card polish-step">
-          <span class="step-num">1</span>
-          <h4>1-Step Polish</h4>
-        </div>
-        <span class="step-arrow" aria-hidden="true">&rarr;</span>
-        <div class="service-card polish-step is-smart">
-          <span class="badge badge-blue">SMART PICK</span>
-          <span class="step-num">2</span>
-          <h4>2-Step Polish</h4>
-        </div>
-        <span class="step-arrow" aria-hidden="true">&rarr;</span>
-        <div class="service-card polish-step">
-          <span class="step-num">3</span>
-          <h4>3-Step Polish</h4>
-        </div>
-      </div>
+    <div class="service-panel is-active" data-panel="exterior">
+      <ul class="service-list">
+        <li>Exterior Wash Detailed</li>
+        <li>1-Step Polish</li>
+        <li>2-Step Polish <span class="tag tag-blue">Smart Pick</span></li>
+        <li>3-Step Polish</li>
+      </ul>
       <div class="premium-banner">
         <span class="badge badge-yellow">PREMIUM</span>
         <h3>Ceramic Coating Package</h3>
       </div>
     </div>
 
-    <div class="service-panel" data-panel="addons" role="tabpanel">
-      <div class="patch-grid">
-        <div class="service-card patch"><h4>Engine Bay</h4></div>
-        <div class="service-card patch"><h4>Headlight Restoration</h4></div>
-      </div>
+    <div class="service-panel" data-panel="interior">
+      <ul class="service-list">
+        <li>Interior Wash Detailed</li>
+      </ul>
     </div>
 
-    <div class="service-panel" data-panel="combo" role="tabpanel">
-      <div class="service-grid">
-        <div class="service-card">
-          <span class="badge badge-blue">BEST VALUE</span>
-          <h4>Exterior + Interior Combo</h4>
-        </div>
-        <div class="service-card">
-          <span class="badge badge-red">POPULAR</span>
-          <h4>Full Detail</h4>
-        </div>
-      </div>
+    <div class="service-panel" data-panel="addons">
+      <ul class="service-list">
+        <li>Engine Bay</li>
+        <li>Headlight Restoration</li>
+      </ul>
     </div>
 
-    <div class="service-panel" data-panel="moto" role="tabpanel">
-      <div class="service-grid cols-fixed-2">
-        <div class="service-card with-list">
-          <h4>Motorbike Detailing</h4>
-          <ul class="price-list">
+    <div class="service-panel" data-panel="combo">
+      <ul class="service-list">
+        <li>Exterior + Interior Combo <span class="tag tag-blue">Best Value</span></li>
+        <li>Full Detail <span class="tag tag-red">Popular</span></li>
+      </ul>
+    </div>
+
+    <div class="service-panel" data-panel="moto">
+      <div class="moto-split">
+        <div>
+          <h4 class="list-heading">Motorbike Detailing</h4>
+          <ul class="service-list">
             <li>Basic Wash</li>
             <li>Full Detail</li>
             <li>Engine Degreasing</li>
           </ul>
         </div>
-        <div class="service-card with-list">
-          <h4>Jet Ski Detailing</h4>
-          <ul class="price-list">
+        <div>
+          <h4 class="list-heading">Jet Ski Detailing</h4>
+          <ul class="service-list">
             <li>Basic Wash</li>
             <li>Full Detail</li>
             <li>1-Step Polish</li>
@@ -1240,14 +1154,14 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   });
 
   /* ---- Services car explorer (pins + category chips) ---- */
-  var serviceTriggers = document.querySelectorAll('.car-pin, .cat-chip');
+  var serviceTriggers = document.querySelectorAll('.zone-btn, .car-hit');
   var servicePanels = document.querySelectorAll('.service-panel');
   serviceTriggers.forEach(function(trigger){
     trigger.addEventListener('click', function(){
-      serviceTriggers.forEach(function(t){ t.classList.remove('is-active'); });
+      var targetName = trigger.dataset.target;
+      serviceTriggers.forEach(function(t){ t.classList.toggle('is-active', t.dataset.target === targetName); });
       servicePanels.forEach(function(p){ p.classList.remove('is-active'); });
-      trigger.classList.add('is-active');
-      var target = document.querySelector('.service-panel[data-panel="'+trigger.dataset.target+'"]');
+      var target = document.querySelector('.service-panel[data-panel="'+targetName+'"]');
       if(target){
         target.classList.add('is-active');
         target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'nearest'});
