@@ -540,6 +540,24 @@ section[id]{scroll-margin-top:var(--header-h);}
   -webkit-text-stroke:2px #000;paint-order:stroke fill;
 }
 
+/* ---------- Shop preview ---------- */
+.shop-preview{background-color:var(--navy);}
+.preview-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:center;gap:34px;margin:8px 0 36px;}
+.preview-bottle{
+  position:relative;width:140px;max-width:38vw;
+  filter:drop-shadow(0 12px 8px rgba(0,0,0,.5));
+  -webkit-mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
+  mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
+  transition:transform .2s ease;
+}
+.preview-bottle img{display:block;width:100%;height:auto;filter:saturate(1.2) contrast(1.1);}
+.preview-bottle.tilt-1{transform:rotate(-3deg);}
+.preview-bottle.tilt-2{transform:rotate(2deg);}
+.preview-bottle.tilt-3{transform:rotate(-2deg);}
+@media (hover:hover){
+  .preview-bottle:hover{transform:scale(1.05) rotate(0deg);}
+}
+
 /* ---------- About ---------- */
 .about{background-color:var(--blue);}
 .about-text{max-width:700px;margin:0 auto 32px;text-align:center;color:var(--navy);font-weight:600;font-size:var(--text-base);line-height:1.7;text-shadow:0 1px 0 rgba(255,255,255,.55),0 0 10px rgba(255,255,255,.4);}
@@ -563,6 +581,25 @@ section[id]{scroll-margin-top:var(--header-h);}
 .team-card .info{padding:12px;}
 .team-card .name{font-family:'Bangers',cursive;color:var(--yellow);font-size:var(--text-md);}
 .team-card .role{font-size:var(--text-xs);color:#a9b8c9;margin-top:2px;}
+
+/* ---------- Brand materials ---------- */
+.materials{background-color:var(--navy-light);text-align:center;}
+.materials-collage{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:26px;margin:28px 0 30px;}
+.material-card{
+  width:230px;max-width:78vw;height:auto;object-fit:cover;
+  border:4px solid #000;border-radius:14px;
+  box-shadow:6px 6px 0 #000;
+  transition:transform .2s ease;
+}
+.tilt-a{transform:rotate(-4deg);}
+.tilt-b{transform:rotate(3deg);}
+.tilt-c{transform:rotate(-2deg);}
+@media (hover:hover){
+  .material-card:hover{transform:scale(1.04) rotate(0deg);}
+}
+.loyalty-blurb{max-width:480px;margin:0 auto;color:#dfe6ef;font-size:var(--text-base);line-height:1.6;}
+.loyalty-blurb strong{color:var(--yellow);}
+.loyalty-blurb a{color:var(--yellow);font-weight:700;border-bottom:1px solid rgba(249,204,33,.5);}
 
 /* ---------- Coverage ---------- */
 .coverage{background-color:var(--navy-light);text-align:center;}
@@ -951,6 +988,35 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   <div class="reveal-blade"></div>
 </section>
 
+<div class="road-band" aria-hidden="true">
+  <span class="speed-line sl1"></span>
+  <span class="speed-line sl2"></span>
+  <span class="speed-line sl3"></span>
+  <span class="suds s1"></span>
+  <span class="suds s2"></span>
+  <span class="suds s3"></span>
+  <span class="suds s4"></span>
+</div>
+
+<!-- SHOP PREVIEW -->
+<section class="section shop-preview halftone-dark reveal-wrap" id="shop-preview">
+  <span class="starburst sm" style="top:16px;left:5%;transform:rotate(-10deg);" aria-hidden="true"></span>
+  <div class="container">
+    <h2 class="section-title">THE WOW SHOP</h2>
+    <p class="services-sub">Like how we care for your car? Use what we use.</p>
+    <div class="preview-grid">
+      <div class="preview-bottle tilt-1"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy"></div>
+      <div class="preview-bottle tilt-2"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy"></div>
+      <div class="preview-bottle tilt-3"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy"></div>
+    </div>
+    <div class="services-cta">
+      <a class="btn btn-primary" href="shop.html">Shop All Products</a>
+    </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
 <!-- ABOUT -->
 <section class="section about halftone-dark reveal-wrap" id="about">
   <div class="container">
@@ -976,6 +1042,33 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
         </div>
       </div>
     </div>
+  </div>
+  <div class="reveal-overlay"></div>
+  <div class="reveal-blade"></div>
+</section>
+
+<div class="road-band" aria-hidden="true">
+  <span class="speed-line sl1"></span>
+  <span class="speed-line sl2"></span>
+  <span class="speed-line sl3"></span>
+  <span class="suds s1"></span>
+  <span class="suds s2"></span>
+  <span class="suds s3"></span>
+  <span class="suds s4"></span>
+</div>
+
+<!-- BRAND MATERIALS -->
+<section class="section materials halftone reveal-wrap" id="materials">
+  <span class="starburst" style="top:14px;right:6%;transform:rotate(8deg);" aria-hidden="true"></span>
+  <div class="container">
+    <h2 class="section-title">THE REAL DEAL</h2>
+    <p class="services-sub">Loyalty cards, crew merch, and the gear we actually use.</p>
+    <div class="materials-collage">
+      <img class="material-card tilt-a" src="images/materials/loyalty-front.jpg" alt="WOW loyalty stamp card — 6 stamps earns 1 free wash" loading="lazy">
+      <img class="material-card tilt-b" src="images/materials/tshirt-back.jpg" alt="WOW crew t-shirt design, back print" loading="lazy">
+      <img class="material-card tilt-c" src="images/materials/floormat.jpg" alt="WOW branded disposable floor mat" loading="lazy">
+    </div>
+    <p class="loyalty-blurb">Every wash earns a stamp. <strong>6 stamps = 1 free wash.</strong> Join the crew on <a href="https://instagram.com/wowdetailing.bh" target="_blank" rel="noopener">@wowdetailing.bh</a>.</p>
   </div>
   <div class="reveal-overlay"></div>
   <div class="reveal-blade"></div>
