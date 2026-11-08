@@ -262,7 +262,7 @@ section[id]{scroll-margin-top:var(--header-h);}
   clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
 }
 
-/* ---------- Products: illustrated pop bottles (no boxes) ---------- */
+/* ---------- Products: real bottles, sticker-collectible treatment (no boxes) ---------- */
 .shop-products{background-color:var(--navy-light);}
 .product-grid{display:grid;grid-template-columns:1fr;gap:46px;}
 @media (min-width:700px){.product-grid{grid-template-columns:repeat(3,1fr);gap:28px;}}
@@ -270,18 +270,34 @@ section[id]{scroll-margin-top:var(--header-h);}
   position:relative;
   display:flex;flex-direction:column;align-items:center;text-align:center;
 }
-.product-card:nth-child(1) .bottle-illust{animation-delay:0s;}
-.product-card:nth-child(2) .bottle-illust{animation-delay:.25s;}
-.product-card:nth-child(3) .bottle-illust{animation-delay:.5s;}
-.bottle-illust{
-  width:100%;max-width:176px;
-  filter:drop-shadow(0 16px 10px rgba(0,0,0,.5));
+.bottle-sticker{position:relative;width:100%;max-width:168px;}
+.tilt-1{transform:rotate(-3deg);}
+.tilt-2{transform:rotate(2deg);}
+.tilt-3{transform:rotate(-2deg);}
+.product-card:nth-child(1) .bottle-photo{animation-delay:0s;}
+.product-card:nth-child(2) .bottle-photo{animation-delay:.25s;}
+.product-card:nth-child(3) .bottle-photo{animation-delay:.5s;}
+.bottle-photo{
+  position:relative;
+  filter:drop-shadow(0 14px 10px rgba(0,0,0,.5));
   animation:bottle-float 3.8s ease-in-out infinite;
+  -webkit-mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
+  mask-image:radial-gradient(ellipse 78% 94% at 50% 50%,#000 60%,transparent 95%);
 }
-.bottle-svg{display:block;width:100%;height:auto;overflow:visible;}
-.bottle-gloss{
-  transform-box:fill-box;transform-origin:center;
+.bottle-photo img{display:block;width:100%;height:auto;filter:saturate(1.2) contrast(1.1);}
+.bottle-photo::after{
+  content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.6) 45%,transparent 70%);
+  transform:skewX(-20deg);
   animation:bottle-gloss-sweep 3.8s ease-in-out infinite;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.sticker-badge{
+  position:absolute;top:-8px;right:-10px;width:44px;height:auto;
+  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.4));
+  transform:rotate(14deg);
+  pointer-events:none;
 }
 @keyframes bottle-float{
   0%,100%{transform:translateY(0) rotate(-2deg);}
@@ -291,8 +307,8 @@ section[id]{scroll-margin-top:var(--header-h);}
   0%,15%{transform:translateX(-140%);}
   65%,100%{transform:translateX(240%);}
 }
-.reduce-motion .bottle-illust{animation:none;}
-.reduce-motion .bottle-gloss{display:none;}
+.reduce-motion .bottle-photo{animation:none;}
+.reduce-motion .bottle-photo::after{display:none;}
 .product-info{margin-top:14px;flex:1;display:flex;flex-direction:column;align-items:center;}
 .product-info h4{font-size:var(--text-md);font-family:'Inter',sans-serif;font-weight:800;color:var(--white);}
 .product-info h4 .unit{
@@ -592,31 +608,9 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     <div class="product-grid">
 
       <div class="product-card" data-id="tireshine" data-name="Tire Shine" data-price="TBD">
-        <div class="bottle-illust">
-          <svg class="bottle-svg" viewBox="0 0 140 290" aria-hidden="true">
-            <defs><clipPath id="clip-tireshine"><rect x="16" y="54" width="108" height="206" rx="22"/></clipPath></defs>
-            <rect x="50" y="6" width="40" height="26" rx="8" fill="#17202b" stroke="#000" stroke-width="4"/>
-            <line x1="58" y1="12" x2="58" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="66" y1="12" x2="66" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="74" y1="12" x2="74" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="82" y1="12" x2="82" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <path d="M58,30 L82,30 L96,56 L44,56 Z" fill="#F9CC21" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
-            <rect x="16" y="54" width="108" height="206" rx="22" fill="#F9CC21" stroke="#000" stroke-width="4"/>
-            <g clip-path="url(#clip-tireshine)">
-              <rect x="30" y="60" width="22" height="200" rx="11" fill="#fff" opacity=".32"/>
-              <rect x="100" y="60" width="16" height="200" rx="8" fill="#000" opacity=".16"/>
-              <rect class="bottle-gloss" x="-20" y="50" width="26" height="220" fill="#fff" opacity=".55" transform="skewX(-18)"/>
-            </g>
-            <image href="images/wow-logo-cutout.webp" x="27" y="68" width="86" height="57.2" preserveAspectRatio="xMidYMid meet"/>
-            <text x="70" y="150" font-family="Bangers,cursive" font-size="22" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">TIRE</text>
-            <text x="70" y="175" font-family="Bangers,cursive" font-size="22" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">SHINE</text>
-            <circle cx="70" cy="212" r="24" fill="#0D1B2A" stroke="#000" stroke-width="3"/>
-            <circle cx="70" cy="212" r="14" fill="none" stroke="#fff" stroke-width="7"/>
-            <circle cx="70" cy="212" r="4" fill="#fff"/>
-            <circle cx="70" cy="212" r="14" fill="none" stroke="#0D1B2A" stroke-width="1.5" stroke-dasharray="2 4.3"/>
-            <rect x="42" y="242" width="56" height="18" rx="4" fill="#7a4a1f" stroke="#000" stroke-width="2"/>
-            <text x="70" y="255" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff" text-anchor="middle">500 ML</text>
-          </svg>
+        <div class="bottle-sticker tilt-1">
+          <div class="bottle-photo"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy"></div>
+          <img class="sticker-badge" src="images/wow-logo-cutout.webp" alt="" aria-hidden="true" loading="lazy">
         </div>
         <div class="product-info">
           <h4>Tire Shine<span class="unit">500ml</span></h4>
@@ -628,31 +622,9 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       </div>
 
       <div class="product-card" data-id="waxshampoo" data-name="Wax Shampoo" data-price="TBD">
-        <div class="bottle-illust">
-          <svg class="bottle-svg" viewBox="0 0 140 290" aria-hidden="true">
-            <defs><clipPath id="clip-waxshampoo"><rect x="16" y="54" width="108" height="206" rx="22"/></clipPath></defs>
-            <rect x="50" y="6" width="40" height="26" rx="8" fill="#17202b" stroke="#000" stroke-width="4"/>
-            <line x1="58" y1="12" x2="58" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="66" y1="12" x2="66" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="74" y1="12" x2="74" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="82" y1="12" x2="82" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <path d="M58,30 L82,30 L96,56 L44,56 Z" fill="#29ABE2" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
-            <rect x="16" y="54" width="108" height="206" rx="22" fill="#29ABE2" stroke="#000" stroke-width="4"/>
-            <g clip-path="url(#clip-waxshampoo)">
-              <rect x="30" y="60" width="22" height="200" rx="11" fill="#fff" opacity=".32"/>
-              <rect x="100" y="60" width="16" height="200" rx="8" fill="#000" opacity=".16"/>
-              <rect class="bottle-gloss" x="-20" y="50" width="26" height="220" fill="#fff" opacity=".55" transform="skewX(-18)"/>
-            </g>
-            <image href="images/wow-logo-cutout.webp" x="27" y="68" width="86" height="57.2" preserveAspectRatio="xMidYMid meet"/>
-            <text x="70" y="150" font-family="Bangers,cursive" font-size="20" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">WAX</text>
-            <text x="70" y="175" font-family="Bangers,cursive" font-size="20" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">SHAMPOO</text>
-            <circle cx="70" cy="212" r="24" fill="#0D1B2A" stroke="#000" stroke-width="3"/>
-            <path transform="translate(58,200) scale(1.1)" fill="#fff" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/>
-            <circle cx="65" cy="221" r="1.6" fill="#0D1B2A"/>
-            <circle cx="77" cy="221" r="1.6" fill="#0D1B2A"/>
-            <rect x="42" y="242" width="56" height="18" rx="4" fill="#7a4a1f" stroke="#000" stroke-width="2"/>
-            <text x="70" y="255" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff" text-anchor="middle">500 ML</text>
-          </svg>
+        <div class="bottle-sticker tilt-2">
+          <div class="bottle-photo"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy"></div>
+          <img class="sticker-badge" src="images/wow-logo-cutout.webp" alt="" aria-hidden="true" loading="lazy">
         </div>
         <div class="product-info">
           <h4>Wax Shampoo<span class="unit">500ml</span></h4>
@@ -664,38 +636,9 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       </div>
 
       <div class="product-card" data-id="rimcleaner" data-name="Rim Cleaner" data-price="TBD">
-        <div class="bottle-illust">
-          <svg class="bottle-svg" viewBox="0 0 140 290" aria-hidden="true">
-            <defs><clipPath id="clip-rimcleaner"><rect x="16" y="54" width="108" height="206" rx="22"/></clipPath></defs>
-            <rect x="50" y="6" width="40" height="26" rx="8" fill="#17202b" stroke="#000" stroke-width="4"/>
-            <line x1="58" y1="12" x2="58" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="66" y1="12" x2="66" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="74" y1="12" x2="74" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <line x1="82" y1="12" x2="82" y2="26" stroke="#000" stroke-width="2" opacity=".5"/>
-            <path d="M58,30 L82,30 L96,56 L44,56 Z" fill="#E4342B" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
-            <rect x="16" y="54" width="108" height="206" rx="22" fill="#E4342B" stroke="#000" stroke-width="4"/>
-            <g clip-path="url(#clip-rimcleaner)">
-              <rect x="30" y="60" width="22" height="200" rx="11" fill="#fff" opacity=".32"/>
-              <rect x="100" y="60" width="16" height="200" rx="8" fill="#000" opacity=".16"/>
-              <rect class="bottle-gloss" x="-20" y="50" width="26" height="220" fill="#fff" opacity=".55" transform="skewX(-18)"/>
-            </g>
-            <image href="images/wow-logo-cutout.webp" x="27" y="68" width="86" height="57.2" preserveAspectRatio="xMidYMid meet"/>
-            <text x="70" y="150" font-family="Bangers,cursive" font-size="22" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">RIM</text>
-            <text x="70" y="175" font-family="Bangers,cursive" font-size="22" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">CLEANER</text>
-            <circle cx="70" cy="212" r="24" fill="#0D1B2A" stroke="#000" stroke-width="3"/>
-            <circle cx="70" cy="212" r="16" fill="none" stroke="#fff" stroke-width="3"/>
-            <circle cx="70" cy="212" r="4" fill="#fff"/>
-            <line x1="70" y1="198" x2="70" y2="206" stroke="#fff" stroke-width="2.5"/>
-            <line x1="70" y1="218" x2="70" y2="226" stroke="#fff" stroke-width="2.5"/>
-            <line x1="56" y1="212" x2="64" y2="212" stroke="#fff" stroke-width="2.5"/>
-            <line x1="76" y1="212" x2="84" y2="212" stroke="#fff" stroke-width="2.5"/>
-            <line x1="60" y1="202" x2="65" y2="207" stroke="#fff" stroke-width="2.5"/>
-            <line x1="75" y1="217" x2="80" y2="222" stroke="#fff" stroke-width="2.5"/>
-            <line x1="80" y1="202" x2="75" y2="207" stroke="#fff" stroke-width="2.5"/>
-            <line x1="65" y1="217" x2="60" y2="222" stroke="#fff" stroke-width="2.5"/>
-            <rect x="42" y="242" width="56" height="18" rx="4" fill="#7a4a1f" stroke="#000" stroke-width="2"/>
-            <text x="70" y="255" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff" text-anchor="middle">500 ML</text>
-          </svg>
+        <div class="bottle-sticker tilt-3">
+          <div class="bottle-photo"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy"></div>
+          <img class="sticker-badge" src="images/wow-logo-cutout.webp" alt="" aria-hidden="true" loading="lazy">
         </div>
         <div class="product-info">
           <h4>Rim Cleaner<span class="unit">500ml</span></h4>
