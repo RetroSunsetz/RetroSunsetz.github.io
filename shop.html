@@ -176,7 +176,10 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Products: code-drawn illustrations, not photos ---------- */
 .shop-products{background-color:var(--navy-light);}
-.product-grid{display:grid;grid-template-columns:1fr;gap:56px;}
+.product-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media (max-width:699px){
+  .product-illustration{max-width:190px;margin:0 auto;}
+}
 @media (min-width:700px){.product-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
 .product-card{
   position:relative;
