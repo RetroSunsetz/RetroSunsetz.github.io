@@ -396,11 +396,11 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 .preview-grid{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:center;gap:34px;padding-bottom:18px;}
 .preview-bottle{
-  position:relative;width:140px;max-width:38vw;
+  position:relative;width:110px;max-width:30vw;
   filter:drop-shadow(0 10px 16px rgba(0,0,0,.35));
   transition:transform .35s cubic-bezier(.2,.8,.3,1);
 }
-.preview-bottle img{display:block;width:100%;height:auto;}
+.preview-bottle svg{display:block;width:100%;height:auto;overflow:visible;}
 @media (hover:hover){
   .preview-bottle:hover{transform:perspective(600px) rotateY(10deg) translateY(-4px) scale(1.03);}
 }
@@ -424,9 +424,9 @@ section[id]{scroll-margin-top:var(--header-h);}
 .crew-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .crew-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,14,23,.9) 0%,rgba(8,14,23,.5) 42%,rgba(8,14,23,0) 68%);}
 .crew-caption{position:absolute;left:0;right:0;bottom:0;padding:0 18px 16px;z-index:2;text-align:left;}
-.crew-index{display:block;font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-2xs);color:var(--yellow);opacity:.9;letter-spacing:.12em;margin-bottom:2px;}
 .crew-name{font-family:'Bangers',cursive;color:#fff;font-size:var(--text-xl);letter-spacing:1px;margin:0;}
 .crew-role{display:block;font-size:var(--text-xs);color:#dfe6ef;margin-top:1px;}
+.crew-sticker{position:absolute;top:-20px;right:-16px;width:56px;height:56px;z-index:3;filter:drop-shadow(2px 3px 3px rgba(0,0,0,.35));}
 @media (min-width:600px){
   .crew-feature{flex-direction:row;align-items:flex-start;justify-content:center;gap:30px;max-width:620px;}
   .crew-member.crew-m2{margin-top:50px;}
@@ -465,8 +465,10 @@ section[id]{scroll-margin-top:var(--header-h);}
 .coverage-sub{color:#a9b8c9;font-size:var(--text-sm);letter-spacing:.03em;margin-top:-8px;margin-bottom:4px;}
 .bahrain-map{position:relative;max-width:230px;margin:22px auto 0;}
 .bahrain-map svg{display:block;width:100%;height:auto;overflow:visible;}
-.island-shape{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.22);stroke-width:2;}
-.islet{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.22);stroke-width:1.5;}
+.island-shape{fill:rgba(255,255,255,.09);stroke:rgba(255,255,255,.3);stroke-width:2;}
+.islet{fill:rgba(255,255,255,.09);stroke:rgba(255,255,255,.3);stroke-width:1.5;}
+.islet.sm{fill:rgba(255,255,255,.22);stroke:none;}
+.causeway{stroke:rgba(255,255,255,.3);stroke-width:1.5;}
 .route-line{stroke:var(--yellow);stroke-width:2;stroke-dasharray:5 6;opacity:.6;fill:none;}
 .coverage-pulse{fill:none;stroke:var(--yellow);stroke-width:2;opacity:0;animation:coverage-pulse-ring 3s ease-out infinite;}
 .coverage-pulse.p2{animation-delay:1.5s;}
@@ -742,9 +744,72 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     <p class="services-sub">Like how we care for your car? Use what we use.</p>
     <div class="preview-ground">
       <div class="preview-grid">
-        <div class="preview-bottle"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy" width="480" height="1349"></div>
-        <div class="preview-bottle"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy" width="480" height="1440"></div>
-        <div class="preview-bottle"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy" width="480" height="1413"></div>
+        <div class="preview-bottle" role="img" aria-label="WOW Tire Shine 500ml bottle">
+          <svg viewBox="0 0 150 420">
+            <defs><clipPath id="miniClipTire"><rect x="0" y="70" width="150" height="330" rx="20"/></clipPath></defs>
+            <rect x="47" y="0" width="56" height="44" rx="6" fill="#1c1f22" stroke="#000" stroke-width="2"/>
+            <g stroke="#000" stroke-width="1.3" opacity=".45">
+              <line x1="55" y1="4" x2="55" y2="40"/><line x1="63" y1="4" x2="63" y2="40"/><line x1="71" y1="4" x2="71" y2="40"/>
+              <line x1="79" y1="4" x2="79" y2="40"/><line x1="87" y1="4" x2="87" y2="40"/><line x1="95" y1="4" x2="95" y2="40"/>
+            </g>
+            <rect x="43" y="42" width="64" height="12" rx="4" fill="#111316" stroke="#000" stroke-width="2"/>
+            <path d="M43,54 L107,54 L150,70 L0,70 Z" fill="#e0417a" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="#e0417a"/>
+            <rect x="0" y="88" width="150" height="286" fill="#F9CC21" clip-path="url(#miniClipTire)"/>
+            <rect x="12" y="86" width="13" height="278" fill="rgba(255,255,255,.18)" clip-path="url(#miniClipTire)"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="none" stroke="#000" stroke-width="3"/>
+            <polygon points="0,-30 8,-10 28,-8 12,5 18,26 0,14 -18,26 -12,5 -28,-8 -8,-10" fill="#F9CC21" stroke="#000" stroke-width="2" transform="translate(75,126) rotate(-6) scale(0.85)"/>
+            <text x="75" y="132" text-anchor="middle" font-family="Bangers,cursive" font-size="24" fill="#E4342B" stroke="#000" stroke-width="1.6" paint-order="stroke fill" transform="rotate(-4 75 126)">WOW!</text>
+            <text x="75" y="196" text-anchor="middle" font-family="Bangers,cursive" font-size="30" fill="#fff" stroke="#000" stroke-width="2.2" paint-order="stroke fill">TIRE</text>
+            <text x="75" y="230" text-anchor="middle" font-family="Bangers,cursive" font-size="30" fill="#fff" stroke="#000" stroke-width="2.2" paint-order="stroke fill">SHINE</text>
+            <rect x="45" y="346" width="60" height="18" rx="9" fill="rgba(0,0,0,.3)"/>
+            <text x="75" y="359" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="800" fill="#fff">500 ML</text>
+          </svg>
+        </div>
+        <div class="preview-bottle" role="img" aria-label="WOW Wax Shampoo 500ml bottle">
+          <svg viewBox="0 0 150 420">
+            <defs><clipPath id="miniClipWax"><rect x="0" y="70" width="150" height="330" rx="20"/></clipPath></defs>
+            <rect x="47" y="0" width="56" height="44" rx="6" fill="#1c1f22" stroke="#000" stroke-width="2"/>
+            <g stroke="#000" stroke-width="1.3" opacity=".45">
+              <line x1="55" y1="4" x2="55" y2="40"/><line x1="63" y1="4" x2="63" y2="40"/><line x1="71" y1="4" x2="71" y2="40"/>
+              <line x1="79" y1="4" x2="79" y2="40"/><line x1="87" y1="4" x2="87" y2="40"/><line x1="95" y1="4" x2="95" y2="40"/>
+            </g>
+            <rect x="43" y="42" width="64" height="12" rx="4" fill="#111316" stroke="#000" stroke-width="2"/>
+            <path d="M43,54 L107,54 L150,70 L0,70 Z" fill="#6b1f52" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="#6b1f52"/>
+            <rect x="0" y="88" width="150" height="286" fill="#29ABE2" clip-path="url(#miniClipWax)"/>
+            <rect x="12" y="86" width="13" height="278" fill="rgba(255,255,255,.18)" clip-path="url(#miniClipWax)"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="none" stroke="#000" stroke-width="3"/>
+            <polygon points="0,-30 8,-10 28,-8 12,5 18,26 0,14 -18,26 -12,5 -28,-8 -8,-10" fill="#F9CC21" stroke="#000" stroke-width="2" transform="translate(75,126) rotate(-6) scale(0.85)"/>
+            <text x="75" y="132" text-anchor="middle" font-family="Bangers,cursive" font-size="24" fill="#E4342B" stroke="#000" stroke-width="1.6" paint-order="stroke fill" transform="rotate(-4 75 126)">WOW!</text>
+            <text x="75" y="190" text-anchor="middle" font-family="Bangers,cursive" font-size="26" fill="#fff" stroke="#000" stroke-width="2.1" paint-order="stroke fill">WAX</text>
+            <text x="75" y="224" text-anchor="middle" font-family="Bangers,cursive" font-size="26" fill="#fff" stroke="#000" stroke-width="2.1" paint-order="stroke fill">SHAMPOO</text>
+            <rect x="45" y="346" width="60" height="18" rx="9" fill="rgba(0,0,0,.3)"/>
+            <text x="75" y="359" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="800" fill="#fff">500 ML</text>
+          </svg>
+        </div>
+        <div class="preview-bottle" role="img" aria-label="WOW Rim Cleaner 500ml bottle">
+          <svg viewBox="0 0 150 420">
+            <defs><clipPath id="miniClipRim"><rect x="0" y="70" width="150" height="330" rx="20"/></clipPath></defs>
+            <rect x="47" y="0" width="56" height="44" rx="6" fill="#1c1f22" stroke="#000" stroke-width="2"/>
+            <g stroke="#000" stroke-width="1.3" opacity=".45">
+              <line x1="55" y1="4" x2="55" y2="40"/><line x1="63" y1="4" x2="63" y2="40"/><line x1="71" y1="4" x2="71" y2="40"/>
+              <line x1="79" y1="4" x2="79" y2="40"/><line x1="87" y1="4" x2="87" y2="40"/><line x1="95" y1="4" x2="95" y2="40"/>
+            </g>
+            <rect x="43" y="42" width="64" height="12" rx="4" fill="#111316" stroke="#000" stroke-width="2"/>
+            <path d="M43,54 L107,54 L150,70 L0,70 Z" fill="#7a1414" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="#7a1414"/>
+            <rect x="0" y="88" width="150" height="286" fill="#E4342B" clip-path="url(#miniClipRim)"/>
+            <rect x="12" y="86" width="13" height="278" fill="rgba(255,255,255,.18)" clip-path="url(#miniClipRim)"/>
+            <rect x="0" y="70" width="150" height="330" rx="20" fill="none" stroke="#000" stroke-width="3"/>
+            <polygon points="0,-30 8,-10 28,-8 12,5 18,26 0,14 -18,26 -12,5 -28,-8 -8,-10" fill="#F9CC21" stroke="#000" stroke-width="2" transform="translate(75,126) rotate(-6) scale(0.85)"/>
+            <text x="75" y="132" text-anchor="middle" font-family="Bangers,cursive" font-size="24" fill="#E4342B" stroke="#000" stroke-width="1.6" paint-order="stroke fill" transform="rotate(-4 75 126)">WOW!</text>
+            <text x="75" y="196" text-anchor="middle" font-family="Bangers,cursive" font-size="27" fill="#fff" stroke="#000" stroke-width="2.1" paint-order="stroke fill">RIM</text>
+            <text x="75" y="230" text-anchor="middle" font-family="Bangers,cursive" font-size="27" fill="#fff" stroke="#000" stroke-width="2.1" paint-order="stroke fill">CLEANER</text>
+            <rect x="45" y="346" width="60" height="18" rx="9" fill="rgba(0,0,0,.3)"/>
+            <text x="75" y="359" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="800" fill="#fff">500 ML</text>
+          </svg>
+        </div>
       </div>
     </div>
     <div class="services-cta">
@@ -765,17 +830,19 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
           <img src="images/khaled.jpg" alt="Khaled, Founder of WOW Car Detailing" loading="lazy" width="800" height="800">
         </div>
         <div class="crew-caption">
-          <span class="crew-index">01</span>
           <h3 class="crew-name">Khaled</h3>
           <span class="crew-role">Founder</span>
         </div>
       </div>
       <div class="crew-member crew-m2">
+        <svg class="crew-sticker" viewBox="0 0 60 60" aria-hidden="true">
+          <polygon points="30,0 36,12 50,10 42,22 58,28 42,34 48,48 34,42 30,60 26,42 12,48 18,34 2,28 18,22 10,10 24,12" fill="#F9CC21" stroke="#000" stroke-width="2"/>
+          <text x="30" y="36" text-anchor="middle" font-family="Bangers,cursive" font-size="16" fill="#E4342B" stroke="#000" stroke-width="1.2" paint-order="stroke fill" transform="rotate(-6 30 30)">WOW!</text>
+        </svg>
         <div class="crew-photo">
           <img src="images/amro.jpg" alt="Amro, Shine Specialist at WOW Car Detailing" loading="lazy" width="800" height="800">
         </div>
         <div class="crew-caption">
-          <span class="crew-index">02</span>
           <h3 class="crew-name">Amro</h3>
           <span class="crew-role">Shine Specialist</span>
         </div>
@@ -832,20 +899,38 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       <svg viewBox="0 0 300 400" aria-hidden="true">
         <circle class="coverage-pulse p1" cx="150" cy="200" r="16"/>
         <circle class="coverage-pulse p2" cx="150" cy="200" r="16"/>
-        <path class="island-shape" d="M150,40 C190,38 215,70 220,110 C226,150 215,180 225,210 C235,245 220,275 195,300 C175,320 160,340 150,365 C140,340 125,320 105,300 C80,275 65,245 75,210 C85,180 74,150 80,110 C85,70 110,38 150,40 Z"/>
-        <circle class="islet" cx="192" cy="52" r="10"/>
-        <circle class="islet" cx="218" cy="226" r="7"/>
-        <circle class="islet" cx="102" cy="332" r="8"/>
-        <circle class="islet" cx="122" cy="352" r="5"/>
-        <path class="route-line" d="M150,60 Q205,120 188,200 Q172,265 150,345"/>
+
+        <!-- Main island: elongated N-S, wide Manama corner in the north, tapering south -->
+        <path class="island-shape" d="M118,58 C138,53 162,54 185,60 C200,63 205,80 200,100 C195,128 203,145 197,175 C191,212 178,232 172,262 C166,298 155,325 140,358 C135,366 129,364 126,356 C112,330 106,300 104,268 C102,238 109,218 103,188 C98,160 104,138 101,112 C99,90 104,70 118,58 Z"/>
+
+        <!-- Causeways to Muharraq -->
+        <line class="causeway" x1="193" y1="68" x2="210" y2="72"/>
+        <line class="causeway" x1="196" y1="78" x2="212" y2="82"/>
+        <!-- Muharraq island -->
+        <path class="islet" d="M220,60 C235,55 248,62 250,75 C252,88 242,98 228,100 C216,101 208,92 208,80 C208,68 212,62 220,60 Z"/>
+
+        <!-- Bridge to Sitra -->
+        <line class="causeway" x1="198" y1="178" x2="219" y2="193"/>
+        <!-- Sitra island -->
+        <path class="islet" d="M222,188 C234,184 242,193 240,206 C238,218 226,223 217,216 C210,210 211,196 222,188 Z"/>
+
+        <!-- Umm Nasan (west) -->
+        <ellipse class="islet" cx="55" cy="172" rx="9" ry="13"/>
+
+        <!-- Durrat Al Bahrain (south tip archipelago) -->
+        <circle class="islet sm" cx="134" cy="368" r="4"/>
+        <circle class="islet sm" cx="145" cy="377" r="3"/>
+        <circle class="islet sm" cx="124" cy="380" r="2.5"/>
+
+        <path class="route-line" d="M135,75 Q195,120 185,170 Q172,250 140,355"/>
         <g class="van-marker">
           <g transform="translate(-11,-6)">
-            <rect x="0" y="2" width="20" height="9" rx="2" fill="var(--yellow)" stroke="#0D1B2A" stroke-width="1.2"/>
-            <rect x="13" y="0" width="7" height="7" rx="1.5" fill="var(--yellow)" stroke="#0D1B2A" stroke-width="1.2"/>
+            <rect x="0" y="2" width="20" height="9" rx="2" fill="#F9CC21" stroke="#0D1B2A" stroke-width="1.2"/>
+            <rect x="13" y="0" width="7" height="7" rx="1.5" fill="#F9CC21" stroke="#0D1B2A" stroke-width="1.2"/>
             <circle cx="5" cy="11" r="2.4" fill="#0D1B2A"/>
             <circle cx="16" cy="11" r="2.4" fill="#0D1B2A"/>
           </g>
-          <animateMotion dur="14s" repeatCount="indefinite" rotate="auto" path="M150,60 Q205,120 188,200 Q172,265 150,345"/>
+          <animateMotion dur="14s" repeatCount="indefinite" rotate="auto" path="M135,75 Q195,120 185,170 Q172,250 140,355"/>
         </g>
       </svg>
     </div>
@@ -884,7 +969,7 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   /* ---- Bahrain coverage map: static van if motion is reduced ---- */
   if(reduceMotion){
     document.querySelectorAll('.van-marker animateMotion').forEach(function(a){ a.remove(); });
-    document.querySelectorAll('.van-marker').forEach(function(v){ v.setAttribute('transform','translate(188,200)'); });
+    document.querySelectorAll('.van-marker').forEach(function(v){ v.setAttribute('transform','translate(185,170)'); });
   }
 
   /* ---- Ripple micro-interaction on cards ---- */
