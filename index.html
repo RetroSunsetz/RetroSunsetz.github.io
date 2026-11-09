@@ -234,28 +234,33 @@ section[id]{scroll-margin-top:var(--header-h);}
   .hero-media{max-width:440px;}
 }
 
-/* ---------- Why WOW ---------- */
-.why{background-color:var(--navy);}
-.why-grid{display:grid;grid-template-columns:1fr;gap:20px;}
-@media (min-width:700px){.why-grid{grid-template-columns:repeat(3,1fr);}}
+/* ---------- Why WOW: editorial feature strip, not identical cards ---------- */
+.why{background-color:var(--navy);position:relative;overflow:hidden;}
+.why-skidmarks{position:absolute;top:0;left:50%;width:220px;transform:translateX(-50%);pointer-events:none;opacity:.5;}
+.why-grid{display:flex;flex-direction:column;max-width:780px;margin:0 auto;}
+@media (min-width:700px){.why-grid{flex-direction:row;align-items:flex-start;}}
 .why-card{
   position:relative;
-  background:var(--navy-light);
-  border-radius:14px;
-  border-top:3px solid var(--yellow);
-  padding:30px 22px;
-  text-align:center;
+  display:flex;align-items:flex-start;gap:16px;
+  text-align:left;
+  padding:20px 2px;
 }
-.why-card:nth-child(2){border-top-color:var(--red);}
-.why-card:nth-child(3){border-top-color:var(--blue);}
+.why-card:not(:last-child){border-bottom:1px solid rgba(255,255,255,.08);}
+@media (min-width:700px){
+  .why-card{flex:1;flex-direction:column;gap:14px;padding:4px 26px;}
+  .why-card:not(:last-child){border-bottom:none;}
+  .why-card:not(:first-child)::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;background:rgba(255,255,255,.1);}
+}
 .icon-badge{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--navy);
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:var(--navy-light);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 16px;
 }
-.icon-badge svg{width:28px;height:28px;}
-.why-card h3{color:var(--white);font-size:var(--text-lg);margin-bottom:8px;}
+.why-card:nth-child(1) .icon-badge{color:var(--yellow);}
+.why-card:nth-child(2) .icon-badge{color:var(--red);}
+.why-card:nth-child(3) .icon-badge{color:var(--blue);}
+.icon-badge svg{width:22px;height:22px;}
+.why-card h3{color:var(--white);font-size:var(--text-lg);margin-bottom:6px;}
 .why-card p{color:#a9b8c9;font-size:var(--text-sm);line-height:1.55;}
 
 /* ripple */
@@ -274,14 +279,39 @@ section[id]{scroll-margin-top:var(--header-h);}
 .services-sub{text-align:center;color:#a9b8c9;font-size:var(--text-sm);margin:-14px 0 20px;}
 
 /* interactive car explorer */
-.car-explorer{max-width:520px;margin:0 auto 4px;}
+.car-explorer{max-width:560px;margin:0 auto 4px;}
 .car-stage{position:relative;}
 .car-svg{display:block;width:100%;height:auto;overflow:visible;}
 .car-illust{animation:car-idle 3.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
 @keyframes car-idle{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
 .reduce-motion .car-illust{animation:none;}
-.car-hit{cursor:pointer;transition:fill .2s ease;}
-.car-hit.is-active{fill:rgba(255,255,255,.4);}
+.car-hit{cursor:pointer;fill:transparent;}
+
+/* CAD-style selection marquee around the active zone */
+.zone-glow{fill:none;stroke:var(--yellow);stroke-width:2.5;stroke-dasharray:7 5;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.zone-glow.is-active{opacity:1;animation:marching-ants 1s linear infinite;}
+@keyframes marching-ants{to{stroke-dashoffset:-24;}}
+.reduce-motion .zone-glow.is-active{animation:none;}
+
+/* leader lines + pin dots, blueprint annotation style */
+.leader-line{stroke:rgba(255,255,255,.22);stroke-width:1.5;stroke-dasharray:3 3;transition:stroke .2s ease;pointer-events:none;}
+.leader-line.is-active{stroke:var(--yellow);}
+.leader-dot{fill:rgba(255,255,255,.3);transition:fill .2s ease;pointer-events:none;}
+.leader-dot.is-active{fill:var(--yellow);animation:dot-pulse 1.6s ease-in-out infinite;}
+@keyframes dot-pulse{0%,100%{r:5;}50%{r:6.5;}}
+.reduce-motion .leader-dot.is-active{animation:none;}
+.ground-line{stroke:rgba(255,255,255,.12);stroke-width:1.5;stroke-dasharray:2 7;}
+
+/* micro-interactions: wheel spin, headlight glow, glass brighten */
+.car-wheel{transform-box:fill-box;transform-origin:center;}
+.car-wheel.spin-once{animation:wheel-spin-once .7s ease;}
+@keyframes wheel-spin-once{to{transform:rotate(360deg);}}
+.headlight-lamp{transition:fill .3s ease,filter .3s ease;}
+.headlight-lamp.is-active{fill:#fff3b0;filter:drop-shadow(0 0 5px rgba(249,204,33,.9)) drop-shadow(0 0 12px rgba(249,204,33,.55));}
+.windshield-glass{transition:filter .3s ease;}
+.windshield-glass.clean-pulse{animation:glass-brighten .6s ease;}
+@keyframes glass-brighten{30%{filter:brightness(1.5) saturate(1.3);}}
+.reduce-motion .car-wheel.spin-once,.reduce-motion .windshield-glass.clean-pulse{animation:none;}
 
 /* minimal zone switch — plain underline tabs, no boxes */
 .zone-switch{
@@ -308,14 +338,22 @@ section[id]{scroll-margin-top:var(--header-h);}
 @keyframes panel-pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .reduce-motion .service-panel.is-active{animation:none;}
 
-/* minimal service rows — no card boxes */
-.service-list{list-style:none;margin:0 auto 24px;padding:0;max-width:440px;}
+/* spec-sheet service rows — numbered ledger, no card boxes */
+.service-list{list-style:none;margin:0 auto 24px;padding:0;max-width:460px;counter-reset:svc;}
 .service-list li{
+  counter-increment:svc;
+  position:relative;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:15px 2px;
-  border-bottom:1px dashed rgba(255,255,255,.18);
+  padding:15px 2px 15px 36px;
+  border-bottom:1px solid rgba(255,255,255,.08);
   font-weight:700;color:var(--white);font-size:var(--text-md);
   text-align:left;
+}
+.service-list li::before{
+  content:counter(svc,decimal-leading-zero);
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-weight:800;font-size:var(--text-2xs);letter-spacing:.05em;
+  color:var(--yellow);opacity:.55;
 }
 .service-list li:last-child{border-bottom:none;}
 .tag{font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-2xs);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;}
@@ -335,12 +373,15 @@ section[id]{scroll-margin-top:var(--header-h);}
 .badge-yellow{background:var(--yellow);color:#000;}
 .premium-banner{
   position:relative;text-align:center;
-  background:linear-gradient(135deg,var(--red) 0%,#c21f1f 70%);
-  border-radius:16px;
-  box-shadow:0 14px 30px rgba(228,52,43,.35);
-  padding:32px 24px;
+  background:radial-gradient(ellipse at 50% 35%,rgba(228,52,43,.32),rgba(228,52,43,0) 72%);
+  padding:30px 26px;
   max-width:440px;margin:0 auto;
 }
+.premium-banner .corner{position:absolute;width:18px;height:18px;border:2px solid var(--red);opacity:.85;}
+.premium-banner .corner.tl{top:0;left:0;border-right:none;border-bottom:none;border-radius:6px 0 0 0;}
+.premium-banner .corner.tr{top:0;right:0;border-left:none;border-bottom:none;border-radius:0 6px 0 0;}
+.premium-banner .corner.bl{bottom:0;left:0;border-right:none;border-top:none;border-radius:0 0 0 6px;}
+.premium-banner .corner.br{bottom:0;right:0;border-left:none;border-top:none;border-radius:0 0 6px 0;}
 .premium-banner h3{
   font-family:'Bangers',cursive;letter-spacing:1px;line-height:1.1;
   color:#fff;font-size:var(--text-2xl);
@@ -348,61 +389,88 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Shop preview ---------- */
 .shop-preview{background-color:var(--navy);}
-.preview-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:center;gap:34px;margin:8px 0 36px;}
+.preview-ground{position:relative;max-width:520px;margin:8px auto 36px;}
+.preview-ground::after{
+  content:'';position:absolute;left:8%;right:8%;bottom:8px;height:16px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.1),rgba(255,255,255,0) 75%);
+}
+.preview-grid{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:center;gap:34px;padding-bottom:18px;}
 .preview-bottle{
   position:relative;width:140px;max-width:38vw;
   filter:drop-shadow(0 10px 16px rgba(0,0,0,.35));
-  transition:transform .2s ease;
+  transition:transform .35s cubic-bezier(.2,.8,.3,1);
 }
 .preview-bottle img{display:block;width:100%;height:auto;}
 @media (hover:hover){
-  .preview-bottle:hover{transform:translateY(-4px);}
+  .preview-bottle:hover{transform:perspective(600px) rotateY(10deg) translateY(-4px) scale(1.03);}
 }
 
 /* ---------- About ---------- */
-.about{background-color:var(--blue);}
+.about{background-color:var(--blue);overflow:hidden;}
 .about .section-title{color:var(--navy);}
-.about-text{max-width:700px;margin:0 auto 32px;text-align:center;color:var(--navy);font-weight:600;font-size:var(--text-base);line-height:1.7;}
-.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:600px;margin:0 auto;}
-.team-card{
-  background:var(--navy-light);border-radius:14px;
-  overflow:hidden;text-align:center;
-}
-.team-photo{
-  position:relative;isolation:isolate;overflow:hidden;
-  aspect-ratio:1;background:var(--navy);
-  display:flex;align-items:center;justify-content:center;
-}
-.team-photo svg{width:46%;height:46%;opacity:.5;}
-.team-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.1);}
-.team-photo img[src*="khaled"]{filter:saturate(1.15) contrast(1.12) brightness(1.4);}
-.team-photo::after{content:'';position:absolute;inset:0;mix-blend-mode:color;opacity:.3;pointer-events:none;}
-.team-card:nth-child(1) .team-photo::after{background:var(--blue);}
-.team-card:nth-child(2) .team-photo::after{background:var(--red-deep);}
-.team-card .info{padding:12px;}
-.team-card .name{font-family:'Bangers',cursive;color:var(--yellow);font-size:var(--text-md);}
-.team-card .role{font-size:var(--text-xs);color:#a9b8c9;margin-top:2px;}
+.about-text{max-width:620px;margin:0 auto 20px;text-align:center;color:var(--navy);font-weight:600;font-size:var(--text-base);line-height:1.7;}
 
-/* ---------- Brand materials ---------- */
-.materials{background-color:var(--navy-light);text-align:center;}
-.materials-collage{display:flex;flex-direction:column;gap:16px;max-width:620px;margin:28px auto 30px;text-align:left;}
-.material-card{display:block;}
-.material-hero{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:16px;}
-.material-support{display:flex;gap:16px;}
-.material-support .material-card{flex:1;width:0;height:auto;aspect-ratio:1;object-fit:cover;border-radius:14px;}
-.loyalty-blurb{max-width:480px;margin:0 auto;color:#dfe6ef;font-size:var(--text-base);line-height:1.6;}
+/* editorial crew feature — asymmetric, photo-led, oversized type */
+.crew-feature{position:relative;max-width:560px;margin:56px auto 0;display:flex;flex-direction:column;align-items:center;gap:28px;}
+.crew-watermark{
+  position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+  font-family:'Bangers',cursive;font-size:clamp(3.4rem,20vw,7rem);
+  color:transparent;-webkit-text-stroke:1.5px rgba(13,27,42,.14);
+  letter-spacing:3px;z-index:0;pointer-events:none;white-space:nowrap;
+  line-height:1;
+}
+.crew-member{position:relative;z-index:1;width:100%;max-width:240px;}
+.crew-photo{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 22px 40px rgba(13,27,42,.3);}
+.crew-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.crew-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,14,23,.9) 0%,rgba(8,14,23,.5) 42%,rgba(8,14,23,0) 68%);}
+.crew-caption{position:absolute;left:0;right:0;bottom:0;padding:0 18px 16px;z-index:2;text-align:left;}
+.crew-index{display:block;font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-2xs);color:var(--yellow);opacity:.9;letter-spacing:.12em;margin-bottom:2px;}
+.crew-name{font-family:'Bangers',cursive;color:#fff;font-size:var(--text-xl);letter-spacing:1px;margin:0;}
+.crew-role{display:block;font-size:var(--text-xs);color:#dfe6ef;margin-top:1px;}
+@media (min-width:600px){
+  .crew-feature{flex-direction:row;align-items:flex-start;justify-content:center;gap:30px;max-width:620px;}
+  .crew-member.crew-m2{margin-top:50px;}
+}
+
+/* ---------- Brand materials: "the world of WOW" composed scene ---------- */
+.materials{background-color:var(--navy-light);text-align:center;overflow:hidden;}
+.world-scene{position:relative;max-width:620px;margin:30px auto 10px;}
+.world-skyline{display:block;width:100%;height:46px;}
+.world-cluster{position:relative;height:230px;margin-top:-6px;}
+@media (min-width:560px){.world-cluster{height:290px;}}
+.world-item{position:absolute;display:block;border-radius:12px;box-shadow:0 16px 30px rgba(0,0,0,.4);object-fit:cover;}
+.world-loyalty{left:50%;top:0;width:58%;aspect-ratio:16/10;transform:translateX(-54%) rotate(-3deg);z-index:2;}
+.world-tshirt{left:6%;top:34%;width:32%;aspect-ratio:1;transform:rotate(-8deg);z-index:1;}
+.world-floormat{right:4%;top:40%;width:28%;aspect-ratio:1;transform:rotate(7deg);z-index:1;}
+.world-bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,rgba(255,255,255,.3) 60%,rgba(255,255,255,0) 100%);opacity:.8;z-index:3;}
+.world-bubble.b1{width:14px;height:14px;left:28%;top:-6px;animation:world-bubble-rise 5s ease-in-out infinite;}
+.world-bubble.b2{width:9px;height:9px;left:66%;top:6%;animation:world-bubble-rise 4.2s ease-in-out .7s infinite;}
+.world-bubble.b3{width:11px;height:11px;left:74%;top:-2px;animation:world-bubble-rise 4.8s ease-in-out 1.4s infinite;}
+@keyframes world-bubble-rise{0%{transform:translateY(0);opacity:0;}20%{opacity:.8;}100%{transform:translateY(-36px);opacity:0;}}
+.reduce-motion .world-bubble{animation:none;opacity:.4;}
+
+.world-road{position:relative;height:34px;margin-top:6px;overflow:hidden;}
+.road-line{position:absolute;left:0;right:0;top:50%;border-top:2px dashed rgba(255,255,255,.15);}
+.road-track{position:absolute;top:-2px;left:-10%;animation:drive-across 11s linear infinite;}
+.road-car-icon{width:46px;height:auto;filter:drop-shadow(2px 3px 4px rgba(0,0,0,.35));}
+@keyframes drive-across{from{left:-10%;}to{left:110%;}}
+.reduce-motion .road-track{animation:none;left:42%;}
+
+.loyalty-blurb{max-width:480px;margin:10px auto 0;color:#dfe6ef;font-size:var(--text-base);line-height:1.6;}
 .loyalty-blurb strong{color:var(--yellow);}
 .loyalty-blurb a{color:var(--yellow);font-weight:700;border-bottom:1px solid rgba(249,204,33,.5);}
 
 /* ---------- Coverage ---------- */
 .coverage{background-color:var(--navy-light);text-align:center;}
-.area-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px;margin:0 auto 28px;}
-.area-pill{
-  font-weight:700;font-size:var(--text-xs);
-  padding:8px 16px;border-radius:30px;
-  background:rgba(255,255,255,.08);
-  color:var(--white);
-}
+.coverage-sub{color:#a9b8c9;font-size:var(--text-sm);letter-spacing:.03em;margin-top:-8px;margin-bottom:4px;}
+.bahrain-map{position:relative;max-width:230px;margin:22px auto 0;}
+.bahrain-map svg{display:block;width:100%;height:auto;overflow:visible;}
+.island-shape{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.22);stroke-width:2;}
+.islet{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.22);stroke-width:1.5;}
+.route-line{stroke:var(--yellow);stroke-width:2;stroke-dasharray:5 6;opacity:.6;fill:none;}
+.coverage-pulse{fill:none;stroke:var(--yellow);stroke-width:2;opacity:0;animation:coverage-pulse-ring 3s ease-out infinite;}
+.coverage-pulse.p2{animation-delay:1.5s;}
+@keyframes coverage-pulse-ring{0%{r:16;opacity:.5;}100%{r:140;opacity:0;}}
 
 /* ---------- Section divider ---------- */
 .section-gap{height:4px;background:rgba(255,255,255,.06);}
@@ -489,23 +557,33 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
 
 <!-- WHY WOW -->
 <section class="section why" id="why">
+  <svg class="why-skidmarks" viewBox="0 0 220 60" aria-hidden="true">
+    <path d="M10,0 C14,16 8,30 20,45" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" opacity=".35"/>
+    <path d="M70,0 C66,18 74,32 62,48" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" opacity=".35"/>
+  </svg>
   <div class="container">
     <h2 class="section-title">WHY WOW</h2>
     <div class="why-grid">
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.8A2.8 2.8 0 1 1 12 6.2a2.8 2.8 0 0 1 0 5.6z"/></svg></div>
-        <h3>We Come To You</h3>
-        <p>We show up at your door, fully equipped — no driving around, no waiting rooms.</p>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.8A2.8 2.8 0 1 1 12 6.2a2.8 2.8 0 0 1 0 5.6z"/></svg></div>
+        <div>
+          <h3>We Come To You</h3>
+          <p>We show up at your door, fully equipped — no driving around, no waiting rooms.</p>
+        </div>
       </div>
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2l7.5 2.8v5.4c0 4.8-3.2 8.9-7.5 10.6C7.7 19.1 4.5 15 4.5 10.2V4.8L12 2z"/><path fill="none" stroke="#0D1B2A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.3l2.3 2.3 4.5-4.8"/></svg></div>
-        <h3>Professional Grade</h3>
-        <p>Trained operators using premium chemicals and equipment on every single job.</p>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l7.5 2.8v5.4c0 4.8-3.2 8.9-7.5 10.6C7.7 19.1 4.5 15 4.5 10.2V4.8L12 2z"/><path fill="none" stroke="#0D1B2A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.3l2.3 2.3 4.5-4.8"/></svg></div>
+        <div>
+          <h3>Professional Grade</h3>
+          <p>Trained operators using premium chemicals and equipment on every single job.</p>
+        </div>
       </div>
       <div class="why-card">
-        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="#fff" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/><circle cx="7" cy="17" r="1.4" fill="#0D1B2A"/><circle cx="17" cy="17" r="1.4" fill="#0D1B2A"/></svg></div>
-        <h3>Every Vehicle</h3>
-        <p>Cars, SUVs, motorbikes, jet skis — if it needs to shine, we detail it.</p>
+        <div class="icon-badge"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 10.5L6 6.3A2 2 0 0 1 7.9 5h8.2a2 2 0 0 1 1.9 1.3l1.5 4.2H21a1 1 0 0 1 1 1v3.8a1 1 0 0 1-1 1h-.6a2.2 2.2 0 0 1-4.3.5H8a2.2 2.2 0 0 1-4.3-.5H3a1 1 0 0 1-1-1v-3.8a1 1 0 0 1 1-1h1.5z"/><circle cx="7" cy="17" r="1.4" fill="#0D1B2A"/><circle cx="17" cy="17" r="1.4" fill="#0D1B2A"/></svg></div>
+        <div>
+          <h3>Every Vehicle</h3>
+          <p>Cars, SUVs, motorbikes, jet skis — if it needs to shine, we detail it.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -543,14 +621,27 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
               <rect x="40" y="48" width="70" height="100" fill="#fff" opacity=".22"/>
               <rect x="305" y="48" width="40" height="100" fill="#000" opacity=".14"/>
             </g>
-            <path d="M133,93 Q145,58 166,55 L234,55 Q255,58 267,93 Z" fill="#cfe9fb" stroke="#000" stroke-width="3"/>
+            <path class="windshield-glass" d="M133,93 Q145,58 166,55 L234,55 Q255,58 267,93 Z" fill="#cfe9fb" stroke="#000" stroke-width="3"/>
             <line x1="200" y1="57" x2="200" y2="92" stroke="#000" stroke-width="3"/>
-            <ellipse cx="348" cy="108" rx="9" ry="7" fill="#fff8d6" stroke="#000" stroke-width="2.5"/>
+            <ellipse class="headlight-lamp" data-zone="addons" cx="348" cy="108" rx="9" ry="7" fill="#fff8d6" stroke="#000" stroke-width="2.5"/>
             <rect x="40" y="128" width="320" height="6" fill="#000" opacity=".15"/>
             <rect class="car-hit" data-target="interior" x="122" y="48" width="156" height="50" fill="transparent" aria-label="Interior services"/>
             <rect class="car-hit is-active" data-target="exterior" x="40" y="98" width="240" height="47" fill="transparent" aria-label="Exterior services"/>
             <rect class="car-hit" data-target="addons" x="280" y="48" width="80" height="60" fill="transparent" aria-label="Add-on services"/>
           </g>
+
+          <line class="ground-line" x1="10" y1="186" x2="390" y2="186"/>
+
+          <rect class="zone-glow" data-zone="interior" x="118" y="44" width="164" height="58" rx="8"/>
+          <rect class="zone-glow is-active" data-zone="exterior" x="36" y="94" width="248" height="55" rx="10"/>
+          <rect class="zone-glow" data-zone="addons" x="276" y="44" width="88" height="68" rx="8"/>
+
+          <line class="leader-line" data-zone="interior" x1="200" y1="48" x2="200" y2="15"/>
+          <circle class="leader-dot" data-zone="interior" cx="200" cy="15" r="5"/>
+          <line class="leader-line is-active" data-zone="exterior" x1="40" y1="121" x2="14" y2="121"/>
+          <circle class="leader-dot is-active" data-zone="exterior" cx="14" cy="121" r="5"/>
+          <line class="leader-line" data-zone="addons" x1="360" y1="78" x2="390" y2="78"/>
+          <circle class="leader-dot" data-zone="addons" cx="390" cy="78" r="5"/>
         </svg>
       </div>
     </div>
@@ -586,6 +677,10 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
         <li>3-Step Polish</li>
       </ul>
       <div class="premium-banner">
+        <span class="corner tl" aria-hidden="true"></span>
+        <span class="corner tr" aria-hidden="true"></span>
+        <span class="corner bl" aria-hidden="true"></span>
+        <span class="corner br" aria-hidden="true"></span>
         <span class="badge badge-yellow">PREMIUM</span>
         <h3>Ceramic Coating Package</h3>
       </div>
@@ -645,10 +740,12 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   <div class="container">
     <h2 class="section-title">THE WOW SHOP</h2>
     <p class="services-sub">Like how we care for your car? Use what we use.</p>
-    <div class="preview-grid">
-      <div class="preview-bottle"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy" width="480" height="1349"></div>
-      <div class="preview-bottle"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy" width="480" height="1440"></div>
-      <div class="preview-bottle"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy" width="480" height="1413"></div>
+    <div class="preview-ground">
+      <div class="preview-grid">
+        <div class="preview-bottle"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy" width="480" height="1349"></div>
+        <div class="preview-bottle"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy" width="480" height="1440"></div>
+        <div class="preview-bottle"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy" width="480" height="1413"></div>
+      </div>
     </div>
     <div class="services-cta">
       <a class="btn btn-primary" href="shop.html">Shop All Products</a>
@@ -661,23 +758,26 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   <div class="container">
     <h2 class="section-title">THE TEAM BEHIND WOW</h2>
     <p class="about-text">WOW Car Detailing was built on one idea — your car deserves professional care without the hassle. We are a Bahrain-based mobile detailing team that brings the full service to your door. Trained, equipped, and obsessed with the details.</p>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="team-photo">
+    <div class="crew-feature">
+      <span class="crew-watermark" aria-hidden="true">CREW</span>
+      <div class="crew-member crew-m1">
+        <div class="crew-photo">
           <img src="images/khaled.jpg" alt="Khaled, Founder of WOW Car Detailing" loading="lazy" width="800" height="800">
         </div>
-        <div class="info">
-          <div class="name">Khaled</div>
-          <div class="role">Founder</div>
+        <div class="crew-caption">
+          <span class="crew-index">01</span>
+          <h3 class="crew-name">Khaled</h3>
+          <span class="crew-role">Founder</span>
         </div>
       </div>
-      <div class="team-card">
-        <div class="team-photo">
+      <div class="crew-member crew-m2">
+        <div class="crew-photo">
           <img src="images/amro.jpg" alt="Amro, Shine Specialist at WOW Car Detailing" loading="lazy" width="800" height="800">
         </div>
-        <div class="info">
-          <div class="name">Amro</div>
-          <div class="role">Shine Specialist</div>
+        <div class="crew-caption">
+          <span class="crew-index">02</span>
+          <h3 class="crew-name">Amro</h3>
+          <span class="crew-role">Shine Specialist</span>
         </div>
       </div>
     </div>
@@ -689,11 +789,34 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   <div class="container">
     <h2 class="section-title">THE REAL DEAL</h2>
     <p class="services-sub">Loyalty cards, crew merch, and the gear we actually use.</p>
-    <div class="materials-collage">
-      <img class="material-card material-hero" src="images/materials/loyalty-front.jpg" alt="WOW loyalty stamp card — 6 stamps earns 1 free wash" loading="lazy">
-      <div class="material-support">
-        <img class="material-card" src="images/materials/tshirt-back.jpg" alt="WOW crew t-shirt design, back print" loading="lazy">
-        <img class="material-card" src="images/materials/floormat.jpg" alt="WOW branded disposable floor mat" loading="lazy">
+    <div class="world-scene">
+      <svg class="world-skyline" viewBox="0 0 600 80" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <polygon points="40,80 40,30 55,30 55,80" fill="rgba(255,255,255,.06)"/>
+        <polygon points="90,80 90,15 100,8 110,15 110,80" fill="rgba(255,255,255,.06)"/>
+        <rect x="150" y="45" width="18" height="35" fill="rgba(255,255,255,.06)"/>
+        <rect x="290" y="20" width="10" height="60" fill="rgba(255,255,255,.08)"/>
+        <rect x="305" y="20" width="10" height="60" fill="rgba(255,255,255,.08)"/>
+        <line x1="295" y1="20" x2="310" y2="20" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+        <rect x="430" y="35" width="22" height="45" fill="rgba(255,255,255,.06)"/>
+        <polygon points="480,80 480,20 492,20 492,80" fill="rgba(255,255,255,.06)"/>
+      </svg>
+      <div class="world-cluster">
+        <img class="world-item world-loyalty" src="images/materials/loyalty-front.jpg" alt="WOW loyalty stamp card — 6 stamps earns 1 free wash" loading="lazy">
+        <img class="world-item world-tshirt" src="images/materials/tshirt-back.jpg" alt="WOW crew t-shirt design, back print" loading="lazy">
+        <img class="world-item world-floormat" src="images/materials/floormat.jpg" alt="WOW branded disposable floor mat" loading="lazy">
+        <span class="world-bubble b1" aria-hidden="true"></span>
+        <span class="world-bubble b2" aria-hidden="true"></span>
+        <span class="world-bubble b3" aria-hidden="true"></span>
+      </div>
+      <div class="world-road" aria-hidden="true">
+        <div class="road-line"></div>
+        <div class="road-track">
+          <svg class="road-car-icon" viewBox="0 0 64 28">
+            <path d="M4,20 Q2,20 2,17 L2,11 Q2,7 7,6 L14,5 Q17,0 22,0 L40,0 Q45,0 48,5 L55,6 Q60,7 60,11 L60,17 Q60,20 58,20 Z" fill="var(--yellow)" stroke="#0D1B2A" stroke-width="1.5"/>
+            <circle cx="14" cy="20" r="5" fill="#0D1B2A"/>
+            <circle cx="48" cy="20" r="5" fill="#0D1B2A"/>
+          </svg>
+        </div>
       </div>
     </div>
     <p class="loyalty-blurb">Every wash earns a stamp. <strong>6 stamps = 1 free wash.</strong> Join the crew on <a href="https://instagram.com/wowdetailing.bh" target="_blank" rel="noopener">@wowdetailing.bh</a>.</p>
@@ -704,19 +827,27 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
 <section class="section coverage" id="contact">
   <div class="container">
     <h2 class="section-title">WE COVER ALL OF BAHRAIN</h2>
-    <div class="area-list">
-      <span class="area-pill">Isa Town</span>
-      <span class="area-pill">Jurdab</span>
-      <span class="area-pill">Riffa</span>
-      <span class="area-pill">Salmaniya</span>
-      <span class="area-pill">Saar</span>
-      <span class="area-pill">Amwaj</span>
-      <span class="area-pill">Seef</span>
-      <span class="area-pill">Manama</span>
-      <span class="area-pill">Hamad Town</span>
-      <span class="area-pill">Muharraq</span>
-      <span class="area-pill">Durrat Al Bahrain</span>
-      <span class="area-pill">&amp; surrounding areas</span>
+    <p class="coverage-sub">No delivery fees</p>
+    <div class="bahrain-map">
+      <svg viewBox="0 0 300 400" aria-hidden="true">
+        <circle class="coverage-pulse p1" cx="150" cy="200" r="16"/>
+        <circle class="coverage-pulse p2" cx="150" cy="200" r="16"/>
+        <path class="island-shape" d="M150,40 C190,38 215,70 220,110 C226,150 215,180 225,210 C235,245 220,275 195,300 C175,320 160,340 150,365 C140,340 125,320 105,300 C80,275 65,245 75,210 C85,180 74,150 80,110 C85,70 110,38 150,40 Z"/>
+        <circle class="islet" cx="192" cy="52" r="10"/>
+        <circle class="islet" cx="218" cy="226" r="7"/>
+        <circle class="islet" cx="102" cy="332" r="8"/>
+        <circle class="islet" cx="122" cy="352" r="5"/>
+        <path class="route-line" d="M150,60 Q205,120 188,200 Q172,265 150,345"/>
+        <g class="van-marker">
+          <g transform="translate(-11,-6)">
+            <rect x="0" y="2" width="20" height="9" rx="2" fill="var(--yellow)" stroke="#0D1B2A" stroke-width="1.2"/>
+            <rect x="13" y="0" width="7" height="7" rx="1.5" fill="var(--yellow)" stroke="#0D1B2A" stroke-width="1.2"/>
+            <circle cx="5" cy="11" r="2.4" fill="#0D1B2A"/>
+            <circle cx="16" cy="11" r="2.4" fill="#0D1B2A"/>
+          </g>
+          <animateMotion dur="14s" repeatCount="indefinite" rotate="auto" path="M150,60 Q205,120 188,200 Q172,265 150,345"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
@@ -750,6 +881,12 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduceMotion){ document.documentElement.classList.add('reduce-motion'); }
 
+  /* ---- Bahrain coverage map: static van if motion is reduced ---- */
+  if(reduceMotion){
+    document.querySelectorAll('.van-marker animateMotion').forEach(function(a){ a.remove(); });
+    document.querySelectorAll('.van-marker').forEach(function(v){ v.setAttribute('transform','translate(188,200)'); });
+  }
+
   /* ---- Ripple micro-interaction on cards ---- */
   function addRipple(e){
     var card = e.currentTarget;
@@ -771,15 +908,39 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   /* ---- Services car explorer (pins + category chips) ---- */
   var serviceTriggers = document.querySelectorAll('.zone-btn, .car-hit');
   var servicePanels = document.querySelectorAll('.service-panel');
+  var zoneFx = document.querySelectorAll('[data-zone]');
+  var carWheels = document.querySelectorAll('.car-wheel');
+  var windshieldGlass = document.querySelector('.windshield-glass');
+
+  function pulseOnce(el, cls){
+    if(!el) return;
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+  }
+
   serviceTriggers.forEach(function(trigger){
     trigger.addEventListener('click', function(){
       var targetName = trigger.dataset.target;
       serviceTriggers.forEach(function(t){ t.classList.toggle('is-active', t.dataset.target === targetName); });
       servicePanels.forEach(function(p){ p.classList.remove('is-active'); });
+      zoneFx.forEach(function(el){
+        var z = el.dataset.zone;
+        var active = (z === targetName) || (targetName === 'combo' && (z === 'exterior' || z === 'interior'));
+        el.classList.toggle('is-active', active);
+      });
       var target = document.querySelector('.service-panel[data-panel="'+targetName+'"]');
       if(target){
         target.classList.add('is-active');
         target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'nearest'});
+      }
+      if(!reduceMotion){
+        if(targetName === 'exterior' || targetName === 'combo'){
+          carWheels.forEach(function(w){ pulseOnce(w, 'spin-once'); });
+        }
+        if(targetName === 'interior' || targetName === 'combo'){
+          pulseOnce(windshieldGlass, 'clean-pulse');
+        }
       }
     });
   });

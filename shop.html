@@ -175,16 +175,79 @@ section[id]{scroll-margin-top:var(--header-h);}
 
 /* ---------- Products ---------- */
 .shop-products{background-color:var(--navy-light);}
-.product-grid{display:grid;grid-template-columns:1fr;gap:46px;}
+.product-grid{display:grid;grid-template-columns:1fr;gap:64px;}
 @media (min-width:700px){.product-grid{grid-template-columns:repeat(3,1fr);gap:28px;}}
 .product-card{
   position:relative;
   display:flex;flex-direction:column;align-items:center;text-align:center;
 }
-.bottle-sticker{position:relative;width:100%;max-width:168px;}
-.bottle-photo{position:relative;filter:drop-shadow(0 10px 16px rgba(0,0,0,.35));}
+
+/* ---- product stage: pedestal + material fx behind the bottle ---- */
+.product-stage{position:relative;width:100%;padding:34px 0 18px;overflow:hidden;}
+.product-stage::after{
+  content:'';position:absolute;left:50%;bottom:6px;width:120px;height:26px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.16),rgba(255,255,255,0) 72%);
+  border-radius:50%;
+}
+.product-fx{position:absolute;inset:0;pointer-events:none;z-index:0;}
+
+/* Tire Shine: tyre-mark swoosh arcs either side of the bottle base */
+.fx-tireshine::before,.fx-tireshine::after{
+  content:'';position:absolute;width:120px;height:46px;border-radius:50%;
+  border:8px solid rgba(0,0,0,.4);border-right-color:transparent;border-top-color:transparent;
+  bottom:10px;
+}
+.fx-tireshine::before{left:-18%;transform:rotate(20deg);}
+.fx-tireshine::after{right:-24%;left:auto;transform:rotate(200deg);opacity:.65;}
+
+/* Wax Shampoo: rising suds + soft mist beside the bottle */
+.fx-suds{position:absolute;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,rgba(255,255,255,.35) 60%,rgba(255,255,255,0) 100%);opacity:.9;}
+.fx-waxshampoo .fx-suds:nth-child(1){width:16px;height:16px;left:-6%;bottom:60px;animation:suds-rise 5s ease-in-out infinite;}
+.fx-waxshampoo .fx-suds:nth-child(2){width:11px;height:11px;right:-8%;bottom:110px;animation:suds-rise 4.2s ease-in-out .6s infinite;}
+.fx-waxshampoo .fx-suds:nth-child(3){width:13px;height:13px;right:2%;bottom:40px;animation:suds-rise 4.8s ease-in-out 1.3s infinite;}
+@keyframes suds-rise{0%{transform:translateY(0);opacity:0;}15%{opacity:.9;}100%{transform:translateY(-60px);opacity:0;}}
+.fx-mist{position:absolute;left:50%;bottom:10px;width:70%;height:34px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.28),rgba(255,255,255,0) 72%);
+  filter:blur(2px);animation:mist-drift 6s ease-in-out infinite;}
+@keyframes mist-drift{0%,100%{opacity:.5;transform:translateX(-50%) translateY(0);}50%{opacity:.9;transform:translateX(-50%) translateY(-6px);}}
+
+.reduce-motion .fx-suds,.reduce-motion .fx-mist,.reduce-motion .fx-spark{animation:none;opacity:.5;}
+
+/* Rim Cleaner: shine streak + sparkle painted onto the bottle itself */
+.product-shine{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;}
+.shine-streak{
+  position:absolute;top:8%;left:38%;width:9%;height:60%;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.55) 45%,rgba(255,255,255,0));
+  transform:rotate(8deg);
+}
+.fx-spark{position:absolute;width:8px;height:8px;background:#fff;clip-path:polygon(50% 0%,65% 35%,100% 50%,65% 65%,50% 100%,35% 65%,0% 50%,35% 35%);opacity:0;animation:spark-twinkle 3.6s ease-in-out infinite;}
+.product-shine .fx-spark:nth-child(2){top:18%;left:62%;animation-delay:.2s;}
+.product-shine .fx-spark:nth-child(3){top:52%;left:30%;animation-delay:1.8s;}
+@keyframes spark-twinkle{0%,100%{opacity:0;transform:scale(.6);}50%{opacity:1;transform:scale(1);}}
+
+.bottle-sticker{
+  position:relative;z-index:1;width:100%;max-width:200px;margin:0 auto;
+  transition:transform .35s cubic-bezier(.2,.8,.3,1);
+}
+.bottle-photo{position:relative;filter:drop-shadow(0 14px 20px rgba(0,0,0,.4));}
 .bottle-photo img{display:block;width:100%;height:auto;}
-.product-info{margin-top:14px;flex:1;display:flex;flex-direction:column;align-items:center;}
+@media (hover:hover){
+  .product-card:hover .bottle-sticker{transform:perspective(700px) rotateY(10deg) rotateZ(-1deg) scale(1.04);}
+}
+.product-card.tapped .bottle-sticker{transform:perspective(700px) rotateY(-10deg) rotateZ(1deg) scale(1.04);}
+
+.product-tagline{
+  max-height:0;opacity:0;overflow:hidden;
+  color:#a9b8c9;font-size:var(--text-xs);line-height:1.5;max-width:220px;
+  transition:max-height .35s ease,opacity .3s ease,margin .3s ease;
+}
+@media (hover:hover){
+  .product-card:hover .product-tagline{max-height:60px;opacity:1;margin-top:6px;}
+}
+.product-card.tapped .product-tagline{max-height:60px;opacity:1;margin-top:6px;}
+
+.product-info{margin-top:10px;flex:1;display:flex;flex-direction:column;align-items:center;}
 .product-info h4{font-size:var(--text-md);font-family:'Inter',sans-serif;font-weight:800;color:var(--white);}
 .product-info h4 .unit{
   display:inline-block;
@@ -366,11 +429,15 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     <div class="product-grid">
 
       <div class="product-card" data-id="tireshine" data-name="Tire Shine" data-price="TBD">
-        <div class="bottle-sticker">
-          <div class="bottle-photo"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy" width="480" height="1349"></div>
+        <div class="product-stage">
+          <div class="product-fx fx-tireshine" aria-hidden="true"></div>
+          <div class="bottle-sticker">
+            <div class="bottle-photo"><img src="images/product-tireshine-bottle.jpg" alt="WOW Tire Shine 500ml bottle" loading="lazy" width="480" height="1349"></div>
+          </div>
         </div>
         <div class="product-info">
           <h4>Tire Shine<span class="unit">500ml</span></h4>
+          <p class="product-tagline">Deep black shine that fights dust and UV fade.</p>
           <div class="product-footer">
             <div class="product-price">BD TBD</div>
             <button type="button" class="add-to-cart-cap" aria-label="Add Tire Shine to cart">+<span class="qty-badge">0</span></button>
@@ -379,11 +446,18 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       </div>
 
       <div class="product-card" data-id="waxshampoo" data-name="Wax Shampoo" data-price="TBD">
-        <div class="bottle-sticker">
-          <div class="bottle-photo"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy" width="480" height="1440"></div>
+        <div class="product-stage">
+          <div class="product-fx fx-waxshampoo" aria-hidden="true">
+            <span class="fx-suds"></span><span class="fx-suds"></span><span class="fx-suds"></span>
+            <span class="fx-mist"></span>
+          </div>
+          <div class="bottle-sticker">
+            <div class="bottle-photo"><img src="images/product-waxshampoo-bottle.jpg" alt="WOW Wax Shampoo 500ml bottle" loading="lazy" width="480" height="1440"></div>
+          </div>
         </div>
         <div class="product-info">
           <h4>Wax Shampoo<span class="unit">500ml</span></h4>
+          <p class="product-tagline">Foaming wash and wax, done in one pass.</p>
           <div class="product-footer">
             <div class="product-price">BD TBD</div>
             <button type="button" class="add-to-cart-cap" aria-label="Add Wax Shampoo to cart">+<span class="qty-badge">0</span></button>
@@ -392,11 +466,19 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       </div>
 
       <div class="product-card" data-id="rimcleaner" data-name="Rim Cleaner" data-price="TBD">
-        <div class="bottle-sticker">
-          <div class="bottle-photo"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy" width="480" height="1413"></div>
+        <div class="product-stage">
+          <div class="bottle-sticker">
+            <div class="bottle-photo"><img src="images/product-rimcleaner-bottle.jpg" alt="WOW Rim Cleaner 500ml bottle" loading="lazy" width="480" height="1413"></div>
+            <div class="product-shine" aria-hidden="true">
+              <span class="shine-streak"></span>
+              <span class="fx-spark"></span>
+              <span class="fx-spark"></span>
+            </div>
+          </div>
         </div>
         <div class="product-info">
           <h4>Rim Cleaner<span class="unit">500ml</span></h4>
+          <p class="product-tagline">Cuts brake dust without touching your finish.</p>
           <div class="product-footer">
             <div class="product-price">BD TBD</div>
             <button type="button" class="add-to-cart-cap" aria-label="Add Rim Cleaner to cart">+<span class="qty-badge">0</span></button>
@@ -471,6 +553,17 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   document.querySelectorAll('.product-card').forEach(function(card){
     card.addEventListener('pointerdown', addRipple);
   });
+
+  /* ---- Tap-to-turn the bottle on touch devices (desktop uses :hover) ---- */
+  if(!window.matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.product-stage').forEach(function(stage){
+      stage.addEventListener('click', function(){
+        var card = stage.closest('.product-card');
+        document.querySelectorAll('.product-card.tapped').forEach(function(c){ if(c!==card) c.classList.remove('tapped'); });
+        card.classList.toggle('tapped');
+      });
+    });
+  }
 
   /* ---- Shop cart ---- */
   var WHATSAPP_NUMBER = '97335678906';
