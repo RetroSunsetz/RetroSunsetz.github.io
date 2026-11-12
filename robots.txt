@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://retrosunsetz.github.io/sitemap.xml
