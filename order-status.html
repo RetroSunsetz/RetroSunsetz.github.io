@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order Received | WOW Car Detailing</title>
+<meta name="description" content="Your WOW Car Detailing order is being confirmed.">
+<link rel="canonical" href="https://retrosunsetz.github.io/order-status.html">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0D1B2A">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WOW Detailing">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0D1B2A;
+  --navy-light:#152840;
+  --navy-lighter:#1b3352;
+  --yellow:#F9CC21;
+  --blue:#29ABE2;
+  --red:#E4342B;
+  --white:#FFFFFF;
+  --black:#000000;
+  --header-h:64px;
+  --text-3xs:.65rem;
+  --text-2xs:.72rem;
+  --text-xs:.8rem;
+  --text-sm:.9rem;
+  --text-base:1rem;
+  --text-md:1.1rem;
+  --text-lg:1.25rem;
+  --text-xl:1.5rem;
+  --text-2xl:1.75rem;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;}
+h1{font-family:'Bangers',cursive;letter-spacing:1px;line-height:1.1;margin:0;}
+h2,h3,h4{font-family:'Inter',sans-serif;font-weight:800;line-height:1.2;margin:0;letter-spacing:-.01em;}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:4px;}
+img{max-width:100%;display:block;}
+.container{max-width:1200px;margin:0 auto;padding:0 20px;}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:500;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(13,27,42,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.brand{display:flex;align-items:center;gap:8px;min-width:0;}
+.site-header .brand img{height:42px;width:auto;}
+.brand span{font-family:'Bangers',cursive;font-size:var(--text-md);color:var(--yellow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+@media (max-width:480px){.site-header .brand span{display:none;}}
+.header-actions{display:flex;align-items:center;gap:12px;}
+.nav-links{display:flex;gap:14px;}
+.nav-links a{
+  font-weight:600;font-size:var(--text-xs);
+  padding:8px 6px;min-height:44px;display:flex;align-items:center;
+  color:var(--white);
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.nav-links a:hover{color:var(--yellow);border-color:var(--yellow);}
+.header-cta{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-xs);white-space:nowrap;
+  padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;
+  border-radius:8px;
+  background:var(--yellow);color:#0D1B2A;
+  box-shadow:0 4px 12px rgba(249,204,33,.3);
+  transition:box-shadow .15s ease;
+}
+.header-cta:hover{box-shadow:0 6px 16px rgba(249,204,33,.45);}
+.header-cta:active{box-shadow:0 2px 8px rgba(249,204,33,.3);}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:var(--text-base);
+  padding:14px 28px;min-height:44px;
+  border:2px solid transparent;border-radius:10px;
+  cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--yellow);color:#0D1B2A;box-shadow:0 6px 18px rgba(249,204,33,.25);}
+.btn-primary:hover{box-shadow:0 8px 22px rgba(249,204,33,.4);}
+
+/* ---------- Page hero ---------- */
+.page-hero{position:relative;background-color:var(--blue);padding-top:44px;padding-bottom:36px;text-align:center;}
+.page-hero h1{font-size:clamp(2rem,7vw,3rem);color:var(--navy);}
+.page-hero p{margin-top:10px;font-size:clamp(.95rem,3vw,1.05rem);color:var(--navy);font-weight:600;}
+
+/* ---------- Status card ---------- */
+.status-body{background-color:var(--navy-light);padding:48px 0 64px;}
+@media (min-width:900px){.status-body{padding:64px 0 88px;}}
+.status-card{
+  max-width:480px;margin:0 auto;padding:28px 24px;
+  background:var(--navy-lighter);border-radius:16px;
+  text-align:center;
+}
+.status-card .status-icon{
+  width:64px;height:64px;margin:0 auto 18px;border-radius:50%;
+  background:var(--yellow);display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;
+}
+.status-card h2{font-size:var(--text-xl);color:var(--white);margin-bottom:10px;}
+.status-card p{color:#c9d4e0;font-size:var(--text-sm);line-height:1.7;margin-bottom:14px;}
+.status-card .order-ref{
+  display:inline-block;font-family:'Bangers',cursive;letter-spacing:1px;
+  color:var(--yellow);font-size:var(--text-lg);margin-bottom:18px;
+}
+.status-card .checkout-btn{
+  width:100%;background:#25D366;color:#000;border:none;border-radius:10px;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-md);
+  padding:14px;min-height:44px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(37,211,102,.3);
+  margin-top:6px;
+}
+.status-card .back-link{
+  display:inline-block;margin-top:18px;color:#9fb0c3;font-size:var(--text-xs);font-weight:700;
+  border-bottom:1px solid rgba(255,255,255,.3);
+}
+
+/* ---------- Footer ---------- */
+footer{background:#081221;border-top:1px solid rgba(255,255,255,.1);padding:40px 0 90px;text-align:center;}
+footer .brand{justify-content:center;margin-bottom:14px;min-height:44px;}
+footer .brand span{font-size:var(--text-xl);}
+footer .footer-cta{margin-bottom:18px;}
+footer p{color:#9fb0c3;font-size:var(--text-xs);margin:6px 0;}
+footer p a{display:inline-flex;align-items:center;min-height:44px;padding:4px 2px;color:var(--yellow);font-weight:700;border-bottom:1px solid rgba(249,204,33,.5);}
+footer .socials{display:flex;justify-content:center;gap:16px;margin:14px 0;}
+footer .socials a{font-weight:700;color:var(--yellow);min-height:44px;display:flex;align-items:center;padding:0 6px;}
+footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
+
+/* ---------- WhatsApp FAB ---------- */
+.whatsapp-fab{
+  position:fixed;right:18px;bottom:18px;z-index:400;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+  animation:heartbeat 2.4s ease-in-out infinite;
+}
+.whatsapp-fab svg{width:30px;height:30px;}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(0,0,0,.35),0 0 0 0 rgba(249,204,33,.5);}
+  50%{transform:scale(1.06);box-shadow:0 6px 18px rgba(0,0,0,.35),0 0 0 10px rgba(249,204,33,0);}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="WOW Car Detailing home">
+      <img src="images/wow-logo-cutout.webp" alt="WOW Car Detailing logo" width="66" height="44">
+    </a>
+    <div class="header-actions">
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+      </nav>
+      <a class="header-cta" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%27d%20like%20to%20book%20a%20detail." target="_blank" rel="noopener">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="page-hero">
+  <div class="container">
+    <h1>ORDER RECEIVED</h1>
+    <p>We're confirming your payment now.</p>
+  </div>
+</section>
+
+<section class="status-body">
+  <div class="container">
+    <div class="status-card">
+      <div class="status-icon">⏳</div>
+      <h2>Thanks for your order!</h2>
+      <p id="orderRefLine" hidden>Your order reference is <span class="order-ref" id="orderRef"></span></p>
+      <p>We're confirming your BenefitPay payment with Tap. Once it clears, we'll message you on WhatsApp to arrange delivery — typically within 24 hours.</p>
+      <p>If you don't hear from us within an hour, or something looks wrong, reach us directly:</p>
+      <a class="checkout-btn" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%20just%20placed%20an%20order%20on%20the%20site." target="_blank" rel="noopener">Message us on WhatsApp</a>
+      <br>
+      <a class="back-link" href="shop.html">&larr; Back to Shop</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="images/wow-logo.webp" alt="WOW Car Detailing logo" width="59" height="40" loading="lazy">
+      <span>WOW DETAILING</span>
+    </a>
+    <a class="btn btn-primary footer-cta" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%27d%20like%20to%20book%20a%20detail." target="_blank" rel="noopener">Book on WhatsApp</a>
+    <p>CR: 196777-01</p>
+    <p>Phone: <a href="tel:+97335678906">35678906</a></p>
+    <p><a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="refunds.html">Returns &amp; Refunds</a></p>
+    <div class="socials">
+      <a href="https://instagram.com/wowdetailing.bh" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@wowdetailing.bh" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <p>@wowdetailing.bh</p>
+    <p class="copy">© 2026 WOW Car Detailing</p>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%27d%20like%20to%20book%20a%20detail." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#0D1B2A"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-2.1c1.9 1 4 1.6 6 1.6 7 0 12.7-5.6 12.7-12.5C28.7 8.6 23 3 16 3zm0 22.7c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.7-5.7C5.3 9.9 10 5.4 16 5.4S26.7 9.9 26.7 15.5 22 25.7 16 25.7zm5.9-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-2.6-1.6 9.6 9.6 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6.3-.5c.1-.2 0-.4 0-.5s-.7-1.7-1-2.3-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.6 3.6 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.4 5.3 4.7a17.9 17.9 0 0 0 1.8.7 4.3 4.3 0 0 0 2 .1c.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var order = params.get('order');
+  if(order){
+    document.getElementById('orderRef').textContent = '#' + order.slice(0, 8).toUpperCase();
+    document.getElementById('orderRefLine').hidden = false;
+  }
+})();
+</script>
+
+</body>
+</html>
