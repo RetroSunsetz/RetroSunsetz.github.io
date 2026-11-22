@@ -358,8 +358,23 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 .cart-total-row .ct-label{font-family:'Inter',sans-serif;font-weight:700;font-size:var(--text-md);}
 .cart-total-row .ct-amt{font-family:'Bangers',cursive;letter-spacing:1px;color:var(--yellow);font-size:var(--text-xl);}
+.checkout-form{margin-top:16px;display:flex;flex-direction:column;gap:12px;}
+.cf-field{display:flex;flex-direction:column;gap:6px;}
+.cf-field label{
+  font-family:'Inter',sans-serif;font-weight:700;font-size:var(--text-2xs);
+  color:#9fb0c3;text-transform:uppercase;letter-spacing:.04em;
+}
+.cf-field input,.cf-field textarea{
+  font-family:'Inter',sans-serif;font-size:var(--text-sm);color:var(--white);
+  background:var(--navy);border:1px solid rgba(255,255,255,.15);border-radius:8px;
+  padding:10px 12px;min-height:44px;resize:none;
+}
+.cf-field textarea{min-height:60px;}
+.cf-field input:focus-visible,.cf-field textarea:focus-visible{
+  outline:2px solid var(--yellow);outline-offset:1px;border-color:var(--yellow);
+}
 .checkout-btn{
-  width:100%;margin-top:16px;
+  width:100%;
   background:#25D366;color:#000;
   border:none;border-radius:10px;
   font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-md);
@@ -722,7 +737,22 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     <span class="ct-label">Total</span>
     <span class="ct-amt" id="cartPanelTotal">BD 0.00</span>
   </div>
-  <button type="button" class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+
+  <form id="checkoutForm" class="checkout-form">
+    <div class="cf-field">
+      <label for="cfName">Name</label>
+      <input type="text" id="cfName" name="name" autocomplete="name" required>
+    </div>
+    <div class="cf-field">
+      <label for="cfPhone">Phone number</label>
+      <input type="tel" id="cfPhone" name="phone" autocomplete="tel" inputmode="tel" required>
+    </div>
+    <div class="cf-field">
+      <label for="cfAddress">Delivery address</label>
+      <textarea id="cfAddress" name="address" autocomplete="street-address" rows="2" required></textarea>
+    </div>
+    <button type="submit" class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+  </form>
 </div>
 
 <a class="whatsapp-fab" href="https://wa.me/97335678906?text=Hi%20WOW%2C%20I%27d%20like%20to%20book%20a%20detail." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
@@ -770,6 +800,25 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     var saved = localStorage.getItem('wowShopCart');
     if(saved){ cart = JSON.parse(saved); }
   }catch(e){ cart = {}; }
+
+  var cfName = document.getElementById('cfName');
+  var cfPhone = document.getElementById('cfPhone');
+  var cfAddress = document.getElementById('cfAddress');
+  try{
+    var savedCustomer = JSON.parse(localStorage.getItem('wowShopCustomer') || '{}');
+    if(savedCustomer.name){ cfName.value = savedCustomer.name; }
+    if(savedCustomer.phone){ cfPhone.value = savedCustomer.phone; }
+    if(savedCustomer.address){ cfAddress.value = savedCustomer.address; }
+  }catch(e){}
+  function saveCustomer(){
+    try{
+      localStorage.setItem('wowShopCustomer', JSON.stringify({
+        name: cfName.value.trim(),
+        phone: cfPhone.value.trim(),
+        address: cfAddress.value.trim()
+      }));
+    }catch(e){}
+  }
 
   var products = {};
   document.querySelectorAll('.product-card').forEach(function(card){
@@ -878,7 +927,8 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     cartPanel.classList.remove('open');
   });
 
-  document.getElementById('checkoutBtn').addEventListener('click', function(){
+  document.getElementById('checkoutForm').addEventListener('submit', function(e){
+    e.preventDefault();
     var ids = Object.keys(cart).filter(function(id){ return cart[id] > 0; });
     if(ids.length === 0) return;
     var lines = ids.map(function(id){
@@ -890,7 +940,11 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     var totalLine = hasTbd
       ? 'Total: ' + (cartTotal() > 0 ? 'BD ' + cartTotal().toFixed(2) + ' + items pending pricing' : 'to be confirmed')
       : 'Total: BD ' + cartTotal().toFixed(2);
-    var message = 'Hi WOW Car Detailing! I\'d like to order:\n' + lines.join('\n') + '\n\n' + totalLine;
+    saveCustomer();
+    var contactLines = 'Name: ' + cfName.value.trim() +
+      '\nPhone: ' + cfPhone.value.trim() +
+      '\nDelivery address: ' + cfAddress.value.trim();
+    var message = 'Hi WOW Car Detailing! I\'d like to order:\n' + lines.join('\n') + '\n\n' + totalLine + '\n\n' + contactLines;
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
   });
 
