@@ -179,8 +179,8 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
 
 <section class="page-hero">
   <div class="container">
-    <h1>ORDER RECEIVED</h1>
-    <p>We're confirming your payment now.</p>
+    <h1>ORDER STATUS</h1>
+    <p>Checking your payment now.</p>
   </div>
 </section>
 
@@ -190,13 +190,48 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       <div class="status-icon" aria-hidden="true">
         <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="#fff" stroke="#000" stroke-width="3"/><line x1="24" y1="24" x2="24" y2="12" stroke="#000" stroke-width="3.5" stroke-linecap="round"/><line x1="24" y1="24" x2="33" y2="24" stroke="#000" stroke-width="3.5" stroke-linecap="round"/><circle cx="24" cy="24" r="3" fill="#000"/></svg>
       </div>
-      <h2>Thanks for your order!</h2>
+      <h2 id="statusHeading">Checking your payment&hellip;</h2>
       <p id="orderRefLine" hidden>Your order reference is <span class="order-ref" id="orderRef"></span></p>
-      <p>We'll be in touch regarding your order shortly.</p>
+      <p id="statusMessage">Just a moment while we confirm this with the payment provider.</p>
       <a class="back-link" href="shop.html">&larr; Back to Shop</a>
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var order = params.get('order');
+  var heading = document.getElementById('statusHeading');
+  var message = document.getElementById('statusMessage');
+  var BACKEND_URL = 'https://script.google.com/macros/s/AKfycbw9nCQEP_5hkmvfIIM_5dIgLLoFpLavhrBKvHri2VYObYImMTMiJj48LGu6csLoQoECTQ/exec';
+
+  if(!order){
+    heading.textContent = 'No order found';
+    message.textContent = 'Head back to the shop to place an order.';
+    return;
+  }
+
+  document.getElementById('orderRef').textContent = '#' + order.slice(0, 8).toUpperCase();
+  document.getElementById('orderRefLine').hidden = false;
+
+  fetch(BACKEND_URL + '?action=status&order=' + encodeURIComponent(order))
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if(data && data.status === 'CAPTURED'){
+        heading.textContent = 'Payment confirmed!';
+        message.textContent = "We'll be in touch regarding your order shortly.";
+      } else {
+        heading.textContent = 'Payment not completed';
+        message.textContent = "We don't see a completed payment for this order. If you already paid, this can take a moment to update — otherwise, feel free to try again.";
+      }
+    })
+    .catch(function(){
+      heading.textContent = 'Could not confirm payment';
+      message.textContent = "We couldn't check this order's status right now. If you completed payment, we'll still receive it — otherwise, feel free to try again.";
+    });
+})();
+</script>
 
 </main>
 
