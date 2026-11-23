@@ -375,15 +375,17 @@ section[id]{scroll-margin-top:var(--header-h);}
 }
 .checkout-btn{
   width:100%;
-  background:#25D366;color:#000;
+  background:var(--yellow);color:#0D1B2A;
   border:none;border-radius:10px;
   font-family:'Inter',sans-serif;font-weight:800;font-size:var(--text-md);
   padding:14px;min-height:44px;
   cursor:pointer;
-  box-shadow:0 6px 18px rgba(37,211,102,.3);
-  transition:box-shadow .15s ease;
+  box-shadow:0 6px 18px rgba(249,204,33,.3);
+  transition:box-shadow .15s ease,opacity .15s ease;
 }
-.checkout-btn:active{box-shadow:0 2px 8px rgba(37,211,102,.3);}
+.checkout-btn:active{box-shadow:0 2px 8px rgba(249,204,33,.3);}
+.checkout-btn:disabled{cursor:default;opacity:.7;}
+.checkout-error{color:#ff8a80;font-size:var(--text-xs);font-weight:700;margin-top:-4px;}
 .cart-empty-msg{color:#9fb0c3;font-size:var(--text-sm);text-align:center;padding:20px 0;}
 
 /* ---------- Section divider ---------- */
@@ -751,7 +753,8 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
       <label for="cfAddress">Delivery address</label>
       <textarea id="cfAddress" name="address" autocomplete="street-address" rows="2" required></textarea>
     </div>
-    <button type="submit" class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+    <p class="checkout-error" id="checkoutError" hidden></p>
+    <button type="submit" class="checkout-btn" id="checkoutBtn">Checkout &amp; Pay</button>
   </form>
 </div>
 
@@ -794,7 +797,6 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
   }
 
   /* ---- Shop cart ---- */
-  var WHATSAPP_NUMBER = '97335678906';
   var cart = {};
   try{
     var saved = localStorage.getItem('wowShopCart');
@@ -927,25 +929,62 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
     cartPanel.classList.remove('open');
   });
 
+  var TAP_BACKEND_URL = 'https://script.google.com/macros/s/AKfycbw9nCQEP_5hkmvfIIM_5dIgLLoFpLavhrBKvHri2VYObYImMTMiJj48LGu6csLoQoECTQ/exec';
+  var checkoutError = document.getElementById('checkoutError');
+
+  function showCheckoutError(msg){
+    checkoutError.textContent = msg;
+    checkoutError.hidden = false;
+  }
+  function clearCheckoutError(){
+    checkoutError.hidden = true;
+  }
+  function setCheckoutLoading(loading){
+    checkoutBtn.disabled = loading;
+    checkoutBtn.textContent = loading ? 'Processing…' : 'Checkout & Pay';
+  }
+
   document.getElementById('checkoutForm').addEventListener('submit', function(e){
     e.preventDefault();
+    clearCheckoutError();
     var ids = Object.keys(cart).filter(function(id){ return cart[id] > 0; });
     if(ids.length === 0) return;
-    var lines = ids.map(function(id){
-      var p = products[id];
-      if(p.tbd){ return '- ' + p.name + ' x' + cart[id] + ' (price TBD, please confirm)'; }
-      return '- ' + p.name + ' x' + cart[id] + ' - BD ' + (p.price*cart[id]).toFixed(2);
-    });
-    var hasTbd = cartHasTbd();
-    var totalLine = hasTbd
-      ? 'Total: ' + (cartTotal() > 0 ? 'BD ' + cartTotal().toFixed(2) + ' + items pending pricing' : 'to be confirmed')
-      : 'Total: BD ' + cartTotal().toFixed(2);
+    if(cartHasTbd()){
+      showCheckoutError('One or more items in your cart don\'t have a price yet — please remove them or contact us on WhatsApp instead.');
+      return;
+    }
     saveCustomer();
-    var contactLines = 'Name: ' + cfName.value.trim() +
-      '\nPhone: ' + cfPhone.value.trim() +
-      '\nDelivery address: ' + cfAddress.value.trim();
-    var message = 'Hi WOW Car Detailing! I\'d like to order:\n' + lines.join('\n') + '\n\n' + totalLine + '\n\n' + contactLines;
-    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
+
+    var items = ids.map(function(id){ return { id: id, qty: cart[id] }; });
+    var payload = {
+      action: 'create_charge',
+      items: items,
+      customer: {
+        name: cfName.value.trim(),
+        phone: cfPhone.value.trim(),
+        address: cfAddress.value.trim()
+      }
+    };
+
+    setCheckoutLoading(true);
+    fetch(TAP_BACKEND_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data && data.redirectUrl){
+          window.location.href = data.redirectUrl;
+        } else {
+          setCheckoutLoading(false);
+          showCheckoutError((data && data.error) || 'Something went wrong starting payment. Please try again.');
+        }
+      })
+      .catch(function(){
+        setCheckoutLoading(false);
+        showCheckoutError('Could not reach the payment server. Please check your connection and try again.');
+      });
   });
 
   updateCartUI();
