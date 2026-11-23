@@ -118,6 +118,7 @@ img{max-width:100%;display:block;}
 .status-card .status-icon svg{width:34px;height:34px;}
 .status-card h2{font-size:var(--text-xl);color:var(--white);margin-bottom:10px;}
 .status-card p{color:#c9d4e0;font-size:var(--text-sm);line-height:1.7;margin-bottom:14px;}
+.status-card p a{color:var(--yellow);font-weight:700;border-bottom:1px solid rgba(249,204,33,.5);}
 .status-card .order-ref{
   display:inline-block;font-family:'Bangers',cursive;letter-spacing:1px;
   color:var(--yellow);font-size:var(--text-lg);margin-bottom:18px;
@@ -223,12 +224,12 @@ footer .copy{margin-top:12px;font-size:var(--text-2xs);color:#9fb0c3;}
         message.textContent = "We'll be in touch regarding your order shortly.";
       } else {
         heading.textContent = 'Payment not completed';
-        message.textContent = "We don't see a completed payment for this order. If you already paid, this can take a moment to update — otherwise, feel free to try again.";
+        message.innerHTML = "We don't see a completed payment for this order. If the amount was deducted from your wallet but you're seeing this message, please call us at <a href=\"tel:+97335678906\">35678906</a> with your order reference above and we'll sort it out. Otherwise, feel free to try again.";
       }
     })
     .catch(function(){
       heading.textContent = 'Could not confirm payment';
-      message.textContent = "We couldn't check this order's status right now. If you completed payment, we'll still receive it — otherwise, feel free to try again.";
+      message.innerHTML = "We couldn't check this order's status right now. If the amount was deducted from your wallet, please call us at <a href=\"tel:+97335678906\">35678906</a> with your order reference above and we'll sort it out. Otherwise, feel free to try again.";
     });
 })();
 </script>
